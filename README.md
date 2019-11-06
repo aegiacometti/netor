@@ -1,4 +1,4 @@
-#Purpose of the project
+# Purpose of the project
 
 This is a very simple compilation of several OpenSource packages, which by using scripts
 aims to help integrating them to form a network platform to support networks, without
@@ -17,7 +17,7 @@ As i move forward i will try to integrate other packages and functionalities.
 
 URL github
 
-##Requirements
+## Requirements
 
 Install and read about this packages:
 
@@ -29,7 +29,7 @@ Install and read about this packages:
 
 Or install them with -> ``sudo pip install -r requirements.txt``
 
-##How to install
+## How to install
 
 Add to the userID environment PATH, the folder with the BASH scripts. (Default ~/neto/scripts).
 
@@ -37,11 +37,11 @@ If you install the package in another directory or you change the NETO default d
 you will need to update the environment PATH.
 
 
-##How to use / functionalities
+## How to use / functionalities
 
 TBD
 
-##Motivation
+## Motivation
 
 
 After trying several network tools that claim to be essentials to networking, as you already
@@ -70,17 +70,17 @@ and a lot of very cool capabilities.
 So, as i love to learn and to build things, i decided to start this adventure of learning
 and develop a personal tool using Python, in an OpenSource manner.
 
-##Limitations
+## Limitations
 
 If you change you ``neto_home_directory`` you have to update the PATH environment variable
 in order to look for the scripts in the correct folder.
 Another option is to modify the ``hosts_file`` variable in the script to redirect to the
 correct folder.
 
-##Thank you notes
+## Thank you notes
 
 These passionate individuals that are always there to help.
 
-* NAPALM: David Barroso, Mircea Ulinic and Kirk Byers
-* TinyDB: Markus Siemens
+* NAPALM: David Barroso dbarrosop@dravetech.com, Mircea Ulinic ping@mirceaulinic.net and Kirk Byers ktbyers@twb-tech.com
+* TinyDB: Markus Siemens markus@m-siemens.de
 * OpenSource community in general
