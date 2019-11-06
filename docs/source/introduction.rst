@@ -71,6 +71,14 @@ and a lot of very cool capabilities.
 So, as i love to learn and to build things, i decided to start this adventure of learning
 and develop a personal tool using Python, in an OpenSource manner.
 
+TODOs
+*****
+
+* Add encryption to store the userID password in TinyDB.
+* Ansible modify user configuration ./ansible/ and ./ansible.cfg
+* After using "netoconf":  Modify ".ansible.cfg and Redirect Salt files (master, minion, proxy, etc) to new directory and restart SaltStack
+* Work on bash scripts to mirror common Ansible and SaltStack operations in order to make it easier to use them and start learning about them
+
 Limitations
 ***********
 If you change you ``neto_home_directory`` you have to update the PATH environment variable
