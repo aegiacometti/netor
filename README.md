@@ -79,7 +79,7 @@ correct folder.
 
 ## Thank you notes
 
-These passionate individuals that are always there to help.
+These passionate individuals that are always there to help, teach and guide us.
 
 * NAPALM: David Barroso dbarrosop@dravetech.com, Mircea Ulinic ping@mirceaulinic.net and Kirk Byers ktbyers@twb-tech.com
 * TinyDB: Markus Siemens markus@m-siemens.de
