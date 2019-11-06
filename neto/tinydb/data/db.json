@@ -1,0 +1,83 @@
+{
+    "_default": {},
+    "customers": {
+        "1": {
+            "customer": "c1"
+        },
+        "2": {
+            "customer": "c2"
+        }
+    },
+    "devices": {
+        "1": {
+            "customer": "c1",
+            "dev_ip": "10.0.12.2",
+            "dev_name": "cpe",
+            "os": "ios",
+            "passwd": "cisco",
+            "salt_proxy_required": "y",
+            "site": "s1",
+            "userid": "cisco"
+        },
+        "2": {
+            "customer": "c2",
+            "dev_ip": "10.0.13.2",
+            "dev_name": "cpe",
+            "os": "ios",
+            "passwd": "cisco",
+            "salt_proxy_required": "y",
+            "site": "s1",
+            "userid": "cisco"
+        },
+        "3": {
+            "customer": "c1",
+            "dev_ip": "10.100.12.2",
+            "dev_name": "co-1",
+            "os": "ios",
+            "passwd": "cisco",
+            "salt_proxy_required": "y",
+            "site": "s1",
+            "userid": "cisco"
+        },
+        "4": {
+            "customer": "c1",
+            "dev_ip": "10.100.200.2",
+            "dev_name": "ua-1",
+            "os": "ios",
+            "passwd": "cisco",
+            "salt_proxy_required": "y",
+            "site": "s1",
+            "userid": "cisco"
+        },
+        "5": {
+            "customer": "c2",
+            "dev_ip": "10.101.23.2",
+            "dev_name": "co-1",
+            "os": "ios",
+            "passwd": "cisco",
+            "salt_proxy_required": "y",
+            "site": "s1",
+            "userid": "cisco"
+        },
+        "6": {
+            "customer": "c2",
+            "dev_ip": "10.101.201.2",
+            "dev_name": "ua-1",
+            "os": "ios",
+            "passwd": "cisco",
+            "salt_proxy_required": "y",
+            "site": "s1",
+            "userid": "cisco"
+        }
+    },
+    "sites": {
+        "1": {
+            "customer": "c1",
+            "site": "s1"
+        },
+        "2": {
+            "customer": "c2",
+            "site": "s1"
+        }
+    }
+}

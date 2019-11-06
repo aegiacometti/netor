@@ -1,0 +1,2 @@
+sudo service salt-master stop
+sudo service salt-minion stop

@@ -1,0 +1,14 @@
+#!/bin/bash
+# custom ping to resolve hostnames based on Ansible invetory. It is usefull in order to avoid addind
+# all the devices names to the local host file for name->ip resolution
+dev_name=$1
+dev_name+=" an"
+hosts_file="/home/adrian/neto-master/neto/ansible/hosts"
+ip_ansible=$(more "$hosts_file" | grep "^$dev_name" | awk '{print $2}' | awk '{split($0,a,"=") ; print a[2]}')
+if $ip_ansible
+then
+	echo "Host not found in ansible/hosts inventory file. Ping options not supported."
+else
+	ping "$ip_ansible"
+fi
+echo

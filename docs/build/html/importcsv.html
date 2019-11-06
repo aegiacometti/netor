@@ -1,0 +1,289 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>importcsv module &mdash; Network Orchestra 0.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tinydblogging module" href="tinydblogging.html" />
+    <link rel="prev" title="pushcustdb module" href="pushcustdb.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Network Orchestra
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Purpose of the project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bash_scripts.html">Bash scripts</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="netoconf.html">netoconf module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dbparam.html">dbparam module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="worker.html">worker module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customers.html">customers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sites.html">sites module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devices.html">devices module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="listdb.html">listdb module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchdb.html">switchdb module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pushcustdb.html">pushcustdb module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">importcsv module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tinydblogging.html">tinydblogging module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="TODO.html">TODOs</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Network Orchestra</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">Modules</a> &raquo;</li>
+        
+      <li>importcsv module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/importcsv.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-importcsv">
+<span id="importcsv-module"></span><h1>importcsv module<a class="headerlink" href="#module-importcsv" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="importcsv.ImportDevices">
+<em class="property">class </em><code class="sig-prename descclassname">importcsv.</code><code class="sig-name descname">ImportDevices</code><span class="sig-paren">(</span><em class="sig-param">db_path_name</em><span class="sig-paren">)</span><a class="headerlink" href="#importcsv.ImportDevices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="dbparam.html#dbparam.DbParam" title="dbparam.DbParam"><code class="xref py py-class docutils literal notranslate"><span class="pre">dbparam.DbParam</span></code></a></p>
+<p>Class to import data from a CSV file</p>
+<p>Format: customer,site,dev_name,dev_ip,os,userid,passwd,salt_proxy_required</p>
+<p>Names should be alphanumeric, and less than 20 characters, all names will be transformed to lowercase.</p>
+<dl class="method">
+<dt id="importcsv.ImportDevices.add_line_to_db">
+<code class="sig-name descname">add_line_to_db</code><span class="sig-paren">(</span><em class="sig-param">checked_line_values</em>, <em class="sig-param">line_number</em><span class="sig-paren">)</span><a class="headerlink" href="#importcsv.ImportDevices.add_line_to_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a customers, sites and devices to the DB.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>checked_line_values</strong> – CSV line to import to DB.</p></li>
+<li><p><strong>line_number</strong> – line number being processed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the lines was added and <code class="docutils literal notranslate"><span class="pre">False</span></code> if not.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="importcsv.check_values">
+<code class="sig-prename descclassname">importcsv.</code><code class="sig-name descname">check_values</code><span class="sig-paren">(</span><em class="sig-param">line_value_list</em><span class="sig-paren">)</span><a class="headerlink" href="#importcsv.check_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify the values of each field of the line being processed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>line_value_list</strong> – contains the line transformed to a list</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">line_value_list</span></code> with corrections, or <code class="docutils literal notranslate"><span class="pre">False</span></code> if the list has an invalid value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="importcsv.import_csv">
+<code class="sig-prename descclassname">importcsv.</code><code class="sig-name descname">import_csv</code><span class="sig-paren">(</span><em class="sig-param">destination_db_to_import</em>, <em class="sig-param">csv_file_to_import</em><span class="sig-paren">)</span><a class="headerlink" href="#importcsv.import_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import the CSV to the DB</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>destination_db_to_import</strong> – DB to import the CSV</p></li>
+<li><p><strong>csv_file_to_import</strong> – the file to import to the DB</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">total_lines_number_processed</span></code> and <code class="docutils literal notranslate"><span class="pre">lines_imported</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="importcsv.start_process">
+<code class="sig-prename descclassname">importcsv.</code><code class="sig-name descname">start_process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#importcsv.start_process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the process of import the CSV to DB, asking for the path names to the files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Nothing</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tinydblogging.html" class="btn btn-neutral float-right" title="tinydblogging module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pushcustdb.html" class="btn btn-neutral float-left" title="pushcustdb module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Adrian Giacometti
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+#!/bin/bash
+#List the full content of the DB specified in the configuration file ``neto.conf``, unless a full path name
+#to different TinyDB database is specified as an argument.
+
+#Verify existence of ``neto.conf`` file, since it could be required by the confparse module in order to get
+#the DB full path name.
+
+#example:
+#    ``../tinydb/scripts/listdb.py /full/path/name/database.json``
+
+#Also has an export function to dump the current DB to a ``.csv`` file. If you want to export another DB you will
+#need to ``dbswitch`` first.
+
+#example:
+#      ``../tinydb/scripts/listdb.py -e``
+python3 ""$HOME""/neto/tinydb/scripts/listdb.py
+

@@ -1,0 +1,28 @@
+#!/bin/bash
+# Operates the DB on table devices, for list, add, modify and delete devices
+# It uses the local static variables of the worker.py script as NETO_HOME_DIRECTORY and DB_PATH_NAME, unless
+# a full path name to a TinyDB database is specified.
+# example:
+#        ../tinydb/scripts/worker.py -l devices /full/path/name/database.json
+#
+echo "DB Devices ************"
+echo "  1) list devices"
+echo "  2) add device"
+echo "  3) modify device"
+echo "  4) delete device"
+echo
+read -n 1 -p "Select option: " opc
+echo
+echo
+case $opc in
+  1) python3 ""$HOME""/neto/tinydb/scripts/worker.py -l devices
+	  ;;
+  2) python3 ""$HOME""/neto/tinydb/scripts/worker.py -a devices
+    ;;
+  3) python3 ""$HOME""/neto/tinydb/scripts/worker.py -m devices
+    ;;
+  4) python3 ""$HOME""/neto/tinydb/scripts/worker.py -d devices
+    ;;
+
+  *) echo "invalid option";;
+esac

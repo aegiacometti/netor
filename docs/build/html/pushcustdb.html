@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pushcustdb module &mdash; Network Orchestra 0.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="importcsv module" href="importcsv.html" />
+    <link rel="prev" title="switchdb module" href="switchdb.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Network Orchestra
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Purpose of the project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bash_scripts.html">Bash scripts</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="netoconf.html">netoconf module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dbparam.html">dbparam module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="worker.html">worker module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customers.html">customers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sites.html">sites module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devices.html">devices module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="listdb.html">listdb module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchdb.html">switchdb module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pushcustdb module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="importcsv.html">importcsv module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tinydblogging.html">tinydblogging module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="TODO.html">TODOs</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Network Orchestra</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">Modules</a> &raquo;</li>
+        
+      <li>pushcustdb module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/pushcustdb.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pushcustdb">
+<span id="pushcustdb-module"></span><h1>pushcustdb module<a class="headerlink" href="#module-pushcustdb" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pushcustdb.DB">
+<em class="property">class </em><code class="sig-prename descclassname">pushcustdb.</code><code class="sig-name descname">DB</code><span class="sig-paren">(</span><em class="sig-param">db_path_name</em><span class="sig-paren">)</span><a class="headerlink" href="#pushcustdb.DB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class DB with parameters used by all the methods to push DB info into <strong>Ansible</strong> and <strong>SaltStack</strong>.</p>
+<dl class="method">
+<dt id="pushcustdb.DB.ansible_push_inventory">
+<em class="property">static </em><code class="sig-name descname">ansible_push_inventory</code><span class="sig-paren">(</span><em class="sig-param">tinydb_log_file</em>, <em class="sig-param">ansible_hosts_path_name</em>, <em class="sig-param">ansible_backup_hosts_path_name</em>, <em class="sig-param">devices_to_push</em><span class="sig-paren">)</span><a class="headerlink" href="#pushcustdb.DB.ansible_push_inventory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Backup of the <code class="docutils literal notranslate"><span class="pre">ansible/hosts</span></code> inventory file to <code class="docutils literal notranslate"><span class="pre">ansible/backup</span></code> directory.</p>
+<p>Generates a new <code class="docutils literal notranslate"><span class="pre">ansible/hosts</span></code> file based on the DB information (actual push of data).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tinydb_log_file</strong> – log file to send the message after the operations are being completed</p></li>
+<li><p><strong>ansible_hosts_path_name</strong> – full path name of the ansible hosts file</p></li>
+<li><p><strong>ansible_backup_hosts_path_name</strong> – full path name of the ansible hosts file directory</p></li>
+<li><p><strong>devices_to_push</strong> – list of devices to push</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>nothing</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pushcustdb.DB.salt_push_inventory">
+<em class="property">static </em><code class="sig-name descname">salt_push_inventory</code><span class="sig-paren">(</span><em class="sig-param">tinydb_log_file</em>, <em class="sig-param">salt_minion_path_name</em>, <em class="sig-param">salt_backup_directory</em>, <em class="sig-param">salt_pillar_directory</em>, <em class="sig-param">salt_backup_pillar_directory</em>, <em class="sig-param">salt_top_path_name</em>, <em class="sig-param">salt_states_directory</em>, <em class="sig-param">devices_to_push</em><span class="sig-paren">)</span><a class="headerlink" href="#pushcustdb.DB.salt_push_inventory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Backup <code class="docutils literal notranslate"><span class="pre">salt/config/minion</span></code> file to <code class="docutils literal notranslate"><span class="pre">salt/config/backup</span></code> directory.</p>
+<p>Generates a new minion file based on the actual minion file, but replacing the first lines
+<strong>(to be improved in order to review the content/update of the lines)</strong>.</p>
+<p>Generates the new <code class="docutils literal notranslate"><span class="pre">top.sls</span></code> file with the devices listed in the DB, and all the states only in the
+‘*’ section.</p>
+<p><strong>(To be improved to actually add the corresponding states to specific devices)</strong>.</p>
+<p>Backup <code class="docutils literal notranslate"><span class="pre">salt/config/pillar/\*.sls</span></code> files to <code class="docutils literal notranslate"><span class="pre">/salt/config/backup/pillar</span> <span class="pre">directory</span></code>.</p>
+<p>Generates new <code class="docutils literal notranslate"><span class="pre">pillar/*device_name*.sls</span></code> files based on the content of the DB file, if the device has to be
+managed via <code class="docutils literal notranslate"><span class="pre">salt-proxy</span></code> according the DB <code class="docutils literal notranslate"><span class="pre">salt_proxy_required</span></code> field. With the following details:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">proxy</span><span class="p">:</span>
+  <span class="n">proxytype</span><span class="p">:</span> <span class="n">napalm</span>
+  <span class="n">driver</span><span class="p">:</span> <span class="n">ios</span>
+  <span class="n">host</span><span class="p">:</span> <span class="n">dev_ip</span>
+  <span class="n">username</span><span class="p">:</span> <span class="n">userid</span>
+  <span class="n">password</span><span class="p">:</span> <span class="n">passwd</span>
+  <span class="n">optional_args</span><span class="p">:</span>
+    <span class="n">use_keys</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="n">auto_rollback_on_error</span><span class="p">:</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tinydb_log_file</strong> – log file to send the message after the operations are being completed</p></li>
+<li><p><strong>salt_minion_path_name</strong> – minion full path name</p></li>
+<li><p><strong>salt_backup_directory</strong> – minion backup directory</p></li>
+<li><p><strong>salt_pillar_directory</strong> – pillar .sls files directory</p></li>
+<li><p><strong>salt_backup_pillar_directory</strong> – backup pillar *.sls directory</p></li>
+<li><p><strong>salt_top_path_name</strong> – full path name of ‘’top.sls’’ file</p></li>
+<li><p><strong>salt_states_directory</strong> – add all the states to the general <code class="docutils literal notranslate"><span class="pre">\'*'</span></code> section of the <code class="docutils literal notranslate"><span class="pre">top.sls</span></code> file</p></li>
+<li><p><strong>devices_to_push</strong> – list of devices to push to Ansible and SaltStack</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>nothing</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pushcustdb.DB.select_devices_to_push">
+<code class="sig-name descname">select_devices_to_push</code><span class="sig-paren">(</span><em class="sig-param">filter_expression</em><span class="sig-paren">)</span><a class="headerlink" href="#pushcustdb.DB.select_devices_to_push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides a mechanism to filter the devices in the DB before pushing and replacing Ansible and SaltStack
+configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filter_expression</strong> – expression to use a the filter. Support RegEx.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">db_devices</span></code> with the filtered device list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pushcustdb.start_process">
+<code class="sig-prename descclassname">pushcustdb.</code><code class="sig-name descname">start_process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pushcustdb.start_process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the <code class="docutils literal notranslate"><span class="pre">neto.conf</span></code> file exist according the local static variable <code class="docutils literal notranslate"><span class="pre">NETO_HOME_DIRECTORY</span></code>.</p>
+<p>It supports passing as parameter the <code class="docutils literal notranslate"><span class="pre">NETO_HOME_DIRECTORY</span></code> in order to push to the DB specified
+in the <code class="docutils literal notranslate"><span class="pre">neto.conf</span></code> configuration file.</p>
+<p>Then execute the functions to push the DB content on <strong>Ansible</strong> ans <strong>SaltStack</strong> configuration files, according
+to the settings of the <code class="docutils literal notranslate"><span class="pre">neto.conf</span></code> configuration file.</p>
+<p>It supports filtering of the DB, with literal text or RegEx, in order to not import more devices than required. As
+an example, you could have several clients on a DB, and push only the clients with which you are working, or the
+same example applies to work per sites, per IP range, per device name, etc.</p>
+<p><strong>Restart of the Salt minion is required.</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>nothing</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="importcsv.html" class="btn btn-neutral float-right" title="importcsv module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="switchdb.html" class="btn btn-neutral float-left" title="switchdb module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Adrian Giacometti
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
