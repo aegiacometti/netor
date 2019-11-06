@@ -75,6 +75,7 @@ and develop a personal tool using Python, in an OpenSource manner.
 TODOs
 *****
 
+* Auto test
 * Add encryption to store the userID password in TinyDB.
 * Ansible modify user configuration ./ansible/ and ./ansible.cfg
 * After using "netoconf":  Modify ".ansible.cfg and Redirect Salt files (master, minion, proxy, etc) to new directory and restart SaltStack
