@@ -1,4 +1,5 @@
-# Purpose of the project
+Purpose of the project
+======================
 
 This is a very simple compilation of several OpenSource packages, which by using scripts
 aims to help integrating them to form a network platform to support networks, without
@@ -9,25 +10,24 @@ when you write. Anyway, do not worry, they won't break anything.
 
 The tools that integrates at the moment are:
 
-- Ansible
-- SaltStack
-- TinyDB
+* Ansible
+* SaltStack
+* TinyDB
 
 As i move forward i will try to integrate other packages and functionalities.
 
-URL github
-
-## Requirements
-
+Requirements
+************
 Install and read about this packages:
 
-- tinydb==3.15.0
-- salt==2019.2.0
-- salt-sproxy==2019.10.0
-- ansible==2.8.6
-- ntc-ansible==0.1.0
+* tinydb==3.15.0
+* salt==2019.2.0
+* salt-sproxy==2019.10.0
+* ansible==2.8.6
+* ntc-ansible==0.1.0``
 
-## How to install
+How to install
+**************
 
 UNDER CONSTRUCTION
 https://github.com/aegiacometti/neto
@@ -38,12 +38,12 @@ If you install the package in another directory or you change the NETO default d
 you will need to update the environment PATH.
 
 
-## How to use / functionalities
-
+How to use / functionalities
+****************************
 TBD
 
-## Motivation
-
+Motivation
+**********
 
 After trying several network tools that claim to be essentials to networking, as you already
 may know, there is no tool that will really work as you need, or even as they claim. They
@@ -71,24 +71,25 @@ and a lot of very cool capabilities.
 So, as i love to learn and to build things, i decided to start this adventure of learning
 and develop a personal tool using Python, in an OpenSource manner.
 
-## TODOs
+TODOs
+*****
 
 * Add encryption to store the userID password in TinyDB.
 * Ansible modify user configuration ./ansible/ and ./ansible.cfg
 * After using "netoconf":  Modify ".ansible.cfg and Redirect Salt files (master, minion, proxy, etc) to new directory and restart SaltStack
 * Work on bash scripts to mirror common Ansible and SaltStack operations in order to make it easier to use them and start learning about them
 
-## Limitations
-
+Limitations
+***********
 If you change you ``neto_home_directory`` you have to update the PATH environment variable
 in order to look for the scripts in the correct folder.
 Another option is to modify the ``hosts_file`` variable in the script to redirect to the
 correct folder.
 
-## Thank you notes
+Thank you notes
+***************
+These passionate individuals that are always there to help.
 
-These passionate individuals that are always there to help, teach and guide us.
-
-* NAPALM: David Barroso dbarrosop@dravetech.com, Mircea Ulinic ping@mirceaulinic.net and Kirk Byers ktbyers@twb-tech.com
-* TinyDB: Markus Siemens markus@m-siemens.de
+* NAPALM: David Barroso, Mircea Ulinic and Kirk Byers
+* TinyDB: Markus Siemens
 * OpenSource community in general
