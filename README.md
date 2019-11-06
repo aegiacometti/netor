@@ -30,6 +30,7 @@ Install and read about this packages:
 ## How to install
 
 UNDER CONSTRUCTION
+
 https://github.com/aegiacometti/neto
 
 Add to the userID environment PATH, the folder with the BASH scripts. (Default ~/neto/scripts).
@@ -73,6 +74,7 @@ and develop a personal tool using Python, in an OpenSource manner.
 
 ## TODOs
 
+* Auto testing
 * Add encryption to store the userID password in TinyDB.
 * Ansible modify user configuration ./ansible/ and ./ansible.cfg
 * After using "netoconf":  Modify ".ansible.cfg and Redirect Salt files (master, minion, proxy, etc) to new directory and restart SaltStack
