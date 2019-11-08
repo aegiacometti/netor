@@ -1,0 +1,16 @@
+#ansible-playbook ios-show-cmd.yml -e cmd="ver" -l r1
+---
+- name: IOS show cmd 
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  
+  tasks:
+
+    - name: IOS show cmd
+      ios_command:
+        commands: show {{cmd}}
+      register: output
+
+    - debug:
+        var: output.stdout_lines

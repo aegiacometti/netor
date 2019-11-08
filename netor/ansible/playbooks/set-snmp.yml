@@ -1,0 +1,14 @@
+---
+- name: Set SNMP
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  tasks:
+
+    - name: Configure SNMP comminities on devices
+      ios_config:
+        save_when: changed
+        lines:
+          - snmp-server community read_only RO
+          - snmp-server community read_write RW
+        match: line

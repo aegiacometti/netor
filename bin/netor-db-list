@@ -14,5 +14,5 @@
 #example:
 #      ``../netor/tinydb/scripts/listdb.py -e``
 
-neto_home_directory="/home/adrian/netor-master/"
-python3 "$neto_home_directory"netor/tinydb/scripts/listdb.py
+netor_home_directory="/home/adrian/netor-master/"
+python3 "$netor_home_directory"netor/tinydb/scripts/listdb.py

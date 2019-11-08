@@ -1,0 +1,105 @@
+Hostname: r1
+Serial_Number: FTX0945W0MY 
+Software_Release: (fc3) 
+Hardware_Version: 3725 
+Software_Version: 12.4(15)T13 
+Software_Image: (C3725-ADVENTERPRISEK9-M) 
+
+Hostname: esw4
+Serial_Number: FTX0945W0MY 
+Software_Release: (fc3) 
+Hardware_Version: 3725 
+Software_Version: 12.4(15)T13 
+Software_Image: (C3725-ADVENTERPRISEK9-M) 
+
+Hostname: r3
+Serial_Number: FTX0945W0MY 
+Software_Release: (fc3) 
+Hardware_Version: 3725 
+Software_Version: 12.4(15)T13 
+Software_Image: (C3725-ADVENTERPRISEK9-M) 
+
+Hostname: esw3
+Serial_Number: FTX0945W0MY 
+Software_Release: (fc3) 
+Hardware_Version: 3725 
+Software_Version: 12.4(15)T13 
+Software_Image: (C3725-ADVENTERPRISEK9-M) 
+
+Hostname: r2
+Serial_Number: FTX0945W0MY 
+Software_Release: (fc3) 
+Hardware_Version: 3725 
+Software_Version: 12.4(15)T13 
+Software_Image: (C3725-ADVENTERPRISEK9-M) 
+
+Hostname: esw1
+Serial_Number: FTX0945W0MY 
+Software_Release: (fc3) 
+Hardware_Version: 3725 
+Software_Version: 12.4(15)T13 
+Software_Image: (C3725-ADVENTERPRISEK9-M) 
+
+Hostname: esw2
+Serial_Number: FTX0945W0MY 
+Software_Release: (fc3) 
+Hardware_Version: 3725 
+Software_Version: 12.4(15)T13 
+Software_Image: (C3725-ADVENTERPRISEK9-M) 
+
+Hostname: r1
+Serial_Number: FTX0945W0MY 
+Software_Release: fc3 
+Hardware_Version: 3725 
+Software_Version: 12.4(15)T13 
+Software_Image: (C3725-ADVENTERPRISEK9-M) 
+
+Hostname: r1
+Serial_Number: FTX0945W0MY 
+Software_Release: fc3 
+Hardware_Version: 3725 
+Software_Version: 12.4(15)T13 
+Software_Image: C3725-ADVENTERPRISEK9-M 
+
+Hostname: r1
+Serial_Number: FTX0945W0MY 
+Software_Release: fc3 
+Hardware_Version: 3725 
+Software_Version: 12.4(15)T13 
+Software_Image: C3725-ADVENTERPRISEK9-M 
+
+Hostname: r3
+Serial_Number: FTX0945W0MY 
+Software_Release: fc3 
+Hardware_Version: 3725 
+Software_Version: 12.4(15)T13 
+Software_Image: C3725-ADVENTERPRISEK9-M 
+
+Hostname: r2
+Serial_Number: FTX0945W0MY 
+Software_Release: fc3 
+Hardware_Version: 3725 
+Software_Version: 12.4(15)T13 
+Software_Image: C3725-ADVENTERPRISEK9-M 
+
+Hostname: r1
+Serial_Number: FTX0945W0MY 
+Software_Release: fc3 
+Hardware_Version: 3725 
+Software_Version: 12.4(15)T13 
+Software_Image: C3725-ADVENTERPRISEK9-M 
+
+Hostname: r3
+Serial_Number: FTX0945W0MY 
+Software_Release: fc3 
+Hardware_Version: 3725 
+Software_Version: 12.4(15)T13 
+Software_Image: C3725-ADVENTERPRISEK9-M 
+
+Hostname: r2
+Serial_Number: FTX0945W0MY 
+Software_Release: fc3 
+Hardware_Version: 3725 
+Software_Version: 12.4(15)T13 
+Software_Image: C3725-ADVENTERPRISEK9-M 
+

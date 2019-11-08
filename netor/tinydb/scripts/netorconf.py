@@ -26,12 +26,25 @@ def netor_config():
 
     :return: nothing
     """
-    netor_home_directory = os.environ['HOME'] + "/netor"
+    netor_home_directory = os.environ['HOME'] + "/netor/"
 
     if os.path.isdir(netor_home_directory):
         answer = input("\nDefault \"$HOME/netor\" directory found, do you want to keep it (y/n): ").lower()
         if answer == "y":
             print("Keeping same configuration\n")
+
+            config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
+            netor_config_path_name = netor_home_directory + "netor.config"
+            config.read(netor_config_path_name)
+            try:
+                config['Neto']['netor_home_directory'] = netor_home_directory
+            except KeyError:
+                print("\nConfiguration files do no exist, clone the previous directory before start the changes\n")
+                sys.exit(1)
+            with open(netor_config_path_name, 'w') as configfile:
+                config.write(configfile)
+            tinydb_log_file = netor_home_directory + "netor/log/tinydb.log"
+            update_config(tinydb_log_file, __file__, netor_home_directory)
             sys.exit()
         elif answer == "n":
             new_netor_home_directory = input("Enter new Neto home directory (example: /full/path/netor/): ")
@@ -142,10 +155,10 @@ def replace_static_vars_scripts(filename, search, replace):
     except FileNotFoundError:
         print("\nERROR File not found " + filename)
         print("Manually find systemd folder and file " + filename.split("/")[-1] +
-              " and modify the --config-dir to point to " + replace + "\n")
+              " and modify the parameter \"" + search + "\" in the file to point to " + replace + "\n")
     except PermissionError:
         print("\nERROR Permission denied to modify file " + filename)
-        print("Manually modify the parameter --config-dir in the file to point to " + replace)
+        print("Manually modify the parameter -\"" + search + "\" in the file to point to " + replace)
 
 
 def check_netor_config(netor_home_directory):

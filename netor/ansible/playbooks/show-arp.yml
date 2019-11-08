@@ -1,0 +1,14 @@
+---
+- name: Show IP ARP
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  tasks:
+
+    - name: Show IP ARP
+      ios_command:
+        commands: show ip arp
+      register: list_of_ip_arp
+
+    - debug:
+        var: list_of_ip_arp.stdout_lines

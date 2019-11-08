@@ -1,0 +1,15 @@
+---
+- name: Add VLAN
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  tasks:
+
+    - name: Add VLAN
+      ios_config:
+        #save_when: changed
+        parents: ['interface vlan 100']
+        lines:
+          - ip address 1.1.1.1 255.255.255.0
+          - description test
+        match: line

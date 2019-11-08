@@ -1,0 +1,20 @@
+---
+- name: Gather IOS facts
+  connection: network_cli
+  gather_facts: false
+  hosts: all
+  tasks:
+
+    - name: gather all facts
+      ios_facts:
+        gather_subset:
+          - config 
+      register: ios_facts
+
+    - name: Display the OS version
+      debug:
+        msg: "The hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }}"
+
+    - name: Display config
+      debug:
+        msg: "{{ios_facts}}"

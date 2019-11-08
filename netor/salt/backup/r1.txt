@@ -1,0 +1,337 @@
+[0;36mr1[0;0m:
+    [0;36m----------[0;0m
+    [0;36mcomment[0;0m:
+    [0;36mout[0;0m:
+        [0;36m----------[0;0m
+        [0;36mcandidate[0;0m:
+        [0;36mrunning[0;0m:
+            [0;32mBuilding configuration...[0;0m
+            [0;32m[0;0m
+            [0;32mCurrent configuration : 2177 bytes[0;0m
+            [0;32m![0;0m
+            [0;32mversion 12.4[0;0m
+            [0;32mno service pad[0;0m
+            [0;32mservice tcp-keepalives-in[0;0m
+            [0;32mservice tcp-keepalives-out[0;0m
+            [0;32mservice timestamps debug datetime msec localtime show-timezone[0;0m
+            [0;32mservice timestamps log datetime msec localtime show-timezone[0;0m
+            [0;32mservice password-encryption[0;0m
+            [0;32m![0;0m
+            [0;32mhostname r1[0;0m
+            [0;32m![0;0m
+            [0;32mboot-start-marker[0;0m
+            [0;32mboot-end-marker[0;0m
+            [0;32m![0;0m
+            [0;32mlogging buffered 32000[0;0m
+            [0;32mno logging console[0;0m
+            [0;32menable secret 5 $1$Upj/$w4F1KE9WTpYw8mipZGAFr0[0;0m
+            [0;32m![0;0m
+            [0;32maaa new-model[0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32maaa authentication login default local-case[0;0m
+            [0;32maaa authorization exec default local [0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32maaa session-id common[0;0m
+            [0;32mmemory-size iomem 5[0;0m
+            [0;32mno ip source-route[0;0m
+            [0;32mip options drop[0;0m
+            [0;32mip cef[0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32mip dhcp bootp ignore[0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32mno ip domain lookup[0;0m
+            [0;32mip domain name quadrant.edu[0;0m
+            [0;32m![0;0m
+            [0;32mmultilink bundle-name authenticated[0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32musername cisco privilege 15 secret 5 $1$I368$jQcjz0M5ZX3kaEl..XPle/[0;0m
+            [0;32marchive[0;0m
+            [0;32m log config[0;0m
+            [0;32m  hidekeys[0;0m
+            [0;32m! [0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32mip ssh version 2[0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32minterface FastEthernet0/0[0;0m
+            [0;32m description to_pc[0;0m
+            [0;32m ip address 10.0.0.2 255.255.255.0[0;0m
+            [0;32m no ip redirects[0;0m
+            [0;32m no ip proxy-arp[0;0m
+            [0;32m duplex auto[0;0m
+            [0;32m speed auto[0;0m
+            [0;32m![0;0m
+            [0;32minterface FastEthernet0/1[0;0m
+            [0;32m description to_r2[0;0m
+            [0;32m ip address 10.0.12.1 255.255.255.0[0;0m
+            [0;32m no ip redirects[0;0m
+            [0;32m no ip proxy-arp[0;0m
+            [0;32m duplex auto[0;0m
+            [0;32m speed auto[0;0m
+            [0;32m![0;0m
+            [0;32minterface FastEthernet1/0[0;0m
+            [0;32m description to_r3[0;0m
+            [0;32m ip address 10.0.13.1 255.255.255.0[0;0m
+            [0;32m no ip redirects[0;0m
+            [0;32m no ip proxy-arp[0;0m
+            [0;32m duplex auto[0;0m
+            [0;32m speed auto[0;0m
+            [0;32m![0;0m
+            [0;32minterface FastEthernet2/0[0;0m
+            [0;32m no ip address[0;0m
+            [0;32m shutdown[0;0m
+            [0;32m duplex auto[0;0m
+            [0;32m speed auto[0;0m
+            [0;32m![0;0m
+            [0;32mrouter eigrp 1[0;0m
+            [0;32m network 10.0.0.0[0;0m
+            [0;32m no auto-summary[0;0m
+            [0;32m![0;0m
+            [0;32mip forward-protocol nd[0;0m
+            [0;32mip route 0.0.0.0 0.0.0.0 10.0.0.1[0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32mno ip http server[0;0m
+            [0;32mno ip http secure-server[0;0m
+            [0;32m![0;0m
+            [0;32mip access-list standard RW2[0;0m
+            [0;32m![0;0m
+            [0;32mlogging 10.0.1.2[0;0m
+            [0;32msnmp-server community snmpCommunity RO RW2[0;0m
+            [0;32msnmp-server community read_only RO[0;0m
+            [0;32msnmp-server community read_write RW[0;0m
+            [0;32msnmp-server community read_onl RO[0;0m
+            [0;32msnmp-server host 10.0.1.2 RO [0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32mcontrol-plane[0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32mbanner login ^C[0;0m
+            [0;32m[0;0m
+            [0;32mUnauthorized access is prohibited![0;0m
+            [0;32m[0;0m
+            [0;32m^C[0;0m
+            [0;32m![0;0m
+            [0;32mline con 0[0;0m
+            [0;32m exec-timeout 20 0[0;0m
+            [0;32m logging synchronous[0;0m
+            [0;32mline aux 0[0;0m
+            [0;32m exec-timeout 0 1[0;0m
+            [0;32m no exec[0;0m
+            [0;32m transport output none[0;0m
+            [0;32mline vty 0 4[0;0m
+            [0;32m exec-timeout 20 0[0;0m
+            [0;32m logging synchronous[0;0m
+            [0;32m transport input ssh[0;0m
+            [0;32m transport output ssh[0;0m
+            [0;32mline vty 5 15[0;0m
+            [0;32m exec-timeout 20 0[0;0m
+            [0;32m logging synchronous[0;0m
+            [0;32m transport input ssh[0;0m
+            [0;32m transport output ssh[0;0m
+            [0;32m![0;0m
+            [0;32mntp server 1.0.0.1[0;0m
+            [0;32m![0;0m
+            [0;32mend[0;0m
+        [0;36mstartup[0;0m:
+    [0;36mresult[0;0m:
+        [0;1;33mTrue[0;0m
+[0;36mr1[0;0m:
+    [0;36m----------[0;0m
+    [0;36mcomment[0;0m:
+    [0;36mout[0;0m:
+        [0;36m----------[0;0m
+        [0;36mcandidate[0;0m:
+        [0;36mrunning[0;0m:
+            [0;32mBuilding configuration...[0;0m
+            [0;32m[0;0m
+            [0;32mCurrent configuration : 2177 bytes[0;0m
+            [0;32m![0;0m
+            [0;32mversion 12.4[0;0m
+            [0;32mno service pad[0;0m
+            [0;32mservice tcp-keepalives-in[0;0m
+            [0;32mservice tcp-keepalives-out[0;0m
+            [0;32mservice timestamps debug datetime msec localtime show-timezone[0;0m
+            [0;32mservice timestamps log datetime msec localtime show-timezone[0;0m
+            [0;32mservice password-encryption[0;0m
+            [0;32m![0;0m
+            [0;32mhostname r1[0;0m
+            [0;32m![0;0m
+            [0;32mboot-start-marker[0;0m
+            [0;32mboot-end-marker[0;0m
+            [0;32m![0;0m
+            [0;32mlogging buffered 32000[0;0m
+            [0;32mno logging console[0;0m
+            [0;32menable secret 5 $1$Upj/$w4F1KE9WTpYw8mipZGAFr0[0;0m
+            [0;32m![0;0m
+            [0;32maaa new-model[0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32maaa authentication login default local-case[0;0m
+            [0;32maaa authorization exec default local [0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32maaa session-id common[0;0m
+            [0;32mmemory-size iomem 5[0;0m
+            [0;32mno ip source-route[0;0m
+            [0;32mip options drop[0;0m
+            [0;32mip cef[0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32mip dhcp bootp ignore[0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32mno ip domain lookup[0;0m
+            [0;32mip domain name quadrant.edu[0;0m
+            [0;32m![0;0m
+            [0;32mmultilink bundle-name authenticated[0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32musername cisco privilege 15 secret 5 $1$I368$jQcjz0M5ZX3kaEl..XPle/[0;0m
+            [0;32marchive[0;0m
+            [0;32m log config[0;0m
+            [0;32m  hidekeys[0;0m
+            [0;32m! [0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32mip ssh version 2[0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32minterface FastEthernet0/0[0;0m
+            [0;32m description to_pc[0;0m
+            [0;32m ip address 10.0.0.2 255.255.255.0[0;0m
+            [0;32m no ip redirects[0;0m
+            [0;32m no ip proxy-arp[0;0m
+            [0;32m duplex auto[0;0m
+            [0;32m speed auto[0;0m
+            [0;32m![0;0m
+            [0;32minterface FastEthernet0/1[0;0m
+            [0;32m description to_r2[0;0m
+            [0;32m ip address 10.0.12.1 255.255.255.0[0;0m
+            [0;32m no ip redirects[0;0m
+            [0;32m no ip proxy-arp[0;0m
+            [0;32m duplex auto[0;0m
+            [0;32m speed auto[0;0m
+            [0;32m![0;0m
+            [0;32minterface FastEthernet1/0[0;0m
+            [0;32m description to_r3[0;0m
+            [0;32m ip address 10.0.13.1 255.255.255.0[0;0m
+            [0;32m no ip redirects[0;0m
+            [0;32m no ip proxy-arp[0;0m
+            [0;32m duplex auto[0;0m
+            [0;32m speed auto[0;0m
+            [0;32m![0;0m
+            [0;32minterface FastEthernet2/0[0;0m
+            [0;32m no ip address[0;0m
+            [0;32m shutdown[0;0m
+            [0;32m duplex auto[0;0m
+            [0;32m speed auto[0;0m
+            [0;32m![0;0m
+            [0;32mrouter eigrp 1[0;0m
+            [0;32m network 10.0.0.0[0;0m
+            [0;32m no auto-summary[0;0m
+            [0;32m![0;0m
+            [0;32mip forward-protocol nd[0;0m
+            [0;32mip route 0.0.0.0 0.0.0.0 10.0.0.1[0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32mno ip http server[0;0m
+            [0;32mno ip http secure-server[0;0m
+            [0;32m![0;0m
+            [0;32mip access-list standard RW2[0;0m
+            [0;32m![0;0m
+            [0;32mlogging 10.0.1.2[0;0m
+            [0;32msnmp-server community snmpCommunity RO RW2[0;0m
+            [0;32msnmp-server community read_only RO[0;0m
+            [0;32msnmp-server community read_write RW[0;0m
+            [0;32msnmp-server community read_onl RO[0;0m
+            [0;32msnmp-server host 10.0.1.2 RO [0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32mcontrol-plane[0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32m![0;0m
+            [0;32mbanner login ^C[0;0m
+            [0;32m[0;0m
+            [0;32mUnauthorized access is prohibited![0;0m
+            [0;32m[0;0m
+            [0;32m^C[0;0m
+            [0;32m![0;0m
+            [0;32mline con 0[0;0m
+            [0;32m exec-time[0;0m
+        [0;36mstartup[0;0m:
+    [0;36mresult[0;0m:
+        [0;1;33mTrue[0;0m

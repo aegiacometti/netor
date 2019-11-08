@@ -5,7 +5,7 @@
 # example:
 #        ../netor/tinydb/scripts/worker.py -l devices /full/path/name/database.json
 #
-neto_home_directory="/home/adrian/netor-master/"
+netor_home_directory="/home/adrian/netor-master/"
 echo "DB Devices ************"
 echo "  1) list devices"
 echo "  2) add device"
@@ -16,13 +16,13 @@ read -n 1 -p "Select option: " opc
 echo
 echo
 case $opc in
-  1) python3 "$neto_home_directory"netor/tinydb/scripts/worker.py -l devices
+  1) python3 "$netor_home_directory"netor/tinydb/scripts/worker.py -l devices
 	  ;;
-  2) python3 "$neto_home_directory"netor/tinydb/scripts/worker.py -a devices
+  2) python3 "$netor_home_directory"netor/tinydb/scripts/worker.py -a devices
     ;;
-  3) python3 "$neto_home_directory"netor/tinydb/scripts/worker.py -m devices
+  3) python3 "$netor_home_directory"netor/tinydb/scripts/worker.py -m devices
     ;;
-  4) python3 "$neto_home_directory"netor/tinydb/scripts/worker.py -d devices
+  4) python3 "$netor_home_directory"netor/tinydb/scripts/worker.py -d devices
     ;;
 
   *) echo "invalid option";;

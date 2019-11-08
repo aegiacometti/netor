@@ -1,0 +1,60 @@
+---
+- name: parser meta data
+  parser_metadata:
+    version: 1.0
+    command: show version
+    network_os: ios
+
+- name: match hostname
+  pattern_match:
+    regex: "(.*) uptime is "
+  register: hn
+  #export: yes
+
+- name: match Hardware version
+  pattern_match:
+    regex: "Cisco (.*) .* processor"
+  register: hv
+  #export: yes
+
+- name: match Serial Number
+  pattern_match:
+    regex: "Processor board ID (.*)"
+  register: sn
+  #export: yes
+
+- name: match Software Image
+  pattern_match:
+    regex: "Cisco IOS Software, .* \\((.*)\\), Version "
+  register: si
+  #export: yes
+
+- name: match Software Version
+  pattern_match:
+    regex: "Cisco IOS Software, .*, Version (.*), RELEASE SOFTWARE"
+  register: sv
+  #export: yes
+
+- name: match Software Release
+  pattern_match:
+    regex: "Cisco IOS Software, .*, RELEASE SOFTWARE \\((.*)\\)"
+  register: sr
+  #export: yes
+
+- name: generate json data structure
+  json_template:
+    template:
+      - key: Hardware_Version
+        value: "{{ hv.matches.0 }}"
+      - key: Serial_Number 
+        value: "{{ sn.matches.0 }}"
+      - key: Software_Image
+        value: "{{ si.matches.0 }}"
+      - key: Software_Version
+        value: "{{ sv.matches.0 }}"
+      - key: Software_Release
+        value: "{{ sr.matches.0 }}"
+  export: true
+  #export_as: "{{ export_type }}"
+  register: config
+

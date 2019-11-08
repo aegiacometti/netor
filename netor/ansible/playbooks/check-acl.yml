@@ -1,0 +1,17 @@
+---
+- name: Check or create exact ACL order
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  tasks:
+
+    - name: Check or create exact ACL order
+      ios_config:
+        #save_when: changed
+        lines:
+          - permit ip host 1.1.1.1 any log
+          - permit ip host 2.2.2.2 any log
+        parents: ["ip access-list extended TEST2"]
+        before: ["no ip access-list extended TEST2"]
+        replace: block
+        match: exact

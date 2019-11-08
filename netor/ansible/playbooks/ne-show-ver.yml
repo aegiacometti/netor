@@ -1,0 +1,39 @@
+---
+- name: Show Cisco HW, SN, and SW version
+  hosts: all
+  gather_facts: no
+  connection: network_cli
+  
+  #vars:
+  #  export_type: dict
+
+  roles:
+    - ansible-network.network-engine
+
+  tasks:
+    - name: Show version
+      ios_command:
+        commands: show version
+      register: showver
+
+      #    - debug:
+      # var: showver.stdout
+
+    - name: PARSE THE RAW OUTPUT
+      command_parser:
+        file: "parsers/ios/show_ver.yaml"
+        content: "{{ showver.stdout.0 }}"
+      register: data
+
+      #    - debug:
+      # var: ansible_facts.config
+
+      #    - debug:
+      # var: data
+    
+    - name: execute python script
+      local_action: command python scripts/parseInventory.py "{{ inventory_hostname }}" "{{ ansible_facts.config }}"
+      register: output
+
+    - debug:
+        var: output.stdout_lines

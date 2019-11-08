@@ -1,0 +1,51 @@
+--- 
+- name: Set Cisco VLANs 200 if not exist
+  hosts: swt_access
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+
+    - name: show vlan
+      ntc_show_command:
+        platform: "{{ platform }}"
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        template_dir: /home/adrian/ansible/modules/ntc-ansible/ntc-templates/templates
+        command: show vlan-switch
+      register: result1
+    
+    - debug: 
+        var: result1
+
+    - name:
+      set_fact:
+        vlan_out: "{{ result1.response }}"
+
+    - name: vlan_200 initial value
+      set_fact:
+        vlan_200: false
+
+    - name: set fact vlan_200 if already exist in order to skip
+      set_fact:
+        vlan_200: true
+      with_items: "{{ vlan_out }}"
+      when: item.vlan_id == "200"
+
+    - debug: var=vlan_200
+
+    - name: add vlan 200
+      ntc_config_command:
+        platform: "{{ platform }}"
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        #template_dir: /home/adrian/ansible/modules/ntc-ansible/ntc-templates/templates
+        commands:
+          - 'vlan 200'
+          - 'name BLUE'
+      when: vlan_200 == false
+      register: result2
+
+    - debug: var=result2

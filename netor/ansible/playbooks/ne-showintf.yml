@@ -1,0 +1,30 @@
+---
+- name: GENERATE A REPORT
+  hosts: all
+  gather_facts: no
+  connection: network_cli
+
+  vars:
+    export_type: dict
+
+  roles:
+    - ansible-network.network-engine
+
+  tasks:
+    - name: CAPTURE SHOW IP INTERFACE
+      ios_command:
+        commands:
+          - show interface
+      register: output
+                                                                              
+#    - name: DISPLAY THE OUTPUT
+#      debug: var=output.stdout
+
+    - name: PARSE THE RAW OUTPUT
+      command_parser:
+        file: "parsers/ios/show_interfaces.yaml"
+        content: "{{ output.stdout.0 }}"
+      register: data
+
+    - name: Display the data
+      debug: var=interface_facts
