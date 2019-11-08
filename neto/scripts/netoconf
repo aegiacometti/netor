@@ -1,4 +1,0 @@
-#!/bin/bash
-# Updates neto home directory in configuration files and scripts
-python3 ""$HOME""/neto/tinydb/scripts/netoconf.py
-

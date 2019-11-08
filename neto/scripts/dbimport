@@ -1,3 +1,0 @@
-#!/bin/bash
-#To import a .CSV file to the current DB.
-python3 "$HOME"/neto/tinydb/scripts/importcsv.py

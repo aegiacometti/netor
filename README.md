@@ -2,7 +2,7 @@
 
 This is a very simple compilation of several OpenSource packages, which by using scripts
 aims to help integrating them to form a network platform to support networks, without
-having to lear to configure all of them.
+having to learn to configure all of them.
 They scripts won't be nice, they are very simple as i learn Python, but they work fine,
 in fact, they are very easy to read. They catch some typing errors, but pay attention
 when you write. Anyway, do not worry, they won't break anything.
@@ -15,33 +15,36 @@ The tools that integrates at the moment are:
 
 As i move forward i will try to integrate other packages and functionalities.
 
-URL github
-
 ## Requirements
 
-Install and read about this packages:
+Read about this packages:
 
-- tinydb==3.15.0
-- salt==2019.2.0
-- salt-sproxy==2019.10.0
-- ansible==2.8.6
-- ntc-ansible==0.1.0
+* tinydb==3.15.0
+* salt==2019.2.0
+* salt-sproxy==2019.10.0
+* ansible==2.8.6
+* ntc-ansible==0.1.0
 
 ## How to install
 
 UNDER CONSTRUCTION
 
-https://github.com/aegiacometti/neto
+https://github.com/aegiacometti/netor
 
-Add to the userID environment PATH, the folder with the BASH scripts. (Default ~/neto/scripts).
+Add to the userID environment PATH, the folder with the BASH scripts. (Default ~/netor/netor/scripts).
 
-If you install the package in another directory or you change the NETO default directory,
+If you install the package in another directory or you change the NETOR default directory,
 you will need to update the environment PATH.
 
 
 ## How to use / functionalities
 
 TBD
+
+* Imagine if you go to your customer and in 5 minutes you have all the information of the network
+in order to be able to know where is each IP located.
+* Or if you have to deploy some new configuration you take a backup in 2 minutes and start working
+* etc
 
 ## Motivation
 
@@ -74,22 +77,26 @@ and develop a personal tool using Python, in an OpenSource manner.
 
 ## TODOs
 
-* Auto testing
+* Auto testing.
+* Upload to PyPi and work in adapting de structure.
+* Reformat code to make it reusable and with less repeated code.
 * Add encryption to store the userID password in TinyDB.
 * Ansible modify user configuration ./ansible/ and ./ansible.cfg
-* After using "netoconf":  Modify ".ansible.cfg and Redirect Salt files (master, minion, proxy, etc) to new directory and restart SaltStack
-* Work on bash scripts to mirror common Ansible and SaltStack operations in order to make it easier to use them and start learning about them
+* After using "netorconf":  Modify ".ansible.cfg and Redirect Salt files (master, minion, proxy, 
+etc) to new directory and restart SaltStack
+* Work on bash scripts to mirror common Ansible and SaltStack operations in order to make it easier
+to use them and start learning about them
 
 ## Limitations
 
-If you change you ``neto_home_directory`` you have to update the PATH environment variable
+If you change you ``netor_home_directory`` you have to update the PATH environment variable
 in order to look for the scripts in the correct folder.
 Another option is to modify the ``hosts_file`` variable in the script to redirect to the
 correct folder.
 
 ## Thank you notes
 
-These passionate individuals that are always there to help, teach and guide us.
+These passionate individuals that are always there to help, teach and gide us.
 
 * NAPALM: David Barroso dbarrosop@dravetech.com, Mircea Ulinic ping@mirceaulinic.net and Kirk Byers ktbyers@twb-tech.com
 * TinyDB: Markus Siemens markus@m-siemens.de

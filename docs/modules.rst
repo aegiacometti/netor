@@ -4,7 +4,7 @@ Modules
 .. toctree::
    :maxdepth: 4
 
-   netoconf
+   netorconf
    dbparam
    worker
    customers

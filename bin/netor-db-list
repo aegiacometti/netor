@@ -1,0 +1,18 @@
+#!/bin/bash
+#List the full content of the DB specified in the configuration file ``netor.conf``, unless a full path name
+#to different TinyDB database is specified as an argument.
+
+#Verify existence of ``netor.conf`` file, since it could be required by the confparse module in order to get
+#the DB full path name.
+
+#example:
+#    ``../netor/tinydb/scripts/listdb.py /full/path/name/database.json``
+
+#Also has an export function to dump the current DB to a ``.csv`` file. If you want to export another DB you will
+#need to ``netor-db-switch`` first.
+
+#example:
+#      ``../netor/tinydb/scripts/listdb.py -e``
+
+neto_home_directory="/home/adrian/netor-master/"
+python3 "$neto_home_directory"netor/tinydb/scripts/listdb.py

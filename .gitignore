@@ -1,3 +1,7 @@
 /build
 /dist
 /neto_aegiacometti.egg-info
+/neto.egg-info
+__pycache__
+.idea
+*.py[cod]

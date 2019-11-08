@@ -1,0 +1,7 @@
+#!/bin/bash
+# Update Ansible and SaltStack configuration files according the DB.
+# It uses the default script NETOR_HOME_DIRECTORY to use the default netor.conf file, unless another home directory
+# is specified. In both cases it will confparse the netor.conf file to find the DB full path
+
+neto_home_directory="/home/adrian/netor-master/"
+python3 "$neto_home_directory"netor/tinydb/scripts/pushcustdb.py

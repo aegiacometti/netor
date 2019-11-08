@@ -1,3 +1,0 @@
-#!/bin/bash
-#To export tue DB to a .CSV file
-python3 "$HOME"/neto/tinydb/scripts/listdb.py -e

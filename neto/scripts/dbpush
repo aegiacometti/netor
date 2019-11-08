@@ -1,5 +1,0 @@
-#!/bin/bash
-# Update Ansible and SaltStack configuration files according the DB.
-# It uses the default script NETO_HOME_DIRECTORY to use the default neto.conf file, unless another home directory
-# is specified. In both cases it will confparse the neto.conf file to find the DB full path
-python3 ""$HOME""/neto/tinydb/scripts/pushcustdb.py

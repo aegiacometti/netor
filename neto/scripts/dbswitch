@@ -1,4 +1,0 @@
-#!/bin/bash
-# Updates the full path name of the DB in configuration and scripts files
-python3 ""$HOME""/neto/tinydb/scripts/switchdb.py
-

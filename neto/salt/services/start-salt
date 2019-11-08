@@ -1,2 +1,0 @@
-sudo service salt-master start
-sudo service salt-minion start
