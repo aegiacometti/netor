@@ -34,10 +34,10 @@ def netor_config():
             print("Keeping same configuration\n")
 
             config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
-            netor_config_path_name = netor_home_directory + "netor.config"
+            netor_config_path_name = netor_home_directory + "netor/netor.config"
             config.read(netor_config_path_name)
             try:
-                config['Neto']['netor_home_directory'] = netor_home_directory
+                config['Netor']['netor_home_directory'] = netor_home_directory
             except KeyError:
                 print("\nConfiguration files do no exist, clone the previous directory before start the changes\n")
                 sys.exit(1)
@@ -50,10 +50,10 @@ def netor_config():
             new_netor_home_directory = input("Enter new Neto home directory (example: /full/path/netor/): ")
             if os.path.isdir(new_netor_home_directory):
                 config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
-                netor_config_path_name = new_netor_home_directory + "netor.config"
+                netor_config_path_name = new_netor_home_directory + "netor/netor.config"
                 config.read(netor_config_path_name)
                 try:
-                    config['Neto']['netor_home_directory'] = new_netor_home_directory
+                    config['Netor']['netor_home_directory'] = new_netor_home_directory
                 except KeyError:
                     print("\nConfiguration files do no exist, clone the previous directory before start the changes\n")
                     sys.exit(1)
@@ -103,36 +103,46 @@ def update_config(tinydb_log_file, __file__, new_netor_home_directory):
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-traceroute"), "hosts_file=",
                                 (new_netor_home_directory + "netor/ansible/hosts"))
 
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-customers"), "neto_home_directory=",
+    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-customers"), "netor_home_directory=",
                                 new_netor_home_directory)
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-devices"), "neto_home_directory=",
+    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-devices"), "netor_home_directory=",
                                 new_netor_home_directory)
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-export"), "neto_home_directory=",
+    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-export"), "netor_home_directory=",
                                 new_netor_home_directory)
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-import"), "neto_home_directory=",
+    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-import"), "netor_home_directory=",
                                 new_netor_home_directory)
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-list"), "neto_home_directory=",
+    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-list"), "netor_home_directory=",
                                 new_netor_home_directory)
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-push"), "neto_home_directory=",
+    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-push"), "netor_home_directory=",
                                 new_netor_home_directory)
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-sites"), "neto_home_directory=",
+    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-sites"), "netor_home_directory=",
                                 new_netor_home_directory)
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-switch"), "neto_home_directory=",
+    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-switch"), "netor_home_directory=",
                                 new_netor_home_directory)
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-config"), "neto_home_directory=",
+    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-config"), "netor_home_directory=",
                                 new_netor_home_directory)
 
-    replace_static_vars_scripts("/etc/systemd/system/multi-user.target.wants/salt-master.service", "--config-dir=",
-                                (new_netor_home_directory + "netor/salt/config"))
-    replace_static_vars_scripts("/etc/systemd/system/multi-user.target.wants/salt-minion.service", "--config-dir=",
-                                (new_netor_home_directory + "netor/salt/config"))
-    replace_static_vars_scripts("/etc/systemd/system/salt-proxy@.service", "--config-dir=",
-                                (new_netor_home_directory + "netor/salt/config"))
+    replace_static_vars_scripts(new_netor_home_directory + "netor/salt/services/salt-master.service",
+                                "ExecStart=/usr/bin/salt-master --config-dir=", (new_netor_home_directory
+                                                                                 + "netor/salt/config"))
+    replace_static_vars_scripts(new_netor_home_directory + "netor/salt/services/salt-minion.service",
+                                "ExecStart=/usr/bin/salt-minion --config-dir=", (new_netor_home_directory
+                                                                                 + "netor/salt/config"))
+    replace_static_vars_scripts(new_netor_home_directory + "netor/salt/services/salt-proxy@.service",
+                                "ExecStart=/usr/bin/salt-proxy --config-dir=", (new_netor_home_directory
+                                                                                + "netor/salt/config"))
 
     tinydblogging.log_msg(tinydb_log_file, __file__,
                           "Netconf executed. Neto.config and static vars in scripts updated. ")
     print("\nStatics vars in scripts replaced")
-    print("\nYou can start using netor :)\n")
+    print("\nYou need to replace SaltStack daemons, and restart the services. The typical configuration files can be"
+          "located at netor/netor/salt/services. The destination of systemd folder may very between systems. "
+          "As an example copy them to:\n")
+    print("/etc/systemd/system/multi-user.target.wants/salt-master.service")
+    print("/etc/systemd/system/multi-user.target.wants/salt-minion.service")
+    print("/etc/systemd/system/salt-proxy@.service\n")
+    print("Finally restart SaltStack with \"sudo services salt-master restart\"")
+    print("Finally restart SaltStack with \"sudo services salt-minion restart\"\n"
 
 
 def replace_static_vars_scripts(filename, search, replace):
