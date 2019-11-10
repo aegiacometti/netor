@@ -16,39 +16,9 @@ The tools that integrates at the moment are:
 
 As i move forward i will try to integrate other packages and functionalities.
 
-Requirements
-************
-Install and read about this packages:
+Project code at https://github.com/aegiacometti/netor
 
-* tinydb==3.15.0
-* salt==2019.2.0
-* salt-sproxy==2019.10.0
-* ansible==2.8.6
-* ntc-ansible==0.1.0
-
-Or install them with -> ``sudo pip install -r requirements.txt``
-
-How to install
-**************
-
-UNDER CONSTRUCTION
-
-https://github.com/aegiacometti/netor
-
-Add to the userID environment PATH, the folder with the BASH scripts. (Default ~/netor/scripts).
-
-If you install the package in another directory or you change the NETOR default directory,
-you will need to update the environment PATH.
-
-
-How to use / functionalities
-****************************
-
-TBD
-
-* Imagine if you go to your customer and in 5 minutes you have all the information of the network in order to be able to know where is each IP located.
-* Or if you have to deploy some new configuration you take a backup in 2 minutes and start working
-* etc
+Project documentation at https://readthedocs.org/projects/netor/
 
 Motivation
 **********
@@ -79,23 +49,9 @@ and a lot of very cool capabilities.
 So, as i love to learn and to build things, i decided to start this adventure of learning
 and develop a personal tool using Python, in an OpenSource manner.
 
-TODOs
-*****
-
-* Auto testing.
-* Upload to PyPi and work in adapting de structure.
-* Reformat code to make it reusable and with less repeated code.
-* Add encryption to store the userID password in TinyDB.
-* Ansible modify user configuration ./ansible/ and ./ansible.cfg
-* After using "netorconf":  Modify ".ansible.cfg and Redirect Salt files (master, minion, proxy, etc) to new directory and restart SaltStack
-* Work on bash scripts to mirror common Ansible and SaltStack operations in order to make it easier to use them and start learning about them
-
 Limitations
 ***********
-If you change you ``netor_home_directory`` you have to update the PATH environment variable
-in order to look for the scripts in the correct folder.
-Another option is to modify the ``hosts_file`` variable in the script to redirect to the
-correct folder.
+Only tested on linux
 
 Thank you notes
 ***************
@@ -104,3 +60,5 @@ These passionate individuals that are always there to help.
 * NAPALM: David Barroso dbarrosop@dravetech.com, Mircea Ulinic ping@mirceaulinic.net and Kirk Byers ktbyers@twb-tech.com
 * TinyDB: Markus Siemens markus@m-siemens.de
 * OpenSource community in general
+
+

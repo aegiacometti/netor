@@ -207,7 +207,6 @@ class DB:
                           "overwritten (y/n): ")
 
         if overwrite.lower() == "y":
-
             print("\nBacking up salt/config/minion configuration file to salt/config/backup")
             salt_minion_backup_path_name = salt_backup_directory + "minion_" + \
                                            datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
@@ -226,12 +225,17 @@ class DB:
                     new_file.write("        " + doc['customer'] + "_" + doc['site'] + "_" + doc['dev_name'] + ": {}\n")
             new_file.write("\n")
             salt_minion_former_start_config = False
-            with open(salt_minion_path_name, 'r') as file:
-                for line in file:
-                    if "Primary configuration settings" in line:
-                        salt_minion_former_start_config = True
-                    if salt_minion_former_start_config:
-                        new_file.writelines(line)
+
+            try:
+                with open(salt_minion_path_name, 'r') as file:
+                    for line in file:
+                        if "Primary configuration settings" in line:
+                            salt_minion_former_start_config = True
+                        if salt_minion_former_start_config:
+                            new_file.writelines(line)
+            except (OSError, IOError):
+                print("Original minion file not found, skipping.")
+
             new_file.close()
 
             print("Replacing minion configuration file")

@@ -11,7 +11,9 @@ Welcome to Network Orchestra's documentation!
    :caption: Contents:
 
    introduction
-   bash_scripts
+   install
+   howtouse
+   scripts
    modules
    TODO
 

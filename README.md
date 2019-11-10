@@ -15,39 +15,11 @@ The tools that integrates at the moment are:
 
 As i move forward i will try to integrate other packages and functionalities.
 
-## Requirements
+Project code at https://github.com/aegiacometti/netor
 
-Read about this packages:
-
-* tinydb==3.15.0
-* salt==2019.2.0
-* salt-sproxy==2019.10.0
-* ansible==2.8.6
-* ntc-ansible==0.1.0
-
-## How to install
-
-UNDER CONSTRUCTION
-
-https://github.com/aegiacometti/netor
-
-Add to the userID environment PATH, the folder with the BASH scripts. (Default ~/netor/netor/scripts).
-
-If you install the package in another directory or you change the NETOR default directory,
-you will need to update the environment PATH.
-
-
-## How to use / functionalities
-
-TBD
-
-* Imagine if you go to your customer and in 5 minutes you have all the information of the network
-in order to be able to know where is each IP located.
-* Or if you have to deploy some new configuration you take a backup in 2 minutes and start working
-* etc
+Project documentation at https://readthedocs.org/projects/netor/
 
 ## Motivation
-
 
 After trying several network tools that claim to be essentials to networking, as you already
 may know, there is no tool that will really work as you need, or even as they claim. They
@@ -75,17 +47,139 @@ and a lot of very cool capabilities.
 So, as i love to learn and to build things, i decided to start this adventure of learning
 and develop a personal tool using Python, in an OpenSource manner.
 
+## Requirements
+
+Read about this packages:
+
+* setuptools
+* tinydb
+* ansible
+* ansible network engine role
+* saltstack (using the bootstrap installed, details below)
+* salt-sproxy
+
+## How to install
+
+Requirements
+************
+Read about this packages:
+
+* setuptools
+* tinydb
+* ansible
+* ansible network engine role
+* saltstack (using the bootstrap installed, details below)
+* salt-sproxy
+
+How to install
+**************
+
+1. Update apt package list
+
+    ``sudo apt-get update``
+
+2. Install pip3 (we will use Python3)
+
+    ``sudo apt-get install python3-pip``
+
+3. Upgrade setuptools
+
+    ``sudo pip3 install setuptools --upgrade``
+
+4. Install SaltStack
+
+The recommended way is to use the bootstrap
+
+    ``wget -O bootstrap-salt.sh https://bootstrap.saltstack.com``
+    ``sudo sh bootstrap-salt.sh  -x python3 -M``
+
+For more information go to the project page, they have great documentation:
+
+https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough.html
+https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough_macosx.html
+
+5. Install git
+
+    ``sudo apt-get install git``
+
+6. Clone ``netor`` project repository
+
+Create a directory for the clone of the repository or do the clone directly at you home directory, this will be the
+project home.
+
+    ``git clone https://github.com/aegiacometti/netor.git``
+
+7. Install some requirements
+
+    ``sudo pip3 install -r *netor_home_directory*/requirements.txt``
+
+8. Install Ansible network engine role
+
+    ``ansible-galaxy install ansible-network.network-engine``
+
+9. Copy Ansible configuration file
+
+    ``sudo cp /etc/ansible/ansible.cfg $HOME``
+
+10. Now, for the first time, you have to configure netor by manually executing the python script
+
+    ``python3 *netor_home_directory*/netor/tinydb/scripts/netorconf.py``
+
+In the future is you clone a new ``netor`` deployment for testing or to have 2 directory to work separately, you
+will have to do this procedure again.
+
+11. Copy SaltStack minion proxy to the systemd folder *(this could vary depending on the system)*
+
+    ``sudo cp "netor_install_dir"/netor/salt/services/salt-proxy@.service /etc/systemd/system/``
+
+12. Modify the SaltSatck start service, to add the custom configuration files directory
+
+Usually located at: *(this could vary depending on the system)*
+
+    file: ``/etc/systemd/system/multi-user.target.wants/salt-master.service``
+    add: ``ExecStart=/usr/bin/salt-master *--config-dir=**[netor_home_directory]**/netor/salt/config/*``
+
+    file: ``/etc/systemd/system/multi-user.target.wants/salt-minion.service``
+    add: ``ExecStart=/usr/bin/salt-minion *--config-dir=**[netor_home_directory]**/netor/salt/config/*``
+
+13. Add to your PATH environment the ``netor/bin`` directory for easy execute of scripts
+
+    ``vi $HOME/.profile``
+
+    add at the end ``PATH="$PATH:**[netor_home_directory]**/netor/bin/"``
+
+14. Logoff the session and login again
+
+15. done!
+
+If everything worked fine you can view the commands with tab autocompletion
+
+netor-db-list
+netor-db-customer
+...
+
+
+## How to use / functionalities
+
+TBD
+
+* Imagine if you go to your customer and in 5 minutes you have all the information of the network
+in order to be able to know where is each IP located.
+* Or if you have to deploy some new configuration you take a backup in 2 minutes and start working
+* etc
+
 ## TODOs
 
+* Re do netorconf.py.
 * Auto testing.
 * Upload to PyPi and work in adapting de structure.
 * Reformat code to make it reusable and with less repeated code.
 * Add encryption to store the userID password in TinyDB.
 * Ansible modify user configuration ./ansible/ and ./ansible.cfg
-* After using "netorconf":  Modify ".ansible.cfg and Redirect Salt files (master, minion, proxy, 
-etc) to new directory and restart SaltStack
-* Work on bash scripts to mirror common Ansible and SaltStack operations in order to make it easier
-to use them and start learning about them
+* After using "netorconf":  Modify ".ansible.cfg and Redirect Salt files (master, minion, proxy, etc) to new directory
+ and restart SaltStack
+* Work on bash scripts to mirror common Ansible and SaltStack operations in order to make it easier to use them and
+ start learning about them
 
 ## Limitations
 
