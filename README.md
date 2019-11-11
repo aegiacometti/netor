@@ -6,6 +6,9 @@ having to learn to configure all of them.
 They scripts won't be nice, they are very simple as i learn Python, but they work fine,
 in fact, they are very easy to read. They catch some typing errors, but pay attention
 when you write. Anyway, do not worry, they won't break anything.
+But, remember, this project is only to help start using Ansible and SaltStack, in order
+to see what you can get out of them, after you should start learning about those two
+projects which are amazing.
 
 The tools that integrates at the moment are:
 
@@ -109,53 +112,66 @@ project home.
 
     ``git clone https://github.com/aegiacometti/netor.git``
 
-7. Install some requirements
+7. Install some requirements (TinyDB, NAPALM, salt-sproxy)
 
-    ``sudo pip3 install -r *netor_home_directory*/requirements.txt``
+    ``sudo pip3 install -r [netor_home_directory]/requirements.txt``
 
-8. Install Ansible network engine role
+8. Install Ansible
 
+    ``sudo apt-get install software-properties-common``
+    ``sudo apt-add-repository --yes ppa:ansible/ansible``
+    ``sudo apt-get update``
+    ``sudo apt-get install ansible``
     ``ansible-galaxy install ansible-network.network-engine``
+
+For more detail refer to installation guides at https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
 
 9. Copy Ansible configuration file
 
-    ``sudo cp /etc/ansible/ansible.cfg $HOME``
+    ``sudo cp /etc/ansible/ansible.cfg $HOME/.ansible.cfg``
+    ``sudo chown [your_userid]:[your_usergroup] $HOME/.ansible.cfg``
 
 10. Now, for the first time, you have to configure netor by manually executing the python script
 
-    ``python3 *netor_home_directory*/netor/tinydb/scripts/netorconf.py``
+    ``python3 [netor_home_directory]/netor/tinydb/scripts/netorconf.py``
 
 In the future is you clone a new ``netor`` deployment for testing or to have 2 directory to work separately, you
 will have to do this procedure again.
 
 11. Copy SaltStack minion proxy to the systemd folder *(this could vary depending on the system)*
 
-    ``sudo cp "netor_install_dir"/netor/salt/services/salt-proxy@.service /etc/systemd/system/``
+    ``sudo cp [netor_home_dir]/netor/salt/config/services/salt-proxy@.service /etc/systemd/system/``
 
-12. Modify the SaltSatck start service, to add the custom configuration files directory
+12. Copy SaltStack new configuration files
 
-Usually located at: *(this could vary depending on the system)*
-
-    file: ``/etc/systemd/system/multi-user.target.wants/salt-master.service``
-    add: ``ExecStart=/usr/bin/salt-master *--config-dir=**[netor_home_directory]**/netor/salt/config/*``
-
-    file: ``/etc/systemd/system/multi-user.target.wants/salt-minion.service``
-    add: ``ExecStart=/usr/bin/salt-minion *--config-dir=**[netor_home_directory]**/netor/salt/config/*``
+    ``sudo cp [netor_home_dir]/netor/salt/config/master /etc/salt/``
+    ``sudo cp [netor_home_dir]/netor/salt/config/minion /etc/salt/``
+    ``sudo cp [netor_home_dir]/netor/salt/config/proxy /etc/salt/``
 
 13. Add to your PATH environment the ``netor/bin`` directory for easy execute of scripts
 
     ``vi $HOME/.profile``
 
-    add at the end ``PATH="$PATH:**[netor_home_directory]**/netor/bin/"``
+    add at the end ``PATH="$PATH:[netor_home_directory]/netor/bin/"``
 
-14. Logoff the session and login again
+14. Reload systemd configurations
 
-15. done!
+    ``sudo systemctl daemon-reload``
+
+15. Restart SaltStack daemons
+
+    ``netor-salt-restart``
+
+16. done!
 
 If everything worked fine you can view the commands with tab autocompletion
 
 netor-db-list
+
 netor-db-customer
+
+etc
+
 ...
 
 

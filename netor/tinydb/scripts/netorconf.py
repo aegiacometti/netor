@@ -93,6 +93,7 @@ def update_ansible(netor_home_directory):
                                 '')
     replace_static_vars_scripts(ansible_config_file, 'host_key_auto_add', ' = True',
                                 '')
+    print('Netor home directory replaced in Ansible.')
 
 
 def backup_filename(new_netor_home_directory, filename):
@@ -155,7 +156,7 @@ def create_minion_config_file(new_netor_home_directory, filename):
     file.write('# The path to the minion\'s configuration file.\n')
     file.write('conf_file: ' + new_netor_home_directory + 'netor/salt/config/minion\n')
     file.write('# The directory to store the pki information in\n')
-    file.write('pki_dir: ' + new_netor_home_directory + 'netor/salt/pki/minion\n')
+    file.write('pki_dir: ' + new_netor_home_directory + 'netor/salt/config/pki/minion\n')
     file.write('\n')
     file.write('#####     File Directory Settings    #####\n')
     file.write('file_roots:\n')
@@ -197,7 +198,7 @@ def create_proxy_config_file(new_netor_home_directory, filename):
     file.write('  net.mac: []\n')
     file.write('  net.arp: []\n')
     file.write('  net.interfaces: []\n')
-    file.write('  mine_interval: 5\n')
+    file.write('mine_interval: 5\n')
     file.write('\n')
     file.write('######         Thread settings        #####\n')
     file.write('multiprocessing: false\n')
@@ -313,19 +314,12 @@ def update_config(tinydb_log_file, __file__, new_netor_home_directory):
     create_update_master_minion_proxy(new_netor_home_directory, 'master')
     create_update_master_minion_proxy(new_netor_home_directory, 'minion')
     create_update_master_minion_proxy(new_netor_home_directory, 'proxy')
+
     print('\nNetor home directory replaced in salt master, minion and proxy.')
-    print("\nATTENTION: SaltStack daemons configuration files must be modified manually with root privilege")
-    print("Files usually located at:")
-    print("\n/etc/systemd/system/multi-user.target.wants/salt-master.service")
-    print("     Add \"--config-dir\"")
-    print("     ExecStart=/usr/bin/salt-master --config-dir=" + new_netor_home_directory + "netor/salt/config")
-    print("\n/etc/systemd/system/multi-user.target.wants/salt-minion.service")
-    print("     Add \"--config-dir\"")
-    print("     ExecStart=/usr/bin/salt-minion --config-dir=" + new_netor_home_directory + "netor/salt/config")
-    print("\n/etc/systemd/system/salt-proxy@.service")
-    print("     Add \"--config-dir\"")
-    print("     ExecStart=/usr/bin/salt-proxy --config-dir=" + new_netor_home_directory +
-          "netor/salt/config --proxyid=%i")
+    print("\nATTENTION: SaltStack configuration files must be copied manually with root privilege")
+    print("\nsudo cp " + new_netor_home_directory + "netor/salt/config/master /etc/salt/")
+    print("\nsudo cp " + new_netor_home_directory + "netor/salt/config/minion /etc/salt/")
+    print("\nsudo cp " + new_netor_home_directory + "netor/salt/config/proxy /etc/salt/")
     print("\nAdd " + new_netor_home_directory + "/bin to your .profile")
     print("     vi $HOME/.profile")
     print("     PATH=\"$PATH:" + new_netor_home_directory + "/bin")

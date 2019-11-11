@@ -7,6 +7,9 @@ having to lear to configure all of them.
 They scripts won't be nice, they are very simple as i learn Python, but they work fine,
 in fact, they are very easy to read. They catch some typing errors, but pay attention
 when you write. Anyway, do not worry, they won't break anything.
+But, remember, this project is only to help start using Ansible and SaltStack, in order
+to see what you can get out of them, after you should start learning about those two
+projects which are amazing.
 
 The tools that integrates at the moment are:
 

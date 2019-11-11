@@ -1,3 +1,4 @@
 tinydb
 salt-sproxy
-ansible
+napalm==2.4.0
+napalm-base

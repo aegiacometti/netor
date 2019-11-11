@@ -215,14 +215,13 @@ class DB:
             print("Creating new temporary minion configuration file")
             new_file_name = salt_minion_path_name + ".pre"
             new_file = open(new_file_name, 'w+')
-            new_file.write("master: localhost\n")
-            new_file.write("\n")
             new_file.write("beacons:\n")
             new_file.write("  salt_proxy:\n")
             new_file.write("    - proxies:\n")
             for doc in devices_to_push:
                 if doc['salt_proxy_required'] == "y":
                     new_file.write("        " + doc['customer'] + "_" + doc['site'] + "_" + doc['dev_name'] + ": {}\n")
+            new_file.write("    - interval: 60\n")
             new_file.write("\n")
             salt_minion_former_start_config = False
 
