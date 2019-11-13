@@ -9,8 +9,7 @@ import configparser
 import netorconf
 import tinydblogging
 
-NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
-DB_PATH_NAME = "/home/adrian/netor-master/netor/tinydb/data/db.json"
+_NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
 
 
 class DB:
@@ -290,11 +289,11 @@ class DB:
             return
 
 
-def start_process():
+def _start_process():
     """
-    Checks if the ``netor.conf`` file exist according the local static variable ``NETOR_HOME_DIRECTORY``.
+    Checks if the ``netor.conf`` file exist according the local static variable ``_NETOR_HOME_DIRECTORY``.
 
-    It supports passing as parameter the ``NETOR_HOME_DIRECTORY`` in order to push to the DB specified
+    It supports passing as parameter the ``_NETOR_HOME_DIRECTORY`` in order to push to the DB specified
     in the ``netor.conf`` configuration file.
 
     Then execute the functions to push the DB content on **Ansible** ans **SaltStack** configuration files, according
@@ -308,12 +307,12 @@ def start_process():
 
     :return: nothing
     """
-    netorconf.check_netor_config(NETOR_HOME_DIRECTORY)
+    netorconf.check_netor_config(_NETOR_HOME_DIRECTORY)
 
     try:
         netor_home_directory = sys.argv[1]
     except IndexError:
-        netor_home_directory = NETOR_HOME_DIRECTORY
+        netor_home_directory = _NETOR_HOME_DIRECTORY
 
     tinydb_log_file = netor_home_directory + "netor/log/tinydb.log"
 
@@ -363,5 +362,5 @@ def start_process():
 
 
 if __name__ == '__main__':
-    start_process()
+    _start_process()
     print()

@@ -9,7 +9,7 @@ import datetime
 from shutil import copyfile
 
 
-def netor_config():
+def _netor_config():
     """
     It is used for updating the Neto home directory in the configuration files and scripts.
 
@@ -45,9 +45,9 @@ def netor_config():
                 sys.exit(1)
             with open(netor_config_path_name, 'w') as configfile:
                 config.write(configfile)
-            update_ansible(netor_home_directory)
+            _update_ansible(netor_home_directory)
             tinydb_log_file = netor_home_directory + "netor/log/tinydb.log"
-            update_config(tinydb_log_file, __file__, netor_home_directory)
+            _update_config(tinydb_log_file, __file__, netor_home_directory)
             sys.exit()
         elif answer == "n":
             new_netor_home_directory = input("Enter new Neto home directory (example: /full/path/netor/): ")
@@ -64,9 +64,9 @@ def netor_config():
                     sys.exit(1)
                 with open(netor_config_path_name, 'w') as configfile:
                     config.write(configfile)
-                update_ansible(new_netor_home_directory)
+                _update_ansible(new_netor_home_directory)
                 tinydb_log_file = new_netor_home_directory + "netor/log/tinydb.log"
-                update_config(tinydb_log_file, __file__, new_netor_home_directory)
+                _update_config(tinydb_log_file, __file__, new_netor_home_directory)
             else:
                 print("Invalid directory")
         else:
@@ -76,28 +76,29 @@ def netor_config():
         print("\nDefault \"$HOME/netor\" NOT found")
         set_netor_home = input("Enter full path to /netor (example: /full/path/netor/): ")
         if os.path.isdir(set_netor_home) and os.path.isfile((set_netor_home + "netor/netor.config")):
-            update_ansible(set_netor_home)
+            _update_ansible(set_netor_home)
             tinydb_log_file = set_netor_home + "netor/log/tinydb.log"
-            update_config(tinydb_log_file, __file__, set_netor_home)
+            _update_config(tinydb_log_file, __file__, set_netor_home)
         else:
             print("\nInvalid directory or netor.config not found\n")
             sys.exit()
 
 
-def update_ansible(netor_home_directory):
+def _update_ansible(netor_home_directory):
     ansible_config_file = os.environ['HOME'] + '/.ansible.cfg'
-    replace_static_vars_scripts(ansible_config_file, '#inventory ', '= ' + netor_home_directory + 'netor/ansible/hosts',
-                                '')
+    replace_static_vars_scripts(ansible_config_file, '#inventory ',
+                                 '= ' + netor_home_directory + 'netor/ansible/hosts',
+                                 '')
     replace_static_vars_scripts(ansible_config_file, '#transport', ' = paramiko',
-                                '')
+                                 '')
     replace_static_vars_scripts(ansible_config_file, '#host_key_auto_add', ' = True',
-                                '')
+                                 '')
     replace_static_vars_scripts(ansible_config_file, 'inventory = ', netor_home_directory + 'netor/ansible/hosts',
-                                '')
+                                 '')
     print('\nNetor home directory replaced in Ansible.')
 
 
-def backup_filename(new_netor_home_directory, filename):
+def _backup_filename(new_netor_home_directory, filename):
     print('\nBacking up ' + filename + ' to ' + new_netor_home_directory + 'netor/salt/backup/')
     source = new_netor_home_directory + 'netor/salt/config/' + filename
     destination = new_netor_home_directory + 'netor/salt/backup/' + filename + "_" + \
@@ -105,7 +106,7 @@ def backup_filename(new_netor_home_directory, filename):
     copyfile(source, destination)
 
 
-def create_master_config_file(new_netor_home_directory, filename):
+def _create_master_config_file(new_netor_home_directory, filename):
     full_path_filename = new_netor_home_directory + 'netor/salt/config/' + filename
     file = open(full_path_filename, '+w')
     file.write('# for salt-sproxy\n')
@@ -142,13 +143,13 @@ def create_master_config_file(new_netor_home_directory, filename):
     file.close()
 
 
-def update_master_config_file(new_netor_home_directory, filename):
-    backup_filename(new_netor_home_directory, filename)
+def _update_master_config_file(new_netor_home_directory, filename):
+    _backup_filename(new_netor_home_directory, filename)
     # pending to develop update of the file with the new directory
-    create_master_config_file(new_netor_home_directory, filename)
+    _create_master_config_file(new_netor_home_directory, filename)
 
 
-def create_minion_config_file(new_netor_home_directory, filename):
+def _create_minion_config_file(new_netor_home_directory, filename):
     full_path_filename = new_netor_home_directory + 'netor/salt/config/' + filename
     file = open(full_path_filename, '+w')
     file.write('##### Primary configuration settings #####\n')
@@ -179,13 +180,13 @@ def create_minion_config_file(new_netor_home_directory, filename):
     file.close()
 
 
-def update_minion_config_file(new_netor_home_directory, filename):
-    backup_filename(new_netor_home_directory, filename)
+def _update_minion_config_file(new_netor_home_directory, filename):
+    _backup_filename(new_netor_home_directory, filename)
     # pending to develop update of the file with the new directory
-    create_minion_config_file(new_netor_home_directory, filename)
+    _create_minion_config_file(new_netor_home_directory, filename)
 
 
-def create_proxy_config_file(new_netor_home_directory, filename):
+def _create_proxy_config_file(new_netor_home_directory, filename):
     full_path_filename = new_netor_home_directory + 'netor/salt/config/' + filename
     file = open(full_path_filename, '+w')
     file.write('##### Primary configuration settings #####\n')
@@ -223,49 +224,49 @@ def create_proxy_config_file(new_netor_home_directory, filename):
     file.write('open_mode: True\n')
     file.write('# The directory to store the pki information in\n')
     file.write('pki_dir: ' + new_netor_home_directory + 'netor/salt/config/pki/proxy  # not required - this separates '
-               'the proxy keys into a different directory\n')
+                                                        'the proxy keys into a different directory\n')
     file.close()
 
 
-def update_proxy_config_file(new_netor_home_directory, filename):
-    backup_filename(new_netor_home_directory, filename)
+def _update_proxy_config_file(new_netor_home_directory, filename):
+    _backup_filename(new_netor_home_directory, filename)
     # pending to develop update of the file with the new directory
-    create_proxy_config_file(new_netor_home_directory, filename)
+    _create_proxy_config_file(new_netor_home_directory, filename)
 
 
-def file_update_redirect(new_netor_home_directory, filename):
+def _file_update_redirect(new_netor_home_directory, filename):
     if 'master' in filename:
-        update_master_config_file(new_netor_home_directory, filename)
+        _update_master_config_file(new_netor_home_directory, filename)
     elif 'minion' in filename:
-        update_minion_config_file(new_netor_home_directory, filename)
+        _update_minion_config_file(new_netor_home_directory, filename)
     elif 'proxy' in filename:
-        update_proxy_config_file(new_netor_home_directory, filename)
+        _update_proxy_config_file(new_netor_home_directory, filename)
     else:
         print('\nError while checking Salt master, minion and proxy configuration files')
         sys.exit(1)
 
 
-def file_create_redirect(new_netor_home_directory, filename):
+def _file_create_redirect(new_netor_home_directory, filename):
     if 'master' in filename:
-        create_master_config_file(new_netor_home_directory, filename)
+        _create_master_config_file(new_netor_home_directory, filename)
     elif 'minion' in filename:
-        create_minion_config_file(new_netor_home_directory, filename)
+        _create_minion_config_file(new_netor_home_directory, filename)
     elif 'proxy' in filename:
-        create_proxy_config_file(new_netor_home_directory, filename)
+        _create_proxy_config_file(new_netor_home_directory, filename)
     else:
         print('\nError while checking Salt master, minion and proxy configuration files')
         sys.exit(1)
 
 
-def create_update_master_minion_proxy(new_netor_home_directory, filename):
+def _create_update_master_minion_proxy(new_netor_home_directory, filename):
     full_salt_config_filename = new_netor_home_directory + 'netor/salt/' + filename
     if os.path.isfile(full_salt_config_filename):
-        file_update_redirect(new_netor_home_directory, filename)
+        _file_update_redirect(new_netor_home_directory, filename)
     else:
-        file_create_redirect(new_netor_home_directory, filename)
+        _file_create_redirect(new_netor_home_directory, filename)
 
 
-def update_config(tinydb_log_file, __file__, new_netor_home_directory):
+def _update_config(tinydb_log_file, __file__, new_netor_home_directory):
     """
     Execute the actual updates in the files. SaltStack master, minion and proxy.
 
@@ -276,45 +277,45 @@ def update_config(tinydb_log_file, __file__, new_netor_home_directory):
     :return: nothing
     """
     replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/listdb.py"),
-                                "NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"')
+                                 "NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"')
     replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/pushcustdb.py"),
-                                "NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"')
+                                 "NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"')
     replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/worker.py"),
-                                "NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"')
+                                 "NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"')
     replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/switchdb.py"),
-                                "NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"')
+                                 "NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"')
     replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/importcsv.py"),
-                                "NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"')
+                                 "NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"')
 
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-ping"), "hosts_file=",
-                                (new_netor_home_directory + "netor/ansible/hosts"), '\"')
+                                 (new_netor_home_directory + "netor/ansible/hosts"), '\"')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-traceroute"), "hosts_file=",
-                                (new_netor_home_directory + "netor/ansible/hosts"), '\"')
+                                 (new_netor_home_directory + "netor/ansible/hosts"), '\"')
 
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-customers"), "netor_home_directory=",
-                                new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-devices"), "netor_home_directory=",
-                                new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-export"), "netor_home_directory=",
-                                new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-import"), "netor_home_directory=",
-                                new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-list"), "netor_home_directory=",
-                                new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-push"), "netor_home_directory=",
-                                new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-sites"), "netor_home_directory=",
-                                new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-switch"), "netor_home_directory=",
-                                new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-config"), "netor_home_directory=",
-                                new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"')
 
     print("\nStatics vars in scripts replaced.")
 
-    create_update_master_minion_proxy(new_netor_home_directory, 'master')
-    create_update_master_minion_proxy(new_netor_home_directory, 'minion')
-    create_update_master_minion_proxy(new_netor_home_directory, 'proxy')
+    _create_update_master_minion_proxy(new_netor_home_directory, 'master')
+    _create_update_master_minion_proxy(new_netor_home_directory, 'minion')
+    _create_update_master_minion_proxy(new_netor_home_directory, 'proxy')
 
     print('\nNetor home directory replaced in salt master, minion and proxy.')
 
@@ -371,5 +372,5 @@ def check_netor_config(netor_home_directory):
 
 
 if __name__ == '__main__':
-    netor_config()
+    _netor_config()
     print()

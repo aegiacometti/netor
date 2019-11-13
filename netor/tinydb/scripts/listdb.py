@@ -7,8 +7,8 @@ import sys
 import os
 import tinydblogging
 
-NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
-DB_PATH_NAME = "/home/adrian/netor-master/netor/tinydb/data/db.json"
+_NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
+_DB_PATH_NAME = "/home/adrian/netor-master/netor/tinydb/data/db.json"
 
 
 class DB(dbparam.DbParam):
@@ -76,7 +76,7 @@ class DB(dbparam.DbParam):
         print("\nFull DB exported: " + db_path_name + " to filename " + export_path_name)
 
 
-def listdb():
+def _listdb():
     """
     List the full content of the DB specified in the configuration file ``netor.conf``, unless a full path name
     to different TinyDB database is specified as an argument.
@@ -95,9 +95,9 @@ def listdb():
 
     :return: nothing
     """
-    netorconf.check_netor_config(NETOR_HOME_DIRECTORY)
+    netorconf.check_netor_config(_NETOR_HOME_DIRECTORY)
     config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
-    tinydb_log_file = NETOR_HOME_DIRECTORY + "netor/log/tinydb.log"
+    tinydb_log_file = _NETOR_HOME_DIRECTORY + "netor/log/tinydb.log"
 
     if len(sys.argv) == 2:
         if os.path.isfile(sys.argv[1]):
@@ -111,8 +111,8 @@ def listdb():
             separator = "/"
             export_directory = separator.join(tmp)
             if os.path.isdir(export_directory):
-                print("\nUsing default DB File: " + DB_PATH_NAME)
-                config.read((NETOR_HOME_DIRECTORY + "netor/netor.config"))
+                print("\nUsing default DB File: " + _DB_PATH_NAME)
+                config.read((_NETOR_HOME_DIRECTORY + "netor/netor.config"))
                 db_path_name = config['TinyDB']['db_path_name']
                 x = DB(db_path_name)
                 x.export_csv(tinydb_log_file, db_path_name, export_path_name)
@@ -122,8 +122,8 @@ def listdb():
             print("\nInvalid specified DB file")
             return
     elif len(sys.argv) == 1:
-        print("\nUsing default DB File: " + DB_PATH_NAME)
-        config.read((NETOR_HOME_DIRECTORY + "netor/netor.config"))
+        print("\nUsing default DB File: " + _DB_PATH_NAME)
+        config.read((_NETOR_HOME_DIRECTORY + "netor/netor.config"))
         db_path_name = config['TinyDB']['db_path_name']
         x = DB(db_path_name)
         x.list(tinydb_log_file, db_path_name)
@@ -133,5 +133,5 @@ def listdb():
 
 
 if __name__ == '__main__':
-    listdb()
+    _listdb()
     print()

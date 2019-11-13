@@ -12,7 +12,7 @@ class Devices(dbparam.DbParam):
     """
 
     @staticmethod
-    def check_value(value):
+    def _check_value(value):
         """
         Verifies the value to be alphanumeric string and less than 20 characters.
 
@@ -266,7 +266,7 @@ class Devices(dbparam.DbParam):
         print("DELETE DEVICE FROM CUSTOMER AND SITE")
         customer = input("Customer Name: ")
         customer = customer.replace(' ', '_')
-        if not self.check_value(customer):
+        if not self._check_value(customer):
             print("\nInvalid customer name")
             return False
         query_customer = Query().customer == customer
@@ -277,7 +277,7 @@ class Devices(dbparam.DbParam):
         else:
             site = input("Site Name: ")
             site = site.replace(' ', '_')
-            if not self.check_value(site):
+            if not self._check_value(site):
                 print('\nInvalid site name')
                 return False
             query_site = Query().site == site

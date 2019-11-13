@@ -31,10 +31,10 @@ def log_msg(log_file, script, msg):
     logger.info(msg + " - by: " + getpass.getuser() + " at script: " + script)
 
 
-def main():
+def _main():
     pass
 
 
 if __name__ == '__main__':
-    main()
+    _main()
     print()

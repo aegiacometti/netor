@@ -1,4 +1,4 @@
-scripts
+Scripts
 =======
 
 * ``netor-config`` to configure neto_home_directory.

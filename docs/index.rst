@@ -1,8 +1,3 @@
-.. Network Orchestra documentation master file, created by
-   sphinx-quickstart on Tue Oct 29 10:31:09 2019.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to Network Orchestra's documentation!
 =============================================
 
@@ -13,6 +8,7 @@ Welcome to Network Orchestra's documentation!
    introduction
    install
    howtouse
+   usecases
    scripts
    modules
    TODO

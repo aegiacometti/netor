@@ -8,11 +8,11 @@ import os
 import netorconf
 import tinydblogging
 
-NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
-DB_PATH_NAME = "/home/adrian/netor-master/netor/tinydb/data/db.json"
+_NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
+_DB_PATH_NAME = "/home/adrian/netor-master/netor/tinydb/data/db.json"
 
 
-def redirect():
+def _redirect():
     """
     Worker redirect to all operations on the DB tables.
 
@@ -46,8 +46,8 @@ def redirect():
     :return: nothing
     """
 
-    netorconf.check_netor_config(NETOR_HOME_DIRECTORY)
-    tinydb_log_file = NETOR_HOME_DIRECTORY + "netor/log/tinydb.log"
+    netorconf.check_netor_config(_NETOR_HOME_DIRECTORY)
+    tinydb_log_file = _NETOR_HOME_DIRECTORY + "netor/log/tinydb.log"
 
     if (len(sys.argv) == 0) or len(sys.argv) > 4:
         print("\nInvalid parameters. Admin -operation tablename dbfile\n")
@@ -64,7 +64,7 @@ def redirect():
             print("DB path or file not found")
             return
     elif len(sys.argv) == 3:
-        db_path_name = DB_PATH_NAME
+        db_path_name = _DB_PATH_NAME
         print("\nUsing script default DB File: " + db_path_name + "\n")
     else:
         print("\nInvalid parameters. Admin -operation tablename\n")
@@ -108,5 +108,5 @@ def redirect():
 
 
 if __name__ == '__main__':
-    redirect()
+    _redirect()
     print()

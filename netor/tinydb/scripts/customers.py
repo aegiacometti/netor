@@ -11,7 +11,7 @@ class Customers(dbparam.DbParam):
     """
 
     @staticmethod
-    def check_value(value):
+    def _check_value(value):
         """
         Verifies the value to be alphanumeric string, and less than 20 characters
         :param value: string to verify
@@ -62,7 +62,7 @@ class Customers(dbparam.DbParam):
             print("\nCustomer already exist")
             return False
         else:
-            if not self.check_value(customer):
+            if not self._check_value(customer):
                 print('\nInvalid customer name')
                 return False
             else:
@@ -91,7 +91,7 @@ class Customers(dbparam.DbParam):
                 print("\nNo name introduced")
                 print()
                 return False
-            if not self.check_value(new_customer):
+            if not self._check_value(new_customer):
                 print('\nInvalid customer name')
                 return False
             if self.table_customers.search(Query().customer == new_customer):

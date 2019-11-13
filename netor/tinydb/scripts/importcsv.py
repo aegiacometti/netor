@@ -9,8 +9,8 @@ import dbparam
 from tinydb import Query
 import tinydblogging
 
-NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
-DB_PATH_NAME = "/home/adrian/netor-master/netor/tinydb/data/db.json"
+_NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
+_DB_PATH_NAME = "/home/adrian/netor-master/netor/tinydb/data/db.json"
 
 
 class ImportDevices(dbparam.DbParam):
@@ -63,7 +63,7 @@ class ImportDevices(dbparam.DbParam):
             return False
 
 
-def check_values(line_value_list):
+def _check_values(line_value_list):
     """
     Verify the values of each field of the line being processed.
 
@@ -117,7 +117,7 @@ def check_values(line_value_list):
     return line_value_list
 
 
-def import_csv(destination_db_to_import, csv_file_to_import):
+def _import_csv(destination_db_to_import, csv_file_to_import):
     """
     Import the CSV to the DB
 
@@ -134,7 +134,7 @@ def import_csv(destination_db_to_import, csv_file_to_import):
         values_list = line.split(',')
         if values_list[0] == 'customer':
             continue
-        checked_line_values = check_values(values_list)
+        checked_line_values = _check_values(values_list)
         if len(values_list) == 8 and checked_line_values:
             x = ImportDevices(destination_db_to_import)
             if x.add_line_to_db(checked_line_values, total_lines_number_processed):
@@ -154,25 +154,25 @@ def start_process():
 
     :return: Nothing
     """
-    netorconf.check_netor_config(NETOR_HOME_DIRECTORY)
-    tinydb_log_file = NETOR_HOME_DIRECTORY + "netor/log/tinydb.log"
+    netorconf.check_netor_config(_NETOR_HOME_DIRECTORY)
+    tinydb_log_file = _NETOR_HOME_DIRECTORY + "netor/log/tinydb.log"
 
     print('\nAvailable Databases:\n')
-    for item in glob.glob(NETOR_HOME_DIRECTORY + 'netor/tinydb/data/*.json'):
+    for item in glob.glob(_NETOR_HOME_DIRECTORY + 'netor/tinydb/data/*.json'):
         print(item)
     select_db = input('\nSelect DB to upload the CSV. Copy full path to the DB, or Hit ENTER to use Current [' +
-                      DB_PATH_NAME + '] or \"new\" for a new DB: ').lower()
+                      _DB_PATH_NAME + '] or \"new\" for a new DB: ').lower()
 
     if select_db == '':
-        destination_db_to_import = DB_PATH_NAME
+        destination_db_to_import = _DB_PATH_NAME
     elif select_db == 'new':
         new_db = input('Enter new DB name. Example \"newdb.json\": ')
         if not ('.json' in new_db or not new_db.isalnum()):
             print('\nInvalid file name')
             exit(1)
-        destination_db_to_import = NETOR_HOME_DIRECTORY + 'netor/tinydb/data/' + new_db
+        destination_db_to_import = _NETOR_HOME_DIRECTORY + 'netor/tinydb/data/' + new_db
         print('\nRemember to \"netor-db-switch\" in order to start using the data uploaded to the DB.')
-    elif select_db in glob.glob(NETOR_HOME_DIRECTORY + 'netor/tinydb/data/*.json'):
+    elif select_db in glob.glob(_NETOR_HOME_DIRECTORY + 'netor/tinydb/data/*.json'):
         destination_db_to_import = select_db
         print('\nRemember to \"netor-db-switch\" in order to start using the data uploaded to the DB.')
     else:
@@ -187,7 +187,7 @@ def start_process():
         print('\nFile not found')
         exit(1)
     else:
-        total_lines_number_processed, lines_imported = import_csv(destination_db_to_import, csv_file_to_import)
+        total_lines_number_processed, lines_imported = _import_csv(destination_db_to_import, csv_file_to_import)
         print('\nFinished importing the file.')
         print('%i lines processed' % total_lines_number_processed)
         print('%i lines imported' % lines_imported)

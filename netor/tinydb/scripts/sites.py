@@ -11,7 +11,7 @@ class Sites(dbparam.DbParam):
     """
 
     @staticmethod
-    def check_value(value):
+    def _check_value(value):
         """
         Verifies the value to be alphanumeric string, and less than 20 characters.
 
@@ -70,7 +70,7 @@ class Sites(dbparam.DbParam):
         print("ADD SITE TO CUSTOMER")
         customer = input("Customer Name: ")
         customer = customer.replace(' ', '_')
-        if not self.check_value(customer):
+        if not self._check_value(customer):
             return False
         query_customer = Query().customer == customer
         res = self.table_customers.search(query_customer)
@@ -100,7 +100,7 @@ class Sites(dbparam.DbParam):
         print("MODIFY SITE FROM CUSTOMER")
         customer = input("Customer Name: ")
         customer = customer.replace(' ', '_')
-        if not self.check_value(customer):
+        if not self._check_value(customer):
             return False
         query_customer = Query().customer == customer
         res = self.table_customers.search(query_customer)
@@ -119,7 +119,7 @@ class Sites(dbparam.DbParam):
             else:
                 site_new_name = input("Site New Name: ")
                 site_new_name = site_new_name.replace(' ', '_')
-                if not self.check_value(customer):
+                if not self._check_value(customer):
                     print("\nInvalid customer new name")
                     return False
                 if self.table_sites.search(query_customer & (Query().site == site_new_name)):
