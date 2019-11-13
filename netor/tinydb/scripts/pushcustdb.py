@@ -354,7 +354,7 @@ def start_process():
                               config['SaltStack']['salt_top_path_name'],
                               config['SaltStack']['salt_states_directory'], devices_to_push)
 
-        print("\nPlease restart salt minion in order to use the new configuration files !!!")
+        print("\nRestart salt minion in order to use the new configuration files !!!")
         return
 
     else:

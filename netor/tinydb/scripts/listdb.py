@@ -40,7 +40,7 @@ class DB(dbparam.DbParam):
         print("List Devices")
         print('\n%-22s %-22s %-20s %-17s %-11s %-20s %-20s %-16s' % ('Customer Name', 'Site Name', 'Device Name',
                                                                      'Device IP', 'Device OS', 'User Name',
-                                                                     'Password', 'Req Slat Proxy'))
+                                                                     'Password', 'Salt Proxy Req'))
         for item in db_devices:
             print('%-22s %-22s %-20s %-17s %-11s %-20s %-20s %-16s' % (item['customer'].replace('_', ' '),
                                                                        item['site'].replace('_', ' '), item['dev_name'],

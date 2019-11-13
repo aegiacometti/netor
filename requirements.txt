@@ -1,4 +1,0 @@
-tinydb
-salt-sproxy
-napalm==2.4.0
-napalm-base

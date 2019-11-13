@@ -76,6 +76,7 @@ def netor_config():
         print("\nDefault \"$HOME/netor\" NOT found")
         set_netor_home = input("Enter full path to /netor (example: /full/path/netor/): ")
         if os.path.isdir(set_netor_home) and os.path.isfile((set_netor_home + "netor/netor.config")):
+            update_ansible(set_netor_home)
             tinydb_log_file = set_netor_home + "netor/log/tinydb.log"
             update_config(tinydb_log_file, __file__, set_netor_home)
         else:
@@ -85,15 +86,15 @@ def netor_config():
 
 def update_ansible(netor_home_directory):
     ansible_config_file = os.environ['HOME'] + '/.ansible.cfg'
-    replace_static_vars_scripts(ansible_config_file, 'inventory', ' = ' + netor_home_directory + 'netor/ansible/hosts',
+    replace_static_vars_scripts(ansible_config_file, '#inventory ', '= ' + netor_home_directory + 'netor/ansible/hosts',
                                 '')
-    replace_static_vars_scripts(ansible_config_file, 'library', ' = ' + netor_home_directory + 'netor/ansible/modules',
+    replace_static_vars_scripts(ansible_config_file, '#transport', ' = paramiko',
                                 '')
-    replace_static_vars_scripts(ansible_config_file, 'transport', ' = paramiko',
+    replace_static_vars_scripts(ansible_config_file, '#host_key_auto_add', ' = True',
                                 '')
-    replace_static_vars_scripts(ansible_config_file, 'host_key_auto_add', ' = True',
+    replace_static_vars_scripts(ansible_config_file, 'inventory = ', netor_home_directory + 'netor/ansible/hosts',
                                 '')
-    print('Netor home directory replaced in Ansible.')
+    print('\nNetor home directory replaced in Ansible.')
 
 
 def backup_filename(new_netor_home_directory, filename):
@@ -309,21 +310,20 @@ def update_config(tinydb_log_file, __file__, new_netor_home_directory):
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-config"), "netor_home_directory=",
                                 new_netor_home_directory, '\"')
 
-    print("\nStatics vars in scripts replaced")
+    print("\nStatics vars in scripts replaced.")
 
     create_update_master_minion_proxy(new_netor_home_directory, 'master')
     create_update_master_minion_proxy(new_netor_home_directory, 'minion')
     create_update_master_minion_proxy(new_netor_home_directory, 'proxy')
 
     print('\nNetor home directory replaced in salt master, minion and proxy.')
-    print("\nATTENTION: SaltStack configuration files must be copied manually with root privilege")
-    print("\nsudo cp " + new_netor_home_directory + "netor/salt/config/master /etc/salt/")
-    print("\nsudo cp " + new_netor_home_directory + "netor/salt/config/minion /etc/salt/")
-    print("\nsudo cp " + new_netor_home_directory + "netor/salt/config/proxy /etc/salt/")
-    print("\nAdd " + new_netor_home_directory + "/bin to your .profile")
+
+    print("\nAdd or modified if necessary " + new_netor_home_directory + "bin to your .profile")
     print("     vi $HOME/.profile")
     print("     PATH=\"$PATH:" + new_netor_home_directory + "/bin")
-    print("\nLogoff session, login again and restart salt with \"netor-salt-restart\"")
+    print("\nLogoff session, login again.")
+
+    print("\nATTENTION: If you are using SaltStack restart the daemons with  \"netor-salt-restart\"")
 
     tinydblogging.log_msg(tinydb_log_file, __file__,
                           "Netconf executed. Neto.config and static vars in scripts updated. ")
