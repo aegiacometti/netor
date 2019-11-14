@@ -7,7 +7,7 @@ time a vendor decides to put something new on the market, and of course, managem
 their devices, but the new ones! because the old one "you need to replace them"... you all know this story.
 
 And don't get me wrong... I love to learn, in fact, if I am not learning something new, I behave like a kid who doesn't
-have something to play with, for me this is a kind of work but but with passion.
+have something to play with, for me this is a kind of work but with passion.
 
 So, i decided to start "playing" with all of this new toys and in the way i found my self wanting to start a developing
 path to integrate networking and coding worlds. I already kind of know about networking, ok, now let's go to the
