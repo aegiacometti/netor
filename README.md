@@ -1,3 +1,27 @@
+# Introduction
+
+Yes yes, i know... I'm very very original with the name of this project! ;)
+
+Anyway, after +20 years in a network enterprise environment, i got tired of having to learn different command lines each
+time a vendor decides to put something new on the market, and of course, management platforms that only work with
+their devices, but the new ones! because the old one "you need to replace them"... you all know this story.
+
+And don't get me wrong... I love to learn, in fact, if I am not learning something new, I behave like a kid who doesn't
+have something to play with, for me this is a kind of work but but with passion.
+
+So, i decided to start "playing" with all of this new toys and in the way i found my self wanting to start a developing
+path to integrate networking and coding worlds. I already kind of know about networking, ok, now let's go to the
+developing/programming world with words like: Linux, Python, Pycharm, Ansible, SaltStack, event-bus, git, gitHub,
+markdown, reStructuredText, auto-documentation, readTheDocs, TinyDB, Tox, Jenkins, Napalm, and every day two new toys...
+
+This project aims to make it easier to play with the network, and excuse me if I offend someone, but since I enjoy this
+so much, sometimes I like to use the work play instead of work. My objective is to use this compilation of tools
+in a personal way, for your PC, for your use, nothing commercial nor enterprise.
+
+You will see amazing things that can be done in the OpenSource environment without having to marry any vendor. The 
+community out there is amazing... Enjoy!
+
+
 # Purpose of the project
 
 This is a very simple compilation of several OpenSource packages, which
@@ -29,6 +53,7 @@ you should start learning about those two projects which are amazing.
 Project code at <https://github.com/aegiacometti/netor>
 
 Project documentation at <https://readthedocs.org/projects/netor/>
+
 
 ## Motivation
 
@@ -69,7 +94,9 @@ OpenSource manner.
 
 # How to install
 
+
 ## Installation on Linux
+
 
 **Requirements**
 
@@ -82,55 +109,89 @@ Read about these packages:
   - saltstack (using the bootstrap installed, details below)
   - salt-sproxy
 
+
 **Installation**
 
-1.  Update apt package list
+1.  Update apt package list:
     
-    > `sudo apt-get update`
+    `sudo apt-get update`
 
-2.  Install pip3 (we will use Python3)
+
+2.  Install pip3 (we will use Python3):
     
-    > `sudo apt-get install python3-pip`
+    `sudo apt-get install python3-pip`
 
-3.  Upgrade setuptools
+
+3.  Upgrade setuptools:
     
-    > `sudo pip3 install setuptools --upgrade`
+    `sudo pip3 install setuptools --upgrade`
 
-4.  Install TinyDB
+
+4.  Install TinyDB:
     
-    > `sudo pip3 install -r [netor_home_directory]/requirements.txt`
+    `sudo pip3 install tinydb`
 
-*For reference:
-https://tinydb.readthedocs.io/en/latest/getting-started.html*
+*For reference:*
+https://tinydb.readthedocs.io/en/latest/getting-started.html
 
-5.  Install git
+
+5.  Install git:
     
-    > `sudo apt-get install git`
+    `sudo apt-get install git`
 
-6.  Clone `netor` project repository
+
+6.  Clone `netor` project repository:
 
 Create a directory for the clone of the repository or do the clone
 directly at you home directory, this will be the project home.
 
-> `git clone https://github.com/aegiacometti/netor.git`
+    `git clone https://github.com/aegiacometti/netor.git`
 
-7.  Now, for the first time, you have to configure netor by manually
-    executing the python script
+
+7. Install NAPALM:
     
-    > `python3 [netor_home_directory]/netor/tinydb/scripts/netorconf.py`
+    `sudo pip3 install napalm`
+
+*For reference:*
+https://napalm.readthedocs.io/en/latest/
+
+
+8. Install Ansible:
+    
+    `sudo pip3 install ansible`
+    
+    `ansible-galaxy install ansible-network.network-engine`
+
+*For more detail refer to installation guides at:*
+https://docs.ansible.com/ansible/latest/installation\_guide/intro\_installation.html
+https://galaxy.ansible.com/ansible-network/network-engine
+
+9. Download a base and clean ansible.cfg and copy it into your $HOME
+    directory from GitHub:
+    
+    `wget https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg -O $HOME/.ansible.cfg`
+
+
+10.  Now, for the first time, you have to configure netor by manually
+    executing the python script:
+    
+    `python3 [netor_home_directory]/netor/tinydb/scripts/netorconf.py`
+
 
 In the future is you clone a new `netor` deployment for testing or to
 have 2 directories to work separately, you will have to do this
 procedure again.
 
-8.  Add to your PATH environment the `netor/bin` directory for easy
-    execute of scripts
-    
-    > `vi $HOME/.profile`
-    > 
-    > and add at the end `PATH="$PATH:[netor_home_directory]/netor/bin/"`
 
-9.  Logoff session and login again
+11.  Add to your PATH environment the `netor/bin` directory for easy
+    execute of scripts:
+    
+    `vi $HOME/.profile`
+     
+and add at the end `PATH="$PATH:$HOME/netor/bin/"`
+
+
+12.  Logoff session and login again:
 
 If everything worked fine you can view the commands with tab
 autocompletion
@@ -142,42 +203,28 @@ netor-db-customer
 etc
 
 ...
-
-10. Install NAPALM
     
-    `sudo pip3 install napalm`
-
-*For reference: https://napalm.readthedocs.io/en/latest/*
-
-11. Install Ansible
     
-    `sudo pip3 install ansible`
-    
-    `ansible-galaxy install ansible-network.network-engine`
-
-*For more detail refer to installation guides at:*
-*https://docs.ansible.com/ansible/latest/installation\_guide/intro\_installation.html*
-
-12. Download a base and clean ansible.cfg and copy it into your $HOME
-    directory from GitHub
-    
-    `wget
-    https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg
-    -O $HOME/.ansible.cfg`
-    
-13. Install SaltStack
+13. Install SaltStack:
 
 The recommended way is to use the bootstrap:
 
-> `wget -O bootstrap-salt.sh https://bootstrap.saltstack.com`
-> 
-> `sudo sh bootstrap-salt.sh -x python3 -M -g
-> https://github.com/aegiacometti/salt.git git master`
+    `wget -O bootstrap-salt.sh https://bootstrap.saltstack.com`
+    `sudo sh bootstrap-salt.sh -x python3 -M -g https://github.com/aegiacometti/salt.git git master`
+
+As you can see, the bootstrap is pointing to a fork of mine from SaltStack's repo. I did this because I have fixed
+of couple of lines of code, and I have requested the merge with the master branch of SaltStack, but since this could
+take a while I prefer to offer something that works out of the box in these beginnings, instead of telling you which
+files you have to manually modify. If you want just ask me I will give those file so you can install SaltStack from
+it's true repo source.
+
+On the other hand my repo could be loosing advancements of the community, but meanwhile i prefer something that works,
+maybe there is way to install SaltStack and after update it with my corrected files, i don't know yet if it is possible.
 
 *For more information go to the project page, they have great
 documentation:*
-*https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough.html*
-*https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough\_macosx.html*
+https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough.html
+https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough\_macosx.html
 
 Now, unlike Ansible, SaltStack uses daemons and the bootstrap add them
 to auto-start, and we don't want that, we want to start them manually,
@@ -185,13 +232,15 @@ just in case to not have them running and searching for the devices when
 we don't want or when they are not even reachable, as an example, if we
 are at home, another customer, or in a meeting\!
 
-In order to disable them from auto-start we need to execute this 2
-commands
+In order to stop them and then disable them from auto-start we need to execute this
+commands:
 
-`sudo systemctl disable salt-master` `sudo systemctl disable
-salt-minion`
+    `netor-salt-stop`
+    `sudo systemctl disable salt-master`
+    `sudo systemctl disable salt-minion`
 
-14. Copy SaltStack minion proxy to the systemd folder
+
+14. Copy SaltStack minion proxy to the systemd folder:
     
     `sudo cp
     [netor_home_dir]/netor/salt/config/services/salt-proxy@.service
@@ -199,25 +248,32 @@ salt-minion`
 
 *(this path could vary depending on the system)*
 
-15. Create symbolic links to SaltStack new configuration files
-    
-    `sudo ln -s [netor_home_dir]/netor/salt/config/master
-    /etc/salt/master`
-    
-    `sudo ln -s [netor_home_dir]/netor/salt/config/minion
-    /etc/salt/minion`
-    
-    `sudo ln -s [netor_home_dir]/netor/salt/config/proxy
-    /etc/salt/proxy`
+
+15. Backup original SaltStack master and minion configuration files (so you can have
+them as a reference), and create symbolic links to SaltStack new configuration files:
+
+    `sudo mv /etc/salt/master /etc/salt/master.bkp`
+
+    `sudo mv /etc/salt/minion /etc/salt/minion.bkp`
+
+    `sudo ln -s [netor_home_dir]/netor/salt/config/master /etc/salt/master`
+
+    `sudo ln -s [netor_home_dir]/netor/salt/config/minion /etc/salt/minion`
+
+    `sudo ln -s [netor_home_dir]/netor/salt/config/proxy /etc/salt/proxy`
+
 
 16. Run `netor-db-push` generate Ansible and SaltStack configuration
-    files
+    files.
 
-17. Restart SaltStack daemons
+
+17. Restart SaltStack daemons:
     
     `netor-salt-restart`
 
+
 18. done\!
+
 
 # Installation on MacOS
 
@@ -233,6 +289,24 @@ Read about these packages:
   - salt-sproxy
 
 **Installation**
+
+
+# Important comments
+
+There are a couple of security configuration settings from Ansible and SaltStack that are not recommended
+to use, but for learning purposes I let them open.
+
+For Ansible:
+* $HOME/.ansible.cfg: host_key_checking = False
+* $HOME/.ansible.cfg: host_key_auto_add = True
+
+For SaltStack:
+
+* /etc/salt/master and /etc/salt/minion
+open_mode: True
+auto_accept: True
+
+
 
 # How to use
 
@@ -262,9 +336,10 @@ top.sls and one .sls file per each device. So, as you can imagine this
 setup will be tedious to start using both tools at the same time to see
 what you can do in your learning journey.
 
+
 ## First Steps
 
-1\. If you haven't done yet, run the script `python3
+1. If you haven't done yet, run the script `python3
 [netor_home_directory]/netor/tinydb/scripts/netorconf.py`. And verify
 that you have the $PATH environment variable set `echo $PATH` should
 show you your PATH to the Neto home directory.
@@ -275,14 +350,17 @@ then press tab.
 *(From now on you can use \`\`netor-config\`\`for setting a new Netor
 home directory, since you should already have it in your $PATH)*
 
-2.  Now try to look at what do you have in the DB with `netor-db-list`.
+
+2. Now try to look at what do you have in the DB with `netor-db-list`.
     And where is located the filename of the DB.
 
-3\. You can try to list, add, edit and modify each of the DB tables
+
+3. You can try to list, add, edit and modify each of the DB tables
 (customers, sites and devices), by using the scripts
 `netor-db-customers`, `netor-db-sites` and `netor-db-devices`.
 
-4\. Once you have seen how it works, you can try to set up your own DB
+
+4. Once you have seen how it works, you can try to set up your own DB
 with `netor-db-switch`, and start adding data to it, always starting
 with customer -\> site -\> devices.
 
@@ -293,7 +371,8 @@ and project 2, etc, etc, etc....
 
 Use any combination that is useful to what you have to do.
 
-5.  Now push your new DB to Ansible and SaltStack inventories with
+
+5. Now push your new DB to Ansible and SaltStack inventories with
     `netor-db-push`.
 
 When you do this the configuration files of Ansible and SaltStack will
@@ -311,7 +390,8 @@ to take effect you will need to restart its daemons with
 You also have available commands to stop and start SaltStack, with
 `netor-salt-stop` and `netor-salt-start`.
 
-6\. Since you could have devices with the same name at different sites,
+
+6. Since you could have devices with the same name at different sites,
 or at a different customer, the `netor-db-push` will generate hostnames
 bases on the join of the customer name, site name, and device name. This
 will assure the uniqueness of the hostname in Ansible and SaltStack.
@@ -355,7 +435,8 @@ Let's make it easy with an example:
     64 bytes from 10.0.12.2: icmp_seq=1 ttl=253 time=28.9 ms
     64 bytes from 10.0.12.2: icmp_seq=2 ttl=253 time=30.1 ms
 
-7\. At some point, you could want to import or export the DB to/from CSV
+
+7. At some point, you could want to import or export the DB to/from CSV
 format. The export could be useful to work with the DB in another
 program, and then import it again, or if you go to a customer, just ask
 for the inventory to work with in CSV format, and then import it to
@@ -367,7 +448,8 @@ Only take into consideration this format that you need to respect:
 
     customer,site,dev_name,dev_ip,os,userid,passwd,salt_proxy_required
 
-8.- That is it. Now start "playing" with Ansible and SaltStack.
+
+8. That is it. Now start "playing" with Ansible and SaltStack.
 
 
 # TODOs
@@ -387,8 +469,7 @@ Only take into consideration this format that you need to respect:
   - Tested on Linux and macOS. Don't support Windows, since Ansible and
     SaltStack do not support them.
   - Only supports Python 3.
-
-\* If you change you `netor_home_directory` you have to update the PATH
+  - If you change you `netor_home_directory` you have to update the PATH
 environment variable in order to look for the scripts in the correct
 folder.
 

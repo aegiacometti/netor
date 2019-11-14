@@ -64,8 +64,7 @@ Limitations
 
 * Tested on Linux and macOS. Don't support Windows, since Ansible and SaltStack do not support them.
 * Only supports Python 3.
-* If you change you ``netor_home_directory`` you have to update the PATH environment variable
-in order to look for the scripts in the correct folder.
+* If you change you ``netor_home_directory`` you have to update the PATH environment variable in order to look for the scripts in the correct folder.
 
 
 Thank you notes

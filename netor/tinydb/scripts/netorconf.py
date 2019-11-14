@@ -86,15 +86,13 @@ def _netor_config():
 
 def _update_ansible(netor_home_directory):
     ansible_config_file = os.environ['HOME'] + '/.ansible.cfg'
-    replace_static_vars_scripts(ansible_config_file, '#inventory ',
-                                 '= ' + netor_home_directory + 'netor/ansible/hosts',
-                                 '', '')
-    replace_static_vars_scripts(ansible_config_file, '#transport', ' = paramiko',
-                                 '', '')
-    replace_static_vars_scripts(ansible_config_file, '#host_key_auto_add', ' = True',
-                                 '', '')
-    replace_static_vars_scripts(ansible_config_file, 'inventory = ', netor_home_directory + 'netor/ansible/hosts',
-                                 '', '')
+    replace_static_vars_scripts(ansible_config_file, '#inventory ', '= ' + netor_home_directory +
+                                'netor/ansible/hosts', '', '')
+    replace_static_vars_scripts(ansible_config_file, 'transport', ' = paramiko', '', '')
+    replace_static_vars_scripts(ansible_config_file, 'host_key_auto_add', ' = True', '', '')
+    replace_static_vars_scripts(ansible_config_file, 'host_key_checking', ' = False', '', '')
+    replace_static_vars_scripts(ansible_config_file, 'inventory = ', netor_home_directory +
+                                'netor/ansible/hosts', '', '')
     print('\nNetor home directory replaced in Ansible.')
 
 

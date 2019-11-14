@@ -1,6 +1,27 @@
 Welcome to Network Orchestra's documentation!
 =============================================
 
+Yes yes, i know... I'm very very original with the name of this project! ;)
+
+Anyway, after +20 years in a network enterprise environment, i got tired of having to learn different command lines each
+time a vendor decides to put something new on the market, and of course, management platforms that only work with
+their devices, but the new ones! because the old one "you need to replace them"... you all know this story.
+
+And don't get me wrong... I love to learn, in fact, if I am not learning something new, I behave like a kid who doesn't
+have something to play with, for me this is a kind of work but but with passion.
+
+So, i decided to start "playing" with all of this new toys and in the way i found my self wanting to start a developing
+path to integrate networking and coding worlds. I already kind of know about networking, ok, now let's go to the
+developing/programming world with words like: Linux, Python, Pycharm, Ansible, SaltStack, event-bus, git, gitHub,
+markdown, reStructuredText, auto-documentation, readTheDocs, TinyDB, Tox, Jenkins, Napalm, and every day two new toys...
+
+This project aims to make it easier to play with the network, and excuse me if I offend someone, but since I enjoy this
+so much, sometimes I like to use the work play instead of work. My objective is to use this compilation of tools
+in a personal way, for your PC, for your use, nothing commercial nor enterprise.
+
+You will see amazing things that can be done in the OpenSource environment without having to marry any vendor. The
+community out there is amazing... Enjoy!
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
@@ -9,6 +30,7 @@ Welcome to Network Orchestra's documentation!
    how_to_install
    how_to_use
    usecases
+   important_comments
    scripts
    modules
    TODO
