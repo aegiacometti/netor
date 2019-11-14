@@ -11,5 +11,6 @@ For Ansible:
 For SaltStack:
 
 * /etc/salt/master and /etc/salt/minion
+
 open_mode: True
 auto_accept: True
