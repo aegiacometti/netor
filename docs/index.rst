@@ -6,8 +6,8 @@ Welcome to Network Orchestra's documentation!
    :caption: Contents:
 
    introduction
-   install
-   howtouse
+   how_to_install
+   how_to_use
    usecases
    scripts
    modules

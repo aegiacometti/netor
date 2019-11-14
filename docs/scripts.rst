@@ -1,6 +1,11 @@
 Scripts
 =======
 
+I will create some other netor-* scripts in order to make it easier to use them. Just as a mask, because at the end
+you should know how to work directly with them.
+
+Ansible is very easy and straight forward, but SaltStack is very hard to get use to the sintaxis.
+
 * ``netor-config`` to configure neto_home_directory.
 * ``netor-db-customers`` to operate on customer table.
 * ``netor-db-devices`` to operate on dbdevices.
