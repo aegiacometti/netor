@@ -1,4 +1,4 @@
-from tinydb import Query
+import tinydb
 import dbparam
 
 
@@ -55,7 +55,7 @@ class Customers(dbparam.DbParam):
         """
         print("ADD NEW CUSTOMER")
         customer = input("Customer Name (Only alphanumeric values and less than 20 characters): ")
-        query_customer = Query().customer == customer
+        query_customer = tinydb.Query().customer == customer
         res = self.table_customers.search(query_customer)
         customer = customer.replace(' ', '_')
         if res:
@@ -79,7 +79,7 @@ class Customers(dbparam.DbParam):
         print("MODIFY CUSTOMER")
         customer = input("Customer Name: ")
         customer = customer.replace(' ', '_')
-        query_customer = Query().customer == customer
+        query_customer = tinydb.Query().customer == customer
         res = self.table_customers.search(query_customer)
         if not res:
             print("\nCustomer do not exist")
@@ -94,7 +94,7 @@ class Customers(dbparam.DbParam):
             if not self._check_value(new_customer):
                 print('\nInvalid customer name')
                 return False
-            if self.table_customers.search(Query().customer == new_customer):
+            if self.table_customers.search(tinydb.Query().customer == new_customer):
                 print("\nCustomer already exist")
                 return False
             self.table_customers.update({'customer': new_customer}, query_customer)
@@ -112,7 +112,7 @@ class Customers(dbparam.DbParam):
         print("DELETE CUSTOMER")
         customer = input("Customer Name: ")
         customer = customer.replace(' ', '_')
-        query_customer = Query().customer == customer
+        query_customer = tinydb.Query().customer == customer
         res = self.table_customers.search(query_customer)
         if not res:
             print("\nCustomer do not exist")
