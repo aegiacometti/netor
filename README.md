@@ -128,7 +128,7 @@ procedure again.
     
     > `vi $HOME/.profile`
     > 
-    > add at the end `PATH="$PATH:[netor_home_directory]/netor/bin/"`
+    > and add at the end `PATH="$PATH:[netor_home_directory]/netor/bin/"`
 
 9.  Logoff session and login again
 
@@ -178,6 +178,18 @@ The recommended way is to use the bootstrap:
 documentation:*
 *https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough.html*
 *https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough\_macosx.html*
+
+Now, unlike Ansible, SaltStack uses daemons and the bootstrap add them
+to auto-start, and we don't want that, we want to start them manually,
+just in case to not have them running and searching for the devices when
+we don't want or when they are not even reachable, as an example, if we
+are at home, another customer, or in a meeting\!
+
+In order to disable them from auto-start we need to execute this 2
+commands
+
+`sudo systemctl disable salt-master` `sudo systemctl disable
+salt-minion`
 
 14. Copy SaltStack minion proxy to the systemd folder
     
@@ -374,10 +386,12 @@ Only take into consideration this format that you need to respect:
 
   - Tested on Linux and macOS. Don't support Windows, since Ansible and
     SaltStack do not support them.
+  - Only supports Python 3.
 
 \* If you change you `netor_home_directory` you have to update the PATH
 environment variable in order to look for the scripts in the correct
 folder.
+
 
 # Thank you notes
 

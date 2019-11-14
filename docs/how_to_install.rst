@@ -65,7 +65,7 @@ will have to do this procedure again.
 
     ``vi $HOME/.profile``
 
-    add at the end ``PATH="$PATH:[netor_home_directory]/netor/bin/"``
+    and add at the end ``PATH="$PATH:[netor_home_directory]/netor/bin/"``
 
 
 9. Logoff session and login again
@@ -115,8 +115,18 @@ The recommended way is to use the bootstrap:
 *https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough.html*
 *https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough_macosx.html*
 
+Now, unlike Ansible, SaltStack uses daemons and the bootstrap add them to auto-start,
+and we don't want that, we want to start them manually, just in case to not have them
+running and searching for the devices when we don't want or when they are not even
+reachable, as an example, if we are at home, another customer, or in a meeting!
 
-14. Copy SaltStack minion proxy to the systemd folder
+In order to disable them from auto-start we need to execute this 2 commands:
+
+    ``sudo systemctl disable salt-master``
+    ``sudo systemctl disable salt-minion``
+
+
+14. Copy SaltStack minion proxy to the systemd folder, since the salt-minion will need it
 
     ``sudo cp [netor_home_dir]/netor/salt/config/services/salt-proxy@.service /etc/systemd/system/``
 
