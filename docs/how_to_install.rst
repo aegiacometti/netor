@@ -35,9 +35,10 @@ Read about these packages:
 
 4. Install TinyDB
 
-    ``sudo pip3 install -r [netor_home_directory]/requirements.txt``
+    ``sudo pip3 install tinydb``
 
-*For reference: https://tinydb.readthedocs.io/en/latest/getting-started.html*
+*For reference:*
+https://tinydb.readthedocs.io/en/latest/getting-started.html
 
 
 5. Install git
@@ -48,12 +49,36 @@ Read about these packages:
 6. Clone ``netor`` project repository
 
 Create a directory for the clone of the repository or do the clone directly at you home directory, this will be the
-project home.
+project home:
 
     ``git clone https://github.com/aegiacometti/netor.git``
 
 
-7. Now, for the first time, you have to configure netor by manually executing the python script
+7. Install NAPALM
+
+    ``sudo pip3 install napalm``
+
+*For reference:*
+https://napalm.readthedocs.io/en/latest/
+
+
+8. Install Ansible
+
+    ``sudo pip3 install ansible``
+
+    ``ansible-galaxy install ansible-network.network-engine``
+
+*For more detail refer to installation guides at:*
+https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
+https://galaxy.ansible.com/ansible-network/network-engine
+
+
+9. Download a base and clean ansible.cfg and copy it into your $HOME directory from GitHub
+
+    ``wget https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg -O $HOME/.ansible.cfg``
+
+
+10. Now, for the first time, you have to configure netor by manually executing the python script
 
     ``python3 [netor_home_directory]/netor/tinydb/scripts/netorconf.py``
 
@@ -61,14 +86,14 @@ In the future is you clone a new ``netor`` deployment for testing or to have 2 d
 will have to do this procedure again.
 
 
-8. Add to your PATH environment the ``netor/bin`` directory for easy execute of scripts
+11. Add to your PATH environment the ``netor/bin`` directory for easy execute of scripts
 
     ``vi $HOME/.profile``
 
-    and add at the end ``PATH="$PATH:[netor_home_directory]/netor/bin/"``
+and add at the end ``PATH="$PATH:$HOME/netor/bin/"``
 
 
-9. Logoff session and login again
+12. Logoff session and login again
 
 If everything worked fine you can view the commands with tab autocompletion
 
@@ -81,28 +106,6 @@ etc
 ...
 
 
-10. Install NAPALM
-
-    ``sudo pip3 install napalm``
-
-*For reference: https://napalm.readthedocs.io/en/latest/*
-
-
-11. Install Ansible
-
-    ``sudo pip3 install ansible``
-
-    ``ansible-galaxy install ansible-network.network-engine``
-
-*For more detail refer to installation guides at:*
-*https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html*
-
-
-12. Download a base and clean ansible.cfg and copy it into your $HOME directory from GitHub
-
-    ``wget https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg -O $HOME/.ansible.cfg``
-
-
 13. Install SaltStack
 
 The recommended way is to use the bootstrap:
@@ -112,21 +115,23 @@ The recommended way is to use the bootstrap:
     ``sudo sh bootstrap-salt.sh -x python3 -M -g https://github.com/aegiacometti/salt.git git master``
 
 *For more information go to the project page, they have great documentation:*
-*https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough.html*
-*https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough_macosx.html*
+https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough.html
+https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough_macosx.html
 
 Now, unlike Ansible, SaltStack uses daemons and the bootstrap add them to auto-start,
 and we don't want that, we want to start them manually, just in case to not have them
 running and searching for the devices when we don't want or when they are not even
 reachable, as an example, if we are at home, another customer, or in a meeting!
 
-In order to disable them from auto-start we need to execute this 2 commands:
+In order to stop them and then disable them from auto-start we need to execute this
+commands:
 
+    ``netor-salt-stop``
     ``sudo systemctl disable salt-master``
     ``sudo systemctl disable salt-minion``
 
 
-14. Copy SaltStack minion proxy to the systemd folder, since the salt-minion will need it
+14. Copy SaltStack minion proxy to the systemd folder
 
     ``sudo cp [netor_home_dir]/netor/salt/config/services/salt-proxy@.service /etc/systemd/system/``
 

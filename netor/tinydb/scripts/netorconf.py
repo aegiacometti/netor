@@ -88,13 +88,13 @@ def _update_ansible(netor_home_directory):
     ansible_config_file = os.environ['HOME'] + '/.ansible.cfg'
     replace_static_vars_scripts(ansible_config_file, '#inventory ',
                                  '= ' + netor_home_directory + 'netor/ansible/hosts',
-                                 '')
+                                 '', '')
     replace_static_vars_scripts(ansible_config_file, '#transport', ' = paramiko',
-                                 '')
+                                 '', '')
     replace_static_vars_scripts(ansible_config_file, '#host_key_auto_add', ' = True',
-                                 '')
+                                 '', '')
     replace_static_vars_scripts(ansible_config_file, 'inventory = ', netor_home_directory + 'netor/ansible/hosts',
-                                 '')
+                                 '', '')
     print('\nNetor home directory replaced in Ansible.')
 
 
@@ -277,39 +277,46 @@ def _update_config(tinydb_log_file, __file__, new_netor_home_directory):
     :return: nothing
     """
     replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/listdb.py"),
-                                 "NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"')
+                                 "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
     replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/pushcustdb.py"),
-                                 "NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"')
+                                 "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
     replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/worker.py"),
-                                 "NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"')
+                                 "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
     replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/switchdb.py"),
-                                 "NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"')
+                                 "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
     replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/importcsv.py"),
-                                 "NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"')
+                                 "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
+
+    replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/listdb.py"),
+                                 "_DB_PATH_NAME = ", new_netor_home_directory, '\"', 'netor/tinydb/data/db.json')
+    replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/worker.py"),
+                                 "_DB_PATH_NAME = ", new_netor_home_directory, '\"', 'netor/tinydb/data/db.json')
+    replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/importcsv.py"),
+                                 "_DB_PATH_NAME = ", new_netor_home_directory, '\"', 'netor/tinydb/data/db.json')
 
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-ping"), "hosts_file=",
-                                 (new_netor_home_directory + "netor/ansible/hosts"), '\"')
+                                 (new_netor_home_directory + "netor/ansible/hosts"), '\"', '')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-traceroute"), "hosts_file=",
-                                 (new_netor_home_directory + "netor/ansible/hosts"), '\"')
+                                 (new_netor_home_directory + "netor/ansible/hosts"), '\"', '')
 
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-customers"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"', '')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-devices"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"', '')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-export"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"', '')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-import"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"', '')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-list"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"', '')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-push"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"', '')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-sites"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"', '')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-switch"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"', '')
     replace_static_vars_scripts((new_netor_home_directory + "bin/netor-config"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"')
+                                 new_netor_home_directory, '\"', '')
 
     print("\nStatics vars in scripts replaced.")
 
@@ -324,13 +331,13 @@ def _update_config(tinydb_log_file, __file__, new_netor_home_directory):
     print("     PATH=\"$PATH:" + new_netor_home_directory + "/bin")
     print("\nLogoff session, login again.")
 
-    print("\nATTENTION: If you are using SaltStack restart the daemons with  \"netor-salt-restart\"")
+    print("\nATTENTION: If you are using SaltStack restart the daemons with  \"netor-salt-restart\"\n")
 
     tinydblogging.log_msg(tinydb_log_file, __file__,
                           "Netconf executed. Neto.config and static vars in scripts updated. ")
 
 
-def replace_static_vars_scripts(filename, search, replace, delimiter):
+def replace_static_vars_scripts(filename, search, replace, delimiter, extra):
     """
     Replace line by line the ``NETOR_HOME_DIRECTORY`` static variable in scripts.
 
@@ -338,13 +345,14 @@ def replace_static_vars_scripts(filename, search, replace, delimiter):
     :param search: search pattern to look for
     :param replace: patter to replace
     :param delimiter: to add a delimiter surrounding the path names
+    :param extra: add extra path information
 
     :return: nothing
     """
     try:
         for line in fileinput.input(filename, inplace=True):
             if search in line:
-                print((search + delimiter + replace + delimiter), end="\n")
+                print((search + delimiter + replace + extra + delimiter), end="\n")
             else:
                 print(line, end="")
     except FileNotFoundError:

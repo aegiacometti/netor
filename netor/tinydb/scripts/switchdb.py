@@ -73,13 +73,13 @@ def _update_config(full_db_path_name):
         config.write(configfile)
 
     netorconf.replace_static_vars_scripts((_NETOR_HOME_DIRECTORY + "netor/tinydb/scripts/listdb.py"),
-                                          "DB_PATH_NAME = ", full_db_path_name, '\"')
+                                          "DB_PATH_NAME = ", full_db_path_name, '\"', '')
     netorconf.replace_static_vars_scripts((_NETOR_HOME_DIRECTORY + "netor/tinydb/scripts/pushcustdb.py"),
-                                          "DB_PATH_NAME = ", full_db_path_name, '\"')
+                                          "DB_PATH_NAME = ", full_db_path_name, '\"', '')
     netorconf.replace_static_vars_scripts((_NETOR_HOME_DIRECTORY + "netor/tinydb/scripts/worker.py"),
-                                          "DB_PATH_NAME = ", full_db_path_name, '\"')
+                                          "DB_PATH_NAME = ", full_db_path_name, '\"', '')
     netorconf.replace_static_vars_scripts((_NETOR_HOME_DIRECTORY + "netor/tinydb/scripts/importcsv.py"),
-                                          "DB_PATH_NAME = ", full_db_path_name, '\"')
+                                          "DB_PATH_NAME = ", full_db_path_name, '\"', '')
 
     print("\nNew DB parameters updated in configuration files")
     print("\nRemember to push new DB to configuration files to start using the BD (netor-db-push)")
