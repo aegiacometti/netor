@@ -12,7 +12,7 @@ _NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
 _DB_PATH_NAME = "/home/adrian/netor-master/netor/tinydb/data/db.json"
 
 
-def redirect():
+def _redirect():
     """
     Worker redirect to all operations on the DB tables.
 
