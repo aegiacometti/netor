@@ -1,6 +1,17 @@
 How to install
 ==============
 
+Linux bash installer
+********************
+This is a simple copy of the commands below in the format of a bash script.
+Download it with in the directory you want to install Netor and it will create the home directory:
+
+    ``wget https://raw.githubusercontent.com/aegiacometti/netor/master/bin/netor-install.sh``
+
+    ``sudo sh netor-install.sh``
+
+Or follow the below instruction to go step by step with the commands.
+
 
 Installation on Linux
 *********************
@@ -10,6 +21,7 @@ Installation on Linux
 Read about these packages:
 
 * setuptools
+* python3
 * tinydb
 * ansible
 * ansible network engine role
@@ -86,11 +98,11 @@ In the future is you clone a new ``netor`` deployment for testing or to have 2 d
 will have to do this procedure again.
 
 
-11. Add to your PATH environment the ``netor/bin`` directory for easy execute of scripts:
+11. Add to your PATH environment the ``netor/bin`` directory for easy execution of scripts:
 
     ``vi $HOME/.profile``
 
-and add at the end ``PATH="$PATH:$HOME/netor/bin/"``
+and add at the end as an example ``PATH="$PATH:[netor_home_directory]/netor/bin/"``
 
 
 12. Logoff session and login again:
@@ -112,16 +124,20 @@ The recommended way is to use the bootstrap:
 
     ``wget -O bootstrap-salt.sh https://bootstrap.saltstack.com``
 
-    ``sudo sh bootstrap-salt.sh -x python3 -M -g https://github.com/aegiacometti/salt.git git master``
+    ``sudo sh bootstrap-salt.sh -x python3 -M``
 
-As you can see, the bootstrap is pointing to a fork of mine from SaltStack's repo. I did this because I have fixed
-of couple of lines of code, and I have requested the merge with the master branch of SaltStack, but since this could
-take a while I prefer to offer something that works out of the box in these beginnings, instead of telling you which
-files you have to manually modify. If you want just ask me I will give those file so you can install SaltStack from
-it's true repo source.
+Now, SaltStack has a couple of bug which I corrected and ask to merge on the master repositories.
+Since this could take a while to refresh, download these 2 files to replace them in your PC:
 
-On the other hand my repo could be loosing advancements of the community, but meanwhile i prefer something that works,
-maybe there is way to install SaltStack and after update it with my corrected files, i don't know yet if it is possible.
+https://raw.githubusercontent.com/aegiacometti/salt/master/salt/runners/bgp.py
+https://raw.githubusercontent.com/aegiacometti/salt/master/salt/runners/net.py
+
+To find them on your PC use:
+
+    ``sudo find /usr -name net.py``
+    ``sudo find /usr -name bgp.py``
+
+The ones under a directory called ``runners``
 
 *For more information go to the project page, they have great documentation:*
 https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough.html
@@ -136,8 +152,12 @@ In order to stop them and then disable them from auto-start we need to execute t
 commands:
 
     ``netor-salt-stop``
-    ``sudo systemctl disable salt-master``
-    ``sudo systemctl disable salt-minion``
+
+    ``sudo systemctl disable salt-master.service``
+
+    ``sudo systemctl disable salt-minion.service``
+
+    ``netor-salt-start``
 
 
 14. Copy SaltStack minion proxy to the systemd folder:
@@ -147,7 +167,7 @@ commands:
 *(this path could vary depending on the system)*
 
 
-15. Backup original SaltStack master and minion configuration files (so you can have
+15. Backup the original SaltStack master and minion configuration files (so you can have
 them as a reference), and create symbolic links to SaltStack new configuration files:
 
     ``sudo mv /etc/salt/master /etc/salt/master.bkp``
@@ -161,15 +181,20 @@ them as a reference), and create symbolic links to SaltStack new configuration f
     ``sudo ln -s [netor_home_dir]/netor/salt/config/proxy /etc/salt/proxy``
 
 
-16. Run ``netor-db-push`` generate Ansible and SaltStack configuration files.
+16. Install salt-sproxy:
+
+    ``sudo pip3 install salt-sproxy``
 
 
-17. Restart SaltStack daemons:
+17. Run ``netor-db-push`` generate Ansible and SaltStack configuration files.
+
+
+18. Restart SaltStack daemons:
 
     ``netor-salt-restart``
 
 
-18. done!
+19. done!
 
 
 Installation on MacOS
@@ -179,11 +204,166 @@ Installation on MacOS
 
 Read about this packages:
 
-* setuptools
-* tinydb
-* ansible
+* xcode-select developer
+* homebrew
+* python3
 * ansible network engine role
-* saltstack (using the bootstrap installed, details below)
+* saltstack
 * salt-sproxy
 
 **Installation**
+
+1. Install xcode-select for command line developer tools:
+
+    ``xcode-select --install``
+
+
+2. Install Homebrew package manager:
+
+    ``/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"``
+
+
+3.- Install Python 3:
+
+    ``brew install python3``
+
+
+4. Install TinyDB:
+
+    ``sudo pip3 install tinydb``
+
+*For reference:*
+https://tinydb.readthedocs.io/en/latest/getting-started.html
+
+
+6. Clone ``netor`` project repository:
+
+Create a directory for the clone of the repository or do the clone directly at you home directory, this will be the
+project home:
+
+    ``git clone https://github.com/aegiacometti/netor.git``
+
+
+7. Install NAPALM:
+
+    ``sudo pip3 install napalm``
+
+*For reference:*
+https://napalm.readthedocs.io/en/latest/
+
+
+8. Install Ansible:
+
+    ``sudo pip3 install ansible``
+
+    ``ansible-galaxy install ansible-network.network-engine``
+
+*For more detail refer to installation guides at:*
+https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
+https://galaxy.ansible.com/ansible-network/network-engine
+
+
+9. Download a base and clean ansible.cfg and copy it into your $HOME directory from GitHub:
+
+    ``curl https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg -o $HOME/.ansible.cfg``
+
+
+10. Now, for the first time, you have to configure netor by manually executing the python script:
+
+    ``python3 [netor_home_directory]/netor/tinydb/scripts/netorconf.py``
+
+In the future is you clone a new ``netor`` deployment for testing or to have 2 directories to work separately, you
+will have to do this procedure again.
+
+
+11. Add to your PATH environment the ``netor/bin`` directory for easy execution of scripts:
+
+    ``sudo nano /etc/paths``
+
+and add at the end ``[netor_home_directory]/bin/``
+
+If everything worked fine you can view the commands with tab autocomplete.
+
+netor-db-list
+
+netor-db-customer
+
+etc
+
+...
+
+
+13. Install SaltStack:
+
+    ``brew install saltstack``
+
+Now, SaltStack has a couple of bug which I corrected and ask to merge on the master repositories.
+Since this could take a while to refresh, download these 2 files to replace them in your PC:
+
+https://raw.githubusercontent.com/aegiacometti/salt/master/salt/runners/bgp.py
+https://raw.githubusercontent.com/aegiacometti/salt/master/salt/runners/net.py
+
+To find them on your PC use:
+
+    ``sudo find /usr -name net.py``
+    ``sudo find /usr -name bgp.py``
+
+The ones under a directory called ``runners``
+
+*For more information go to the project page, they have great documentation:*
+https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough.html
+https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough_macosx.html
+
+Now, we need to add the service files to launchd to be able to start the daemons:
+
+    ``sudo cp [full_netor_home_dir]/netor/salt/config/services/com.saltstack.master.plist /Library/LaunchDaemons/``
+    ``sudo cp [full_netor_home_dir]/netor/salt/config/services/com.saltstack.minion.plist /Library/LaunchDaemons/``
+
+And we will start or stop or restart them with:
+
+    ``netor-salt-start``
+    ``netor-salt-stop``
+    ``netor-salt-restart``
+
+14. Verify ``maxfiles`` parameters at OS level:
+
+    ``sudo launchctl limit``
+
+If they are lower than 100000, you will need to change this. Usually happens on old MacOS versions.
+
+    ``sudo cp [full_netor_home_dir]/netor/salt/config/services/limit.maxfiles.plist /Library/LaunchDaemons``
+
+Adjust the values after the line ``maxfiles``, add it to the launchd.
+
+    ``sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist``
+
+Restart the computer for this change to take effect.
+
+
+15. SaltStack master and minion configuration files:
+
+For your reference you can find clean samples at ``/user/local/etc/saltstack``
+
+Create these links to use as defaults, these files will by the updated ones from Netor:
+
+    ``sudo ln -s [full_netor_home_dir]/netor/salt/config/master /etc/salt/master``
+
+    ``sudo ln -s [full_netor_home_dir]/netor/salt/config/minion /etc/salt/minion``
+
+    ``sudo ln -s [full_netor_home_dir]/netor/salt/config/proxy /etc/salt/proxy``
+
+
+16. Install salt-sproxy:
+
+    ``sudo pip3 install salt-sproxy``
+
+
+17. Run ``netor-db-push`` generate Ansible and SaltStack configuration files.
+
+
+18. Restart SaltStack daemons:
+
+    ``netor-salt-restart``
+
+
+19. done!

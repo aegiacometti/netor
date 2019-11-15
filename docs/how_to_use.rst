@@ -118,8 +118,28 @@ Only take into consideration this format that you need to respect:
     customer,site,dev_name,dev_ip,os,userid,passwd,salt_proxy_required
 
 
-8. All the scripts log on screen and also on a logging file located at ``./netor/log``
+8. All the netor scripts log on screen and also on a logging file located at ``./netor/log``
 
 
-9. That is it. Now start "playing" with Ansible and SaltStack.
+9. Ansible and SaltStack make the device backups to their directories:
+
+    ``./netor/ansible/backup``
+    ``./netor/salt/backup``
+
+I left them in different locations just to be able to see the differences in action.
+
+
+10. You will see at the DB that each device has a last setting named "Salt Proxy Requiered".
+
+This is a core feature of salt, it means that it will have a process in constant connection to the remote device. This
+will allow you to execute commands on it super fast since it doesn't require to go through the login process, since it
+is already connected, and on the other hand it keep in an internal DB/like cache all the facts, arps, IPs, and some
+others things about the device, and you don't even have to worry about installing and managing a DB software like
+any other tool in the market require. You will learn how cool it that about SaltStack and is a big difference with Ansible.
+In fact, Ansible is beautiful, but SaltStack take thing to another level.
+
+Later on i will talk about the SaltStack event-bus, wow that is sooo cool too.
+
+
+11. That is it. Now start "playing" with Ansible and SaltStack.
 

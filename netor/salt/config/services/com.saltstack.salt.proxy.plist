@@ -3,9 +3,9 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>salt-master</string>
+    <string>salt-proxy</string>
     <key>Program</key>
-    <string>/usr/local/bin/salt-master</string>
+    <string>/usr/local/bin/salt-proxy</string>
     <key>SoftResourceLimits</key>
     <dict>
         <key>NumberOfFiles</key>

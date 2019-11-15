@@ -16,6 +16,9 @@ TBD
 2. Make a device backup with SaltStack
 **************************************
 
+salt test.ping
+
+todos los coamndos que conozco de playbooks y salt
 
 3. Show running configurations with Ansible
 

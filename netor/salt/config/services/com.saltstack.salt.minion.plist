@@ -3,20 +3,9 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>com.saltstack.salt.minion</string>
-    <key>RunAtLoad</key>
-    <false/>
-    <key>KeepAlive</key>
-    <true/>
-    <key>EnvironmentVariables</key>
-    <dict>
-      <key>PATH</key>
-      <string>/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</string>
-    </dict>
-    <key>ProgramArguments</key>
-    <array>
-        <string>/usr/local/bin/salt-minion</string>
-    </array>
+    <string>salt-minion</string>
+    <key>Program</key>
+    <string>/usr/local/bin/salt-minion</string>
     <key>SoftResourceLimits</key>
     <dict>
         <key>NumberOfFiles</key>

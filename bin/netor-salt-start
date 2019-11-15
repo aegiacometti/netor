@@ -1,2 +1,7 @@
-sudo service salt-master start
-sudo service salt-minion start
+if [[ "$OSTYPE" == "linux"* ]]; then
+    sudo service salt-master start
+    sudo service salt-minion start
+elif [[ "$OSTYPE" == "darwin"* ]] || [[ "$OSTYPE" == "freebsd"* ]]; then
+    sudo launchctl start salt-master
+    sudo launchctl start salt-minion
+fi
