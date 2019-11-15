@@ -10,7 +10,7 @@ From easy to hard
 1. Make a device backup with Ansible
 ************************************
 
-TBD
+
 
 
 2. Make a device backup with SaltStack

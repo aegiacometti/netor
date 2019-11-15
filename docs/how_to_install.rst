@@ -8,7 +8,7 @@ Download it with in the directory you want to install Netor and it will create t
 
     ``wget https://raw.githubusercontent.com/aegiacometti/netor/master/bin/netor-install.sh``
 
-    ``sudo sh netor-install.sh``
+    ``bash netor-install.sh``
 
 Or follow the below instruction to go step by step with the commands.
 
