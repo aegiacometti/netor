@@ -449,7 +449,10 @@ Only take into consideration this format that you need to respect:
     customer,site,dev_name,dev_ip,os,userid,passwd,salt_proxy_required
 
 
-8. That is it. Now start "playing" with Ansible and SaltStack.
+8. All the scripts log on screen and also on a logging file located at ``./netor/log``
+
+
+9. That is it. Now start "playing" with Ansible and SaltStack.
 
 
 # TODOs

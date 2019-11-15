@@ -85,6 +85,13 @@ def _netor_config():
 
 
 def _update_ansible(netor_home_directory):
+    """
+    Update Ansible configuration files.
+
+    :param netor_home_directory: Neto home directory to used for updating the configuration files
+
+    :return: nothing
+    """
     ansible_config_file = os.environ['HOME'] + '/.ansible.cfg'
     replace_static_vars_scripts(ansible_config_file, '#inventory ', '= ' + netor_home_directory +
                                 'netor/ansible/hosts', '', '')
@@ -97,6 +104,14 @@ def _update_ansible(netor_home_directory):
 
 
 def _backup_filename(new_netor_home_directory, filename):
+    """
+    Create a backup of the specified configuration file
+
+    :param new_netor_home_directory: it is the actual new Neto home directory to be updated on files
+    :param filename: file name to backup
+
+    :return: nothing
+    """
     print('\nBacking up ' + filename + ' to ' + new_netor_home_directory + 'netor/salt/backup/')
     source = new_netor_home_directory + 'netor/salt/config/' + filename
     destination = new_netor_home_directory + 'netor/salt/backup/' + filename + "_" + \
@@ -105,6 +120,14 @@ def _backup_filename(new_netor_home_directory, filename):
 
 
 def _create_master_config_file(new_netor_home_directory, filename):
+    """
+    Create new SaltStack master configuration file.
+
+    :param new_netor_home_directory: it is the actual new Neto home directory to be updated on files
+    :param filename: filename to backup
+
+    :return: nothing
+    """
     full_path_filename = new_netor_home_directory + 'netor/salt/config/' + filename
     file = open(full_path_filename, '+w')
     file.write('# for salt-sproxy\n')
@@ -142,12 +165,28 @@ def _create_master_config_file(new_netor_home_directory, filename):
 
 
 def _update_master_config_file(new_netor_home_directory, filename):
+    """
+    Update SaltStack master configuration file.
+
+    :param new_netor_home_directory: Location where the file is located
+    :param filename: file name
+
+    :return: nothing
+    """
     _backup_filename(new_netor_home_directory, filename)
     # pending to develop update of the file with the new directory
     _create_master_config_file(new_netor_home_directory, filename)
 
 
 def _create_minion_config_file(new_netor_home_directory, filename):
+    """
+    Create SaltStack minion configuration file.
+
+    :param new_netor_home_directory: Location where the file will be located
+    :param filename: file name
+
+    :return: nothing
+    """
     full_path_filename = new_netor_home_directory + 'netor/salt/config/' + filename
     file = open(full_path_filename, '+w')
     file.write('##### Primary configuration settings #####\n')
@@ -179,12 +218,28 @@ def _create_minion_config_file(new_netor_home_directory, filename):
 
 
 def _update_minion_config_file(new_netor_home_directory, filename):
+    """
+    Update SaltStack minion configuration file.
+
+    :param new_netor_home_directory: Location where the file is located
+    :param filename: file name
+
+    :return:
+    """
     _backup_filename(new_netor_home_directory, filename)
     # pending to develop update of the file with the new directory
     _create_minion_config_file(new_netor_home_directory, filename)
 
 
 def _create_proxy_config_file(new_netor_home_directory, filename):
+    """
+    Create SaltStack proxy configuration file.
+
+    :param new_netor_home_directory: Location where the file will be located
+    :param filename: file name
+
+    :return:
+    """
     full_path_filename = new_netor_home_directory + 'netor/salt/config/' + filename
     file = open(full_path_filename, '+w')
     file.write('##### Primary configuration settings #####\n')
@@ -227,12 +282,28 @@ def _create_proxy_config_file(new_netor_home_directory, filename):
 
 
 def _update_proxy_config_file(new_netor_home_directory, filename):
+    """
+    Update SaltStack proxy configuration file.
+
+    :param new_netor_home_directory: Directory where the file is located
+    :param filename: file name
+
+    :return:
+    """
     _backup_filename(new_netor_home_directory, filename)
     # pending to develop update of the file with the new directory
     _create_proxy_config_file(new_netor_home_directory, filename)
 
 
 def _file_update_redirect(new_netor_home_directory, filename):
+    """
+    Update the configuration files.
+
+    :param new_netor_home_directory: Directory where the files are located
+    :param filename: file name to update
+
+    :return: nothing
+    """
     if 'master' in filename:
         _update_master_config_file(new_netor_home_directory, filename)
     elif 'minion' in filename:
@@ -245,6 +316,14 @@ def _file_update_redirect(new_netor_home_directory, filename):
 
 
 def _file_create_redirect(new_netor_home_directory, filename):
+    """
+    Create the configuration files.
+
+    :param new_netor_home_directory: it is the actual new Neto home directory where to create the file
+    :param filename: file name to create
+
+    :return: nothing
+    """
     if 'master' in filename:
         _create_master_config_file(new_netor_home_directory, filename)
     elif 'minion' in filename:
@@ -257,6 +336,14 @@ def _file_create_redirect(new_netor_home_directory, filename):
 
 
 def _create_update_master_minion_proxy(new_netor_home_directory, filename):
+    """
+    Update or create (if do not exists) SaltStack configuration files.
+
+    :param new_netor_home_directory: it is the actual new Neto home directory to used in the process
+    :param filename: file name to update
+
+    :return: nothing
+    """
     full_salt_config_filename = new_netor_home_directory + 'netor/salt/' + filename
     if os.path.isfile(full_salt_config_filename):
         _file_update_redirect(new_netor_home_directory, filename)
