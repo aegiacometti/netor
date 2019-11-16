@@ -15,6 +15,7 @@ server operating system.
 Some tips before we start:
 
 **netor scripts**
+
 In time i will create *netor*-x style script just as a mask of the following commands, and again, ir order to try to
 make it easier to start using Ansible ans SaltStack. And i will had a simple command to update the /bin folder.
 
@@ -22,29 +23,23 @@ make it easier to start using Ansible ans SaltStack. And i will had a simple com
 **Ansible:**
 
 * I am providing a couple of playbook, some parses, and scripts for you to experiment.
-* You might see some warning related to Python2 getting to end of support, and some other pieces of code about to get
-deprecated. Typical linux style, letting you know about thing that are about to change.
-* you con limit the devices to execute a playbook by adding "-l xxx". Where xxx is regEx filter.
-* you can add "--check --diff" to check commands before applying and to show the differences to apply.
-* you can send information from the playbook to a parser to crop information and/or to script to do
-something else, this means that there is communication between to move information and act accordingly.
+* You might see some warning related to Python2 getting to end of support, and some other pieces of code about to get deprecated. Typical linux style, letting you know about thing that are about to change.
+* you con limit the devices to execute a playbook by adding ``-l xxx``. Where xxx is regEx filter.
+* you can add ``--check --diff`` to check commands before applying and to show the differences to apply.
+* you can send information from the playbook to a parser to crop information and/or to script to do something else, this means that there is communication between to move information and act accordingly.
 * ``ansible-playbook`` is the command to execute playbooks, you have to cd to the playbooks directory
 * Ansible is kind of static, because it only do something when you enter a command. If you want to trigger actions you
 have to use an external tool, like Nagios. If Nagios detects something execute this Ansible playbook.
 
 **SaltStack:**
 
-* what it super cool about SaltStack is the even if the commands are weird at the beginning, all of the modules/functions
-have a help right at the command line, i will show you how.
+* what it super cool about SaltStack is the even if the commands are weird at the beginning, all of the modules/functions have a help right at the command line, i will show you how.
 * ``salt`` is for execution online commands against the devices
 * ``salt-run`` is for executing commands with information that SaltStack already
 * to every command you can add at the end ``-l debug`` to check what is going on.
 * it has incredible ``net.bgp`` module to check for information, to configure and potentially react.
-* SaltStack has a cache database with information gathered by runners, the cool thing about this is that you don't need
-to install and maintain a separate DB to store information like regular network management software requires.
-* SaltStack has an event bus, which you can see with ``salt-run state.event pretty=True``, the amazing thing about this
-is that you can start thinking in **Orchestration**, or in other words, define a reactor to an event when some message
-gets to the event bus. You can even attach a chat bot.
+* SaltStack has a cache database with information gathered by runners, the cool thing about this is that you don't need to install and maintain a separate DB to store information like regular network management software requires.
+* SaltStack has an event bus, which you can see with ``salt-run state.event pretty=True``, the amazing thing about this is that you can start thinking in **Orchestration**, or in other words, define a reactor to an event when some message gets to the event bus. You can even attach a chat bot.
 
 
 Ansible examples
@@ -1923,3 +1918,6 @@ SaltStack has several out formatters, like table, json, etc
             "comment": ""
         }
     }
+
+
+Finally, check the project pages because this is only an intro... there are thousands of cool stuff to do

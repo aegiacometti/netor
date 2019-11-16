@@ -9,16 +9,25 @@ have to figure out what to do with other devices from other vendors. We all know
 There are a couple of security configuration settings from Ansible and SaltStack that are not recommended
 to use, but for learning purposes I let them open.
 
-For Ansible:
-* $HOME/.ansible.cfg: host_key_checking = False
-* $HOME/.ansible.cfg: host_key_auto_add = True
+**For Ansible:**
+
+File $HOME/.ansible.cfg
+
+``host_key_checking = False``
+
+File $HOME/.ansible.cfg
+
+``host_key_auto_add = True``
+
 
 For SaltStack:
 
-* /etc/salt/master and /etc/salt/minion
+File /etc/salt/master and /etc/salt/minion
 
-open_mode: True
-auto_accept: True
+``open_mode: True``
+
+``auto_accept: True``
+
 
 When you restart SaltStack, give a couple of minutes to synchronise, it will
 look like not working... wait... and if you want you can check the logs of the
