@@ -25,7 +25,7 @@ to see what you can get out of them, and after that, you should start learning a
 
 Project code at https://github.com/aegiacometti/netor
 
-Project documentation at https://readthedocs.org/projects/netor/
+Project documentation at https://netor.readthedocs.io/en/latest/index.html
 
 
 Motivation
