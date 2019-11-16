@@ -1,6 +1,8 @@
 Important comments
 ==================
 
+Remember to create your own database and push it to Ansible and Salt, is super easy, follow the guide at **How to use** section.
+
 All of this software is Open Source, which means that is free and community maintained.
 
 You don't need to pay a fortune for a vendor specify software, which are usually oriented to their OS and the you
