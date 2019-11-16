@@ -225,7 +225,10 @@ def _find_interfaces_mac(ip):  # pylint: disable=invalid-name
             continue
         for interface, interface_ipaddrs in six.iteritems(device_ipaddrs.get('out', {})):
             ip_addresses = set()
-            ip_addresses.add(list(interface_ipaddrs.get('ipv4', {}).keys())[0])
+            try:
+                ip_addresses.add(list(interface_ipaddrs.get('ipv4', {}).keys())[0])
+            except IndexError:
+                pass
             try:
                 ip_addresses.add(list(interface_ipaddrs.get('ipv4', {}).keys())[1])
             except IndexError:

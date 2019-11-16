@@ -134,7 +134,7 @@ def _create_master_config_file(new_netor_home_directory, filename):
     file.write('use_existing_proxy: true\n')
     file.write('#####  Large-scale tuning settings   #####\n')
     file.write('##########################################\n')
-    file.write('max_open_files: 100000\n')
+    file.write('#max_open_files: 100000\n')
     file.write('\n')
     file.write('#####        Security settings       #####\n')
     file.write('# Enable "open mode", this mode still maintains encryption, but turns off\n')

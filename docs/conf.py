@@ -22,7 +22,7 @@ copyright = '2019, Adrian Giacometti'
 author = 'Adrian Giacometti'
 
 # The full version, including alpha/beta/rc tags
-release = '0.5'
+release = '1.0'
 
 
 # -- General configuration ---------------------------------------------------

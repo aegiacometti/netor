@@ -14,4 +14,4 @@
     - name: Save IOS config
       copy:
         content: "{{ output.stdout[0] }}"
-        dest: "~/ansible/backup/show_run_{{ inventory_hostname }}.txt"
+        dest: "~/netor/netor/ansible/backup/show_run_{{ inventory_hostname }}.txt"

@@ -10,7 +10,7 @@ All the scripts are located at the /bin directory of your netor install director
 
 They are written in BASH (i just wanted to try BASH :) ), but in the future and in order to make it easier to start
 using Ansible and SaltStack features, I will add some other scripts in python (so much easier :) ). And why adding
-those script to use Ansible and SaltStack?   Because as you will see, lear the syntaxis of both is very very tedious
+those script to use Ansible and SaltStack?   Because as you will see, lear the syntax of both is very very tedious
 when you are just starting to learn about them.
 
 The main idea is to have an inventory DB, and then use that inventory to configure the inventories of Ansible and SaltStack.

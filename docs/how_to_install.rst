@@ -1,10 +1,31 @@
 How to install
 ==============
 
+VirtualBox VM
+*************
+
+The easiest way is to use the VirtualBox VM from this link:
+
+https://drive.google.com/drive/folders/1jXDinzop3fg0LT8XHZoXKsbeI-KRPljk?usp=sharing
+
+With 2Gb of RAM, and 2 processor it should be OK.
+
+userID: adrian
+password: password (change it! with ``passwd``)
+
+Ansible do not require much power, is supper light, SaltStack is more less the same, except if you use Proxy Minions
+
+The SaltStack proxy minion processes uses a little bit of power/memory.
+
+I recommend you to read a little bit about SaltStack proxy minion, what they are and why they exist in the networking
+environment. And later about **salt-sproxy**, a proxy-less approach. Follow Mircea Ulinic, this guy is a genius.
+
+
 Linux bash installer
 ********************
-This is a simple copy of the commands below in the format of a bash script.
-Download it with in the directory you want to install Netor and it will create the home directory:
+This is a very simple copy&paste of the commands below in the format of a bash script.
+Download it with in the directory you want to install Netor and it will create the home directory and install the
+packages:
 
     ``wget https://raw.githubusercontent.com/aegiacometti/netor/master/bin/netor-install.sh``
 
@@ -199,6 +220,13 @@ them as a reference), and create symbolic links to SaltStack new configuration f
 
 Installation on MacOS
 *********************
+
+I have tested the software on Linux and Mac. I was able to install it on Mac.
+
+Ansible works just fine, but SaltStack not so good, it is not officially supported, but since it is a kind of Unix,
+in this case FreeBSD, it work, but not quiet well. So bellow you have the install procedure, but if want to go
+for sure and you have a Mac, i would download the VM and after i know how SaltStack works, just then i would try
+SaltStack on Mac directly.
 
 **Requirements**
 

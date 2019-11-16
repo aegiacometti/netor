@@ -94,6 +94,15 @@ OpenSource manner.
 
 # How to install
 
+## Download a ready to use VirtualBox VM
+
+https://netor.readthedocs.io/en/latest/how_to_install.html#virtualbox-vm
+
+
+## Installation on Linux using the install script
+
+https://netor.readthedocs.io/en/latest/how_to_install.html#linux-bash-installer
+
 
 ## Installation on Linux
 
@@ -121,9 +130,7 @@ open_mode: True
 auto_accept: True
 
 
-
 # How to use
-
 
 ## Functionalities
 
@@ -133,6 +140,11 @@ https://netor.readthedocs.io/en/latest/how_to_use.html#functionalities
 ## First Steps
 
 https://netor.readthedocs.io/en/latest/how_to_use.html#first-steps
+
+
+# Use cases (examples)
+
+https://netor.readthedocs.io/en/latest/how_to_use.html#use-cases
 
 
 # TODOs
