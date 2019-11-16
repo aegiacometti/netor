@@ -22,6 +22,11 @@ in a personal way, for your PC, for your use, nothing commercial nor enterprise.
 You will see amazing things that can be done in the OpenSource environment without having to marry any vendor. The
 community out there is amazing... Enjoy!
 
+Project code at https://github.com/aegiacometti/netor
+
+Project documentation at https://netor.readthedocs.io/en/latest/index.html
+
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

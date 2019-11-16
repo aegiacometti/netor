@@ -23,10 +23,6 @@ As I move forward I will try to integrate other packages and functionalities.
 But, remember, this project is only to help start using Ansible and SaltStack, in order
 to see what you can get out of them, and after that, you should start learning about those two projects which are amazing.
 
-Project code at https://github.com/aegiacometti/netor
-
-Project documentation at https://netor.readthedocs.io/en/latest/index.html
-
 
 Motivation
 **********
