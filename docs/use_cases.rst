@@ -5,7 +5,7 @@ Now, imagine if from your PC at your work, or when you go to support one of your
 you can perform all of the following basics out of the box procedures, they will see you as a hero!
 
 You could even redirect the logging of several network devices to your PC while you are working in order to see them
-with a syslog server on your PC, or only with the SaltStack event-bus, and after the jobs is done, revert the syslog
+with a syslog server on your PC, or only with the Salt event-bus, and after the jobs is done, revert the syslog
 change in seconds.
 
 All this examples are running against a GNS3 virtual lab in my PC, you can do the same with the VM or installing it
@@ -17,7 +17,7 @@ Some tips before we start:
 **netor scripts**
 
 In time i will create *netor*-x style script just as a mask of the following commands, and again, ir order to try to
-make it easier to start using Ansible ans SaltStack. And i will had a simple command to update the /bin folder.
+make it easier to start using Ansible ans Salt. And i will had a simple command to update the /bin folder.
 
 
 **Ansible:**
@@ -28,18 +28,17 @@ make it easier to start using Ansible ans SaltStack. And i will had a simple com
 * you can add ``--check --diff`` to check commands before applying and to show the differences to apply.
 * you can send information from the playbook to a parser to crop information and/or to script to do something else, this means that there is communication between to move information and act accordingly.
 * ``ansible-playbook`` is the command to execute playbooks, you have to cd to the playbooks directory
-* Ansible is kind of static, because it only do something when you enter a command. If you want to trigger actions you
-have to use an external tool, like Nagios. If Nagios detects something execute this Ansible playbook.
+* Ansible is kind of static, because it only do something when you enter a command. If you want to trigger actions you have to use an external tool, like Nagios. If Nagios detects something execute this Ansible playbook.
 
-**SaltStack:**
+**Salt:**
 
-* what it super cool about SaltStack is the even if the commands are weird at the beginning, all of the modules/functions have a help right at the command line, i will show you how.
+* what it super cool about Salt is the even if the commands are weird at the beginning, all of the modules/functions have a help right at the command line, i will show you how.
 * ``salt`` is for execution online commands against the devices
-* ``salt-run`` is for executing commands with information that SaltStack already
+* ``salt-run`` is for executing commands with information that Salt already
 * to every command you can add at the end ``-l debug`` to check what is going on.
 * it has incredible ``net.bgp`` module to check for information, to configure and potentially react.
-* SaltStack has a cache database with information gathered by runners, the cool thing about this is that you don't need to install and maintain a separate DB to store information like regular network management software requires.
-* SaltStack has an event bus, which you can see with ``salt-run state.event pretty=True``, the amazing thing about this is that you can start thinking in **Orchestration**, or in other words, define a reactor to an event when some message gets to the event bus. You can even attach a chat bot.
+* Salt has a cache database with information gathered by runners, the cool thing about this is that you don't need to install and maintain a separate DB to store information like regular network management software requires.
+* Salt has an event bus, which you can see with ``salt-run state.event pretty=True``, the amazing thing about this is that you can start thinking in **Orchestration**, or in other words, define a reactor to an event when some message gets to the event bus. You can even attach a chat bot.
 
 
 Ansible examples
@@ -844,12 +843,12 @@ In this case, the configuration was applied to two devices, because the 3rd one 
     c1_s1_ua-1                 : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 
-SaltStack examples
-******************
+Salt examples
+*************
 
 From easy to hard
 
-**basic to test the connection between SaltStack and the devices**
+**basic to test the connection between Salt and the devices**
 
 ::
 
@@ -862,7 +861,7 @@ From easy to hard
         True
 
 
-**you can also add the ``-l debug`` flag
+**you can also add the ``-l debug`` flag**
 
 ::
 
@@ -904,7 +903,7 @@ From easy to hard
     adrian@adrian-VirtualBox:~$
 
 
-**this is i think the coolest and easiest function of SaltStack**
+**this is i think the coolest and easiest function of Salt**
 
 The **net.find** module allows you to search in 3 seconds information gathered by mining.
 Lets look for IP address, MACs, interface descriptions, vlan, etc. configured on the devices.
@@ -1052,7 +1051,7 @@ Lets look for IP address, MACs, interface descriptions, vlan, etc. configured on
 
 It is getting better...
 
-SaltStack define a **sate** in a file in which you can define attributes (like ntp in this example), and later you can
+Salt define a **sate** in a file in which you can define attributes (like ntp in this example), and later you can
 apply that state/attribute to any OS. Yes it will figure out what commands to execute depending on the OS.
 
 Read about this state ntp.sls file at the ``netor/salt/config/pillar/states`` folder.
@@ -1304,7 +1303,7 @@ This command will take 3 second since you can have a proxy minion with a session
                 multilink bundle-name authenticated
     ... continue
 
-**of course you can add a simple 'grep' **
+**of course you can add a simple 'grep'**
 
 ::
 
@@ -1634,7 +1633,7 @@ You could try this for ping from several countries/sites to 1 server/service ins
 
 **this is interesting, you can format the output**
 
-SaltStack has several out formatters, like table, json, etc
+Salt has several out formatters, like table, json, etc
 
 ::
 

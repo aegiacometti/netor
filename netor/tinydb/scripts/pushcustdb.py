@@ -14,7 +14,7 @@ _NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
 
 class DB:
     """
-    Class DB with parameters used by all the methods to push DB info into **Ansible** and **SaltStack**.
+    Class DB with parameters used by all the methods to push DB info into **Ansible** and **Salt**.
     """
 
     def __init__(self, db_path_name):
@@ -30,7 +30,7 @@ class DB:
 
     def select_devices_to_push(self, filter_expression):
         """
-        Provides a mechanism to filter the devices in the DB before pushing and replacing Ansible and SaltStack
+        Provides a mechanism to filter the devices in the DB before pushing and replacing Ansible and Salt
         configuration.
 
         :param filter_expression: expression to use a the filter. Support RegEx.
@@ -198,7 +198,7 @@ class DB:
         :param salt_backup_pillar_directory: backup pillar \\*.sls directory
         :param salt_top_path_name: full path name of ''top.sls'' file
         :param salt_states_directory: add all the states to the general ``\\'*'`` section of the ``top.sls`` file
-        :param devices_to_push: list of devices to push to Ansible and SaltStack
+        :param devices_to_push: list of devices to push to Ansible and Salt
 
         :return: nothing
         """
@@ -283,8 +283,8 @@ class DB:
                 new_sls_device_file.write("    use_keys: True\n")
                 new_sls_device_file.write("    auto_rollback_on_error: True\n")
                 new_sls_device_file.close()
-            tinydblogging.log_msg(tinydb_log_file, __file__, "Push DB executed. SaltStack configuration files updated.")
-            print("\nPush DB executed. SaltStack configuration files updated.")
+            tinydblogging.log_msg(tinydb_log_file, __file__, "Push DB executed. Salt configuration files updated.")
+            print("\nPush DB executed. Salt configuration files updated.")
         else:
             return
 
@@ -296,7 +296,7 @@ def _start_process():
     It supports passing as parameter the ``_NETOR_HOME_DIRECTORY`` in order to push to the DB specified
     in the ``netor.conf`` configuration file.
 
-    Then execute the functions to push the DB content on **Ansible** ans **SaltStack** configuration files, according
+    Then execute the functions to push the DB content on **Ansible** ans **Salt** configuration files, according
     to the settings of the ``netor.conf`` configuration file.
 
     It supports filtering of the DB, with literal text or RegEx, in order to not import more devices than required. As
@@ -339,19 +339,19 @@ def _start_process():
     devices_to_push = x.select_devices_to_push(filter_expression)
 
     if devices_to_push:
-        print("\nPUSH DEVICE DB TO ANSIBLE AND SALTSTACK INVENTORY FILES")
+        print("\nPUSH DEVICE DB TO ANSIBLE AND SALT INVENTORY FILES")
 
         x.ansible_push_inventory(tinydb_log_file,
                                  config['Ansible']['ansible_hosts_path_name'],
                                  config['Ansible']['ansible_backup_hosts_path_name'], devices_to_push)
 
         x.salt_push_inventory(tinydb_log_file,
-                              config['SaltStack']['salt_minion_path_name'],
-                              config['SaltStack']['salt_backup_directory'],
-                              config['SaltStack']['salt_pillar_directory'],
-                              config['SaltStack']['salt_backup_pillar_directory'],
-                              config['SaltStack']['salt_top_path_name'],
-                              config['SaltStack']['salt_states_directory'], devices_to_push)
+                              config['Salt']['salt_minion_path_name'],
+                              config['Salt']['salt_backup_directory'],
+                              config['Salt']['salt_pillar_directory'],
+                              config['Salt']['salt_backup_pillar_directory'],
+                              config['Salt']['salt_top_path_name'],
+                              config['Salt']['salt_states_directory'], devices_to_push)
 
         print("\nRestart salt minion in order to use the new configuration files !!!")
         return

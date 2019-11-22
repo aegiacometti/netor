@@ -47,9 +47,9 @@ case $opc in
     echo "1.- logoff and login again."
     echo "2.- create a new DB with netor-db-switch and populate it with netor-db-customer,"
     echo "netor-db-site and netor-db-devices."
-    echo "3.- push it to Ansible and SaltStack with netor-db-push."
-    echo "4.- restart SaltStack daemons with netor-salt-restart."
-    echo "5.- Go to the Use cases section to start trying Ansible and SaltStack examples."
+    echo "3.- push it to Ansible and Salt with netor-db-push."
+    echo "4.- restart Salt daemons with netor-salt-restart."
+    echo "5.- Go to the Use cases section to start trying Ansible and Salt examples."
     echo ""
     ;;
 n) echo "cd to the directory where you want to install Netor and execute this script again."

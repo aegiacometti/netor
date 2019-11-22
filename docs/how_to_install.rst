@@ -13,11 +13,11 @@ With 2Gb of RAM, and 2 processor it should be OK.
 userID: adrian
 password: password (change it! with ``passwd``)
 
-Ansible do not require much power, is supper light, SaltStack is more less the same, except if you use Proxy Minions
+Ansible do not require much power, is supper light, Salt is more less the same, except if you use Proxy Minions
 
-The SaltStack proxy minion processes uses a little bit of power/memory.
+The Salt proxy minion processes uses a little bit of power/memory.
 
-I recommend you to read a little bit about SaltStack proxy minion, what they are and why they exist in the networking
+I recommend you to read a little bit about Salt proxy minion, what they are and why they exist in the networking
 environment. And later about **salt-sproxy**, a proxy-less approach. Follow Mircea Ulinic, this guy is a genius.
 
 
@@ -46,7 +46,7 @@ Read about these packages:
 * tinydb
 * ansible
 * ansible network engine role
-* saltstack (using the bootstrap installed, details below)
+* salt (using the bootstrap installed, details below)
 * salt-sproxy
 
 **Installation**
@@ -139,15 +139,15 @@ etc
 ...
 
 
-13. Install SaltStack:
+13. Install Salt:
 
 The recommended way is to use the bootstrap:
 
-    ``wget -O bootstrap-salt.sh https://bootstrap.saltstack.com``
+    ``wget -O bootstrap-salt.sh https://bootstrap.Salt.com``
 
     ``sudo sh bootstrap-salt.sh -x python3 -M``
 
-Now, SaltStack has a couple of bug which I corrected and ask to merge on the master repositories.
+Now, Salt has a couple of bug which I corrected and ask to merge on the master repositories.
 Since this could take a while to refresh, download these 2 files to replace them in your PC:
 
 https://raw.githubusercontent.com/aegiacometti/salt/master/salt/runners/bgp.py
@@ -164,7 +164,7 @@ The ones under a directory called ``runners``
 https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough.html
 https://docs.saltstack.com/en/latest/topics/tutorials/walkthrough_macosx.html
 
-Now, unlike Ansible, SaltStack uses daemons and the bootstrap add them to auto-start,
+Now, unlike Ansible, Salt uses daemons and the bootstrap add them to auto-start,
 and we don't want that, we want to start them manually, just in case to not have them
 running and searching for the devices when we don't want or when they are not even
 reachable, as an example, if we are at home, another customer, or in a meeting!
@@ -181,15 +181,15 @@ commands:
     ``netor-salt-start``
 
 
-14. Copy SaltStack minion proxy to the systemd folder:
+14. Copy Salt minion proxy to the systemd folder:
 
     ``sudo cp [netor_home_dir]/netor/salt/config/services/salt-proxy@.service /etc/systemd/system/``
 
 *(this path could vary depending on the system)*
 
 
-15. Backup the original SaltStack master and minion configuration files (so you can have
-them as a reference), and create symbolic links to SaltStack new configuration files:
+15. Backup the original Salt master and minion configuration files (so you can have
+them as a reference), and create symbolic links to Salt new configuration files:
 
     ``sudo mv /etc/salt/master /etc/salt/master.bkp``
 
@@ -207,10 +207,10 @@ them as a reference), and create symbolic links to SaltStack new configuration f
     ``sudo pip3 install salt-sproxy``
 
 
-17. Run ``netor-db-push`` generate Ansible and SaltStack configuration files.
+17. Run ``netor-db-push`` generate Ansible and Salt configuration files.
 
 
-18. Restart SaltStack daemons:
+18. Restart Salt daemons:
 
     ``netor-salt-restart``
 
@@ -223,10 +223,10 @@ Installation on MacOS
 
 I have tested the software on Linux and Mac. I was able to install it on Mac.
 
-Ansible works just fine, but SaltStack not so good, it is not officially supported, but since it is a kind of Unix,
+Ansible works just fine, but Salt not so good, it is not officially supported, but since it is a kind of Unix,
 in this case FreeBSD, it work, but not quiet well. So bellow you have the install procedure, but if want to go
-for sure and you have a Mac, i would download the VM and after i know how SaltStack works, just then i would try
-SaltStack on Mac directly.
+for sure and you have a Mac, i would download the VM and after i know how Salt works, just then i would try
+Salt on Mac directly.
 
 **Requirements**
 
@@ -321,11 +321,11 @@ etc
 ...
 
 
-13. Install SaltStack:
+13. Install Salt:
 
     ``brew install saltstack``
 
-Now, SaltStack has a couple of bug which I corrected and ask to merge on the master repositories.
+Now, Salt has a couple of bug which I corrected and ask to merge on the master repositories.
 Since this could take a while to refresh, download these 2 files to replace them in your PC:
 
 https://raw.githubusercontent.com/aegiacometti/salt/master/salt/runners/bgp.py
@@ -368,7 +368,7 @@ Adjust the values after the line ``maxfiles``, add it to the launchd.
 Restart the computer for this change to take effect.
 
 
-15. SaltStack master and minion configuration files:
+15. Salt master and minion configuration files:
 
 For your reference you can find clean samples at ``/user/local/etc/saltstack``
 
@@ -386,10 +386,10 @@ Create these links to use as defaults, these files will by the updated ones from
     ``sudo pip3 install salt-sproxy``
 
 
-17. Run ``netor-db-push`` generate Ansible and SaltStack configuration files.
+17. Run ``netor-db-push`` generate Ansible and Salt configuration files.
 
 
-18. Restart SaltStack daemons:
+18. Restart Salt daemons:
 
     ``netor-salt-restart``
 

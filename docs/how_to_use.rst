@@ -9,15 +9,15 @@ The following sections will contain a review of how to use the scripts.
 All the scripts are located at the /bin directory of your netor install directory or home directory.
 
 They are written in BASH (i just wanted to try BASH :) ), but in the future and in order to make it easier to start
-using Ansible and SaltStack features, I will add some other scripts in python (so much easier :) ). And why adding
-those script to use Ansible and SaltStack?   Because as you will see, lear the syntax of both is very very tedious
+using Ansible and Salt features, I will add some other scripts in python (so much easier :) ). And why adding
+those script to use Ansible and Salt?   Because as you will see, lear the syntax of both is very very tedious
 when you are just starting to learn about them.
 
-The main idea is to have an inventory DB, and then use that inventory to configure the inventories of Ansible and SaltStack.
+The main idea is to have an inventory DB, and then use that inventory to configure the inventories of Ansible and Salt.
 This would be useful because both configure their inventories in a completely different manner and using several different files.
 
 As a quick example, Ansible in its basic form uses a "hosts" file and that it (of course there are more advanced
-ways for configuring its inventory), and SaltStack uses in its basic form uses several files, one top.sls and one
+ways for configuring its inventory), and Salt uses in its basic form uses several files, one top.sls and one
 .sls file per each device. So, as you can imagine this setup will be tedious to start using both tools at the same time
 to see what you can do in your learning journey.
 
@@ -49,22 +49,22 @@ site 1 and site 2, core switches and access switches, routers, firewalls, projec
 Use any combination that is useful to what you have to do.
 
 
-5. Now push your new DB to Ansible and SaltStack inventories with ``netor-db-push``.
+5. Now push your new DB to Ansible and Salt inventories with ``netor-db-push``.
 
-When you do this the configuration files of Ansible and SaltStack will be completely replaced.
+When you do this the configuration files of Ansible and Salt will be completely replaced.
 
 In this process, you will be able to choose if you want to push the whole DB, or use a filter to chose with devices
 you want to push, based on a RedEx expression. You will have to confirm so don't hesitate to play with the filer.
 
-The push to Ansible will work right away, but for the push to SaltStack to take effect you will need to restart its
+The push to Ansible will work right away, but for the push to Salt to take effect you will need to restart its
 daemons with ``netor-salt-restart``
 
-You also have available commands to stop and start SaltStack, with ``netor-salt-stop`` and ``netor-salt-start``.
+You also have available commands to stop and start Salt, with ``netor-salt-stop`` and ``netor-salt-start``.
 
 
 6. Since you could have devices with the same name at different sites, or at a different customer, the ``netor-db-push``
 will generate hostnames bases on the join of the customer name, site name, and device name. This will assure the
-uniqueness of the hostname in Ansible and SaltStack.
+uniqueness of the hostname in Ansible and Salt.
 
 And a very important feature is that you don't need to be able to resolve their FQDN names because it is very probable that
 you or the customer don't have them on the DNS, and if they do, you could end up with conflicting names between customers
@@ -121,7 +121,7 @@ Only take into consideration this format that you need to respect:
 8. All the netor scripts log on screen and also on a logging file located at ``./netor/log``
 
 
-9. Ansible and SaltStack make the device backups to their directories:
+9. Ansible and Salt make the device backups to their directories:
 
     ``./netor/ansible/backup``
     ``./netor/salt/backup``
@@ -135,11 +135,11 @@ This is a core feature of salt, it means that it will have a process in constant
 will allow you to execute commands on it super fast since it doesn't require to go through the login process, since it
 is already connected, and on the other hand it keep in an internal DB/like cache all the facts, arps, IPs, and some
 others things about the device, and you don't even have to worry about installing and managing a DB software like
-any other tool in the market require. You will learn how cool it that about SaltStack and is a big difference with Ansible.
-In fact, Ansible is beautiful, but SaltStack take thing to another level.
+any other tool in the market require. You will learn how cool it that about Salt and is a big difference with Ansible.
+In fact, Ansible is beautiful, but Salt take thing to another level.
 
-Later on i will talk about the SaltStack event-bus, wow that is sooo cool too.
+Later on i will talk about the Salt event-bus, wow that is sooo cool too.
 
 
-11. That is it. Now start "playing" with Ansible and SaltStack.
+11. That is it. Now start "playing" with Ansible and Salt.
 

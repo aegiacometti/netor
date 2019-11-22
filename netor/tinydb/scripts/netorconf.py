@@ -121,7 +121,7 @@ def _backup_filename(new_netor_home_directory, filename):
 
 def _create_master_config_file(new_netor_home_directory, filename):
     """
-    Create new SaltStack master configuration file.
+    Create new Salt master configuration file.
 
     :param new_netor_home_directory: it is the actual new Neto home directory to be updated on files
     :param filename: filename to backup
@@ -169,7 +169,7 @@ def _create_master_config_file(new_netor_home_directory, filename):
 
 def _update_master_config_file(new_netor_home_directory, filename):
     """
-    Update SaltStack master configuration file.
+    Update Salt master configuration file.
 
     :param new_netor_home_directory: Location where the file is located
     :param filename: file name
@@ -183,7 +183,7 @@ def _update_master_config_file(new_netor_home_directory, filename):
 
 def _create_minion_config_file(new_netor_home_directory, filename):
     """
-    Create SaltStack minion configuration file.
+    Create Salt minion configuration file.
 
     :param new_netor_home_directory: Location where the file will be located
     :param filename: file name
@@ -222,7 +222,7 @@ def _create_minion_config_file(new_netor_home_directory, filename):
 
 def _update_minion_config_file(new_netor_home_directory, filename):
     """
-    Update SaltStack minion configuration file.
+    Update Salt minion configuration file.
 
     :param new_netor_home_directory: Location where the file is located
     :param filename: file name
@@ -236,7 +236,7 @@ def _update_minion_config_file(new_netor_home_directory, filename):
 
 def _create_proxy_config_file(new_netor_home_directory, filename):
     """
-    Create SaltStack proxy configuration file.
+    Create Salt proxy configuration file.
 
     :param new_netor_home_directory: Location where the file will be located
     :param filename: file name
@@ -286,7 +286,7 @@ def _create_proxy_config_file(new_netor_home_directory, filename):
 
 def _update_proxy_config_file(new_netor_home_directory, filename):
     """
-    Update SaltStack proxy configuration file.
+    Update Salt proxy configuration file.
 
     :param new_netor_home_directory: Directory where the file is located
     :param filename: file name
@@ -340,7 +340,7 @@ def _file_create_redirect(new_netor_home_directory, filename):
 
 def _create_update_master_minion_proxy(new_netor_home_directory, filename):
     """
-    Update or create (if do not exists) SaltStack configuration files.
+    Update or create (if do not exists) Salt configuration files.
 
     :param new_netor_home_directory: it is the actual new Neto home directory to used in the process
     :param filename: file name to update
@@ -356,7 +356,7 @@ def _create_update_master_minion_proxy(new_netor_home_directory, filename):
 
 def _update_config(tinydb_log_file, __file__, new_netor_home_directory):
     """
-    Execute the actual updates in the files. SaltStack master, minion and proxy.
+    Execute the actual updates in the files. Salt master, minion and proxy.
 
     :param tinydb_log_file: the filename to send the logging message after the operation is completed
     :param __file__: script name who is sending the message to log
@@ -419,7 +419,7 @@ def _update_config(tinydb_log_file, __file__, new_netor_home_directory):
     print("     PATH=\"$PATH:" + new_netor_home_directory + "/bin")
     print("\nLogoff session, login again.")
 
-    print("\nATTENTION: If you are using SaltStack restart the daemons with  \"netor-salt-restart\"\n")
+    print("\nATTENTION: If you are using Salt restart the daemons with  \"netor-salt-restart\"\n")
 
     tinydblogging.log_msg(tinydb_log_file, __file__,
                           "Netconf executed. Neto.config and static vars in scripts updated. ")

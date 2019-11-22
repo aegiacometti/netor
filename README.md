@@ -1,58 +1,41 @@
 # Introduction
 
-Yes yes, i know... I'm very very original with the name of this project! ;)
+You will see amazing things that can be done with Ansible and Salt and in the OpenSource
+environment. The community out there is amazing... Enjoy!
 
-Anyway, after +20 years in a network enterprise environment, i got tired of having to learn different command lines each
-time a vendor decides to put something new on the market, and of course, management platforms that only work with
-their devices, but the new ones! because the old one "you need to replace them"... you all know this story.
+Project code at <https://github.com/aegiacometti/netor>
 
-And don't get me wrong... I love to learn, in fact, if I am not learning something new, I behave like a kid who doesn't
-have something to play with, for me this is a kind of work but with passion.
-
-So, i decided to start "playing" with all of this new toys and in the way i found my self wanting to start a developing
-path to integrate networking and coding worlds. I already kind of know about networking, ok, now let's go to the
-developing/programming world with words like: Linux, Python, Pycharm, Ansible, SaltStack, event-bus, git, gitHub,
-markdown, reStructuredText, auto-documentation, readTheDocs, TinyDB, Tox, Jenkins, Napalm, and every day two new toys...
-
-This project aims to make it easier to play with the network, and excuse me if I offend someone, but since I enjoy this
-so much, sometimes I like to use the work play instead of work. My objective is to use this compilation of tools
-in a personal way, for your PC, for your use, nothing commercial nor enterprise.
-
-You will see amazing things that can be done in the OpenSource environment without having to marry any vendor. The 
-community out there is amazing... Enjoy!
+Project documentation at <https://readthedocs.org/projects/netor/>
 
 
 # Purpose of the project
 
 This is a very simple compilation of several OpenSource packages, which
-by using scripts custom scripts help to start the journey of network
+by using custom scripts help to start the journey of network
 automation and orchestration, without having to learn from the very
-beginning how to configure all of them.
+beginning how to configure every detail, so i will be using basic standard
+configurations.
 
-Because I think that this is the most important thing in the adoption of
-any new thing ... make it easier to start using them.
+Why? Because I believe that the most important factor in the adoption of
+any new methodology is to make it easier to start using them.
 
-So, the scripts won't be nice, they are very simple and they work fine,
+The scripts won't be nice coding, they are very simple and they work fine,
 in fact, they are very easy to read. They catch some typing errors but
 pay attention when you write. Anyway, do not worry, you won't break
-anything at this point.
+anything.
 
 The tools that integrate at the moment are:
 
   - Ansible
-  - SaltStack
+  - Salt
   - TinyDB
 
 As I move forward I will try to integrate other packages and
 functionalities.
 
 But, remember, this project is only to help start using Ansible and
-SaltStack, in order to see what you can get out of them, and after that,
+Salt, in order to see what you can get out of them, and after that,
 you should start learning about those two projects which are amazing.
-
-Project code at <https://github.com/aegiacometti/netor>
-
-Project documentation at <https://readthedocs.org/projects/netor/>
 
 
 ## Motivation
@@ -88,10 +71,7 @@ Remember to create your own database and push it to Ansible and Salt, is super e
 
 All of this software is Open Source, which means that is free and community maintained.
 
-You don't need to pay a fortune for a vendor specify software, which are usually oriented to their OS and the you
-have to figure out what to do with other devices from other vendors. We all know the drill...
-
-There are a couple of security configuration settings from Ansible and SaltStack that are not recommended
+There are a couple of security configuration settings from Ansible and Salt that are not recommended
 to use, but for learning purposes I let them open.
 
 **For Ansible:**
@@ -105,7 +85,7 @@ File $HOME/.ansible.cfg
 ``host_key_auto_add = True``
 
 
-For SaltStack:
+For Salt:
 
 File /etc/salt/master and /etc/salt/minion
 
@@ -114,7 +94,7 @@ File /etc/salt/master and /etc/salt/minion
 ``auto_accept: True``
 
 
-When you restart SaltStack, give a couple of minutes to synchronise, it will
+When you restart Salt, give a couple of minutes to synchronise, it will
 look like not working... wait... and if you want you can check the logs of the
 daemons with:
 
@@ -146,14 +126,14 @@ https://netor.readthedocs.io/en/latest/usecases.html
   - Upload to PyPi and work in adapting de structure.
   - Reformat code to make it reusable and with less repeated code.
   - Work on bash or python scripts to mirror common Ansible and
-    SaltStack operations in order to make it easier to use and start
-    learning about them Ansible and SaltStack.
+    Salt operations in order to make it easier to use and start
+    learning about them Ansible and Salt.
 
 
 # Limitations
 
   - Tested on Linux and macOS. Don't support Windows, since Ansible and
-    SaltStack do not support them.
+    Salt do not support them.
   - Only supports Python 3.
   - If you change you `netor_home_directory` you have to update the PATH
 environment variable in order to look for the scripts in the correct
@@ -170,6 +150,6 @@ guide us.
   - NAPALM: David Barroso <dbarrosop@dravetech.com>, Mircea Ulinic
     <ping@mirceaulinic.net>, and Kirk Byers <ktbyers@twb-tech.com>
   - TinyDB: Markus Siemens <markus@m-siemens.de>
-  - Ansible and SaltStack teams
+  - Ansible and Salt teams
   - OpenSource community in general
   
