@@ -1,0 +1,23 @@
+---
+- name: Backup devices configs
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+
+    - name: Read IOS configs
+      ios_command:
+        commands: show run
+      register: output
+
+    - name: Save IOS config
+      copy:
+        content: "{{ output.stdout[0] }}"
+        dest: "~/netor/netor/ansible/backup/show_run_{{ inventory_hostname }}.txt"
+
+    - name: Send message to Slack
+      slack:
+        token: TQJ9F14QJ/BQRHDS8E5/pc2ij5CLgGZkjiJityhUuqc5
+        msg: 'Network device {{ inventory_hostname }} backup completed'
+      delegate_to: localhost

@@ -1,0 +1,11 @@
+---
+- name: Slack Messaging
+  hosts: localhost
+  gather_facts: false
+  tasks:
+  
+  - name: Send message to Slack
+    slack:
+      token: TQJ9F14QJ/BQRHDS8E5/pc2ij5CLgGZkjiJityhUuqc5
+      msg: 'Test message from Ansible'
+    delegate_to: localhost
