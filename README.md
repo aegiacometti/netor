@@ -65,6 +65,13 @@ https://netor.readthedocs.io/en/latest/how_to_install.html#installation-on-linux
 https://netor.readthedocs.io/en/latest/how_to_install.html#installation-on-macos
 
 
+## Updates
+
+In order to update with the latest changes, just CD into your netor directory and pull the changes with:
+
+    ``git pull origin master``
+
+
 # Important comments
 
 Remember to create your own database and push it to Ansible and Salt, is super easy, follow the guide at **How to use** section.
@@ -149,7 +156,11 @@ guide us.
     learning Python, with network orientation: Kirk Byers <ktbyers@twb-tech.com>
   - NAPALM: David Barroso <dbarrosop@dravetech.com>, Mircea Ulinic
     <ping@mirceaulinic.net>, and Kirk Byers <ktbyers@twb-tech.com>
-  - TinyDB: Markus Siemens <markus@m-siemens.de>
+  - TinyDB: Markus Siemens markus@m-siemens.de
+  - The authors of these great books which helped my a lot:
+
+    - Network Programmability and Automation (Jason Edelman, Scott S. Lowe and Matt Oswalt)
+    - Network Automation at Scale (Mircea Ulinic and Seth House)
   - Ansible and Salt teams
   - OpenSource community in general
   

@@ -1,0 +1,11 @@
+v1.0.1
+======
+
+8/12/2019
+- Fix sites.py in add function to not allow duplicates
+- Fix pushcustdb.py to use OS name from DB variable
+- Fix devices.py in os_list variable for the correct NAPALM OS driver name, and make it static variable
+- Remove line from master #max_open_files: 100000
+- added script netor-salt-view-event-bus for shortcut to access the native command from salt
+- added two ansible playbooks to test sending messages to slack, you need to put your slack token on the playbooks
+- added DOC to pull for netor updates

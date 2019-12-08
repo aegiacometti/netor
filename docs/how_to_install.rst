@@ -395,3 +395,11 @@ Create these links to use as defaults, these files will by the updated ones from
 
 
 19. done!
+
+
+Updates
+*******
+
+In order to update with the lastest changes, just CD into your netor directory and pull the changes with:
+
+    ``git pull origin master``

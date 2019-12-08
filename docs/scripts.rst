@@ -20,3 +20,4 @@ Ansible is very easy and straight forward, but Salt is very hard to get use to t
 * ``netor-salt-start`` to start Salt daemons.
 * ``netor-salt-stop`` to stop Salt daemons.
 * ``netor-traceroute`` to resolve name->ip using Ansible hosts inventory file.
+* ``netor-salt-view-event-bus`` shortcut to execute native salt command to view event bus.

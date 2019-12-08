@@ -6,6 +6,6 @@
   
   - name: Send message to Slack
     slack:
-      token: TQJ9F14QJ/BQRHDS8E5/pc2ij5CLgGZkjiJityhUuqc5
+      token: your_slack_token_goes_here
       msg: 'Test message from Ansible'
     delegate_to: localhost

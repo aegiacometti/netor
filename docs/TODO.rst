@@ -2,6 +2,7 @@ TODOs
 =====
 
 * ADD ENCRYPTION TO STORE THE USER ID PASSWORD IN TINYDB
+* Create netor-update script to update the software
 * Redo netorconf.py.
 * Auto testing.
 * Upload to PyPi and work in adapting de structure.

@@ -14,5 +14,9 @@ These passionate individuals that are always there to help, teach and guide us.
 * Python3 for network engineers: with Kirk's online trainings I started this journey of learning Python, with network orientation: Kirk Byers <ktbyers@twb-tech.com>
 * NAPALM: David Barroso dbarrosop@dravetech.com, Mircea Ulinic ping@mirceaulinic.net, and Kirk Byers ktbyers@twb-tech.com
 * TinyDB: Markus Siemens markus@m-siemens.de
+* The authors of these great books which helped my a lot:
+
+    * Network Programmability and Automation (Jason Edelman, Scott S. Lowe and Matt Oswalt)
+    * Network Automation at Scale (Mircea Ulinic and Seth House)
 * Ansible and Salt teams
-* OpenSource community in general
+* OpenSource community in gener
