@@ -21,6 +21,8 @@ case $opc in
     "$DIR"/netor/bin/netor-salt-stop
     sudo systemctl disable salt-master.service
     sudo systemctl disable salt-minion.service
+    sudo systemctl stop salt-minion.service
+    sudo systemctl stop salt-master.service
     "$DIR"/netor/bin/netor-salt-start
     sudo cp "$DIR"/netor/netor/salt/config/services/salt-proxy@.service /etc/systemd/system/
     sudo mv /etc/salt/master /etc/salt/master.bkp
