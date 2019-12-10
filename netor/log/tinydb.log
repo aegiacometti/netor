@@ -1,1 +1,9 @@
 2019-11-06 14:05:04,090 - INFO - Full DB listed: /home/adrian/neto-master/neto/tinydb/data/db.json - by: adrian at script: listdb.py
+2019-12-10 14:27:23,530 - INFO - Netconf executed. Neto.config and static vars in scripts updated.  - by: adrian at script: /home/adrian/netor/netor/tinydb/scripts/netorconf.py
+2019-12-10 14:30:46,014 - INFO - Push DB executed. Ansible configuration files updated. - by: adrian at script: /home/adrian/netor/netor/tinydb/scripts/pushcustdb.py
+2019-12-10 14:30:47,275 - INFO - Push DB executed. Salt configuration files updated. - by: adrian at script: /home/adrian/netor/netor/tinydb/scripts/pushcustdb.py
+2019-12-10 14:30:47,275 - INFO - Push DB executed. Salt configuration files updated. - by: adrian at script: /home/adrian/netor/netor/tinydb/scripts/pushcustdb.py
+2019-12-10 14:48:15,416 - INFO - DB "db.json" table "customers" listed - by: adrian at script: /home/adrian/netor/netor/tinydb/scripts/worker.py
+2019-12-10 14:48:31,900 - INFO - DB "db.json" table "customers" deleted "c1" - by: adrian at script: /home/adrian/netor/netor/tinydb/scripts/worker.py
+2019-12-10 14:48:36,821 - INFO - DB "db.json" table "customers" deleted "c2" - by: adrian at script: /home/adrian/netor/netor/tinydb/scripts/worker.py
+2019-12-10 14:48:42,777 - INFO - Full DB listed: /home/adrian/netor/netor/tinydb/data/db.json - by: adrian at script: /home/adrian/netor/netor/tinydb/scripts/listdb.py

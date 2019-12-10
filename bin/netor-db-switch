@@ -1,5 +1,5 @@
 #!/bin/bash
 # Updates the full path name of the DB in configuration and scripts files
-netor_home_directory="/home/adrian/netor-master/"
+netor_home_directory="/home/adrian/netor/"
 python3 "$netor_home_directory"netor/tinydb/scripts/switchdb.py
 

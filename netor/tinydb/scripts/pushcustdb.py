@@ -9,7 +9,7 @@ import configparser
 import netorconf
 import tinydblogging
 
-_NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
+_NETOR_HOME_DIRECTORY = "/home/adrian/netor/"
 
 
 class DB:

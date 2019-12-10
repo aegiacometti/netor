@@ -1,0 +1,46 @@
+# for salt-sproxy
+use_existing_proxy: true
+#####  Large-scale tuning settings   #####
+##########################################
+#max_open_files: 100000
+
+#####        Security settings       #####
+# Enable "open mode", this mode still maintains encryption, but turns off
+# authentication, this is only intended for highly secure environments or for
+# the situation where your keys end up in a bad state. If you run in open mode
+# you do so at your own risk!
+open_mode: True
+
+# Enable auto_accept, this setting will automatically accept all incoming
+# public keys from the minions. Note that this is insecure.
+auto_accept: True
+
+# The path to the master's configuration file.
+conf_file: /home/adrian/netor/netor/salt/config/master
+
+# Directory used to store public key data:
+pki_dir: /home/adrian/netor/netor/salt/config/pki/master
+
+#####      File Server settings      #####
+file_roots:
+  base:
+    - /home/adrian/netor/netor/salt/config/pillar/
+    - /home/adrian/netor/netor/salt/config/pillar/states/
+
+#####         Pillar settings        #####
+pillar_roots:
+  base:
+    - /home/adrian/netor/netor/salt/config/pillar/
+    - /home/adrian/netor/netor/salt/config/pillar/states/
+engines:
+  - slack:
+      token: YOUR-TOKEN-GOES-HERE
+      control: true
+      fire_all: False
+######## CREATE YOUR OWN POLICIES FOR COMMAND PERMISSIONS ########
+      groups:
+        default:
+          users:
+            - '*'
+          commands:
+            - '*'

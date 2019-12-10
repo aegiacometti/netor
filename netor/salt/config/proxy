@@ -1,0 +1,35 @@
+##### Primary configuration settings #####
+
+master: localhost
+conf_file: /home/adrian/netor/netor/salt/config/proxy
+mine_enabled: true  # not required, but nice to have
+mine_functions:
+  net.ipaddrs: []
+  net.lldp: []
+  net.mac: []
+  net.arp: []
+  net.interfaces: []
+mine_interval: 5
+
+######         Thread settings        #####
+multiprocessing: false
+
+#####     File Directory Settings    #####
+file_roots:
+  base:
+    - /home/adrian/netor/netor/salt/config/
+    - /home/adrian/netor/netor/salt/config/pillar/
+pillar_roots:
+  base:
+    - /home/adrian/netor/netor/salt/config/
+    - /home/adrian/netor/netor/salt/config/pillar/
+
+######        Security settings       #####
+###########################################
+# Enable "open mode", this mode still maintains encryption, but turns off
+# authentication, this is only intended for highly secure environments or for
+# the situation where your keys end up in a bad state. If you run in open mode
+# you do so at your own risk!
+open_mode: True
+# The directory to store the pki information in
+pki_dir: /home/adrian/netor/netor/salt/config/pki/proxy  # not required - this separates the proxy keys into a different directory
