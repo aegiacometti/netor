@@ -61,7 +61,8 @@ class DB:
         if q == 'y':
             return devices_to_push
         else:
-            return False
+            print('\nCancelling push.')
+            sys.exit(0)
 
     @staticmethod
     def ansible_push_inventory(tinydb_log_file, ansible_hosts_path_name, ansible_backup_hosts_path_name,
@@ -339,27 +340,22 @@ def _start_process():
 
     devices_to_push = x.select_devices_to_push(filter_expression)
 
-    if devices_to_push:
-        print("\nPUSH DEVICE DB TO ANSIBLE AND SALT INVENTORY FILES")
+    print("\nPUSH DEVICE DB TO ANSIBLE AND SALT INVENTORY FILES")
 
-        x.ansible_push_inventory(tinydb_log_file,
-                                 config['Ansible']['ansible_hosts_path_name'],
-                                 config['Ansible']['ansible_backup_hosts_path_name'], devices_to_push)
+    x.ansible_push_inventory(tinydb_log_file,
+                             config['Ansible']['ansible_hosts_path_name'],
+                             config['Ansible']['ansible_backup_hosts_path_name'], devices_to_push)
 
-        x.salt_push_inventory(tinydb_log_file,
-                              config['Salt']['salt_minion_path_name'],
-                              config['Salt']['salt_backup_directory'],
-                              config['Salt']['salt_pillar_directory'],
-                              config['Salt']['salt_backup_pillar_directory'],
-                              config['Salt']['salt_top_path_name'],
-                              config['Salt']['salt_states_directory'], devices_to_push)
+    x.salt_push_inventory(tinydb_log_file,
+                          config['Salt']['salt_minion_path_name'],
+                          config['Salt']['salt_backup_directory'],
+                          config['Salt']['salt_pillar_directory'],
+                          config['Salt']['salt_backup_pillar_directory'],
+                          config['Salt']['salt_top_path_name'],
+                          config['Salt']['salt_states_directory'], devices_to_push)
 
-        print("\nRestart salt minion in order to use the new configuration files !!!")
-        return
-
-    else:
-        print('\nCancelling push.')
-        return
+    print("\nRestart salt minion in order to use the new configuration files !!!")
+    return
 
 
 if __name__ == '__main__':
