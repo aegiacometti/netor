@@ -103,7 +103,7 @@ def _check_values(line_value_list):
     except ValueError:
         return False
 
-    if not line_value_list[4].lower() in ["ios", "ios-xr", "nx-os", "eos", "jnos"]:
+    if not line_value_list[4].lower() in ["ios", "ios-xr", "nx-os", "eos", "junos"]:
         return False
     else:
         line_value_list[4] = line_value_list[4].lower()

@@ -11,6 +11,8 @@ class Devices(dbparam.DbParam):
     by underscores ``"_"``.
     """
 
+    OS_LIST = ["ios", "iosxr", "nxos", "eos", "junos"]
+
     @staticmethod
     def _check_value(value):
         """
@@ -74,8 +76,7 @@ class Devices(dbparam.DbParam):
                 print("\nSite do no exist")
                 return False
         elif q == "4":
-            os_list = ["ios", "ios-xr", "nx-os", "eos", "jnos"]
-            string = input("Enter device IP, name, or OS " + str(os_list) + ": ")
+            string = input("Enter device IP, name, or OS " + str(self.OS_LIST) + ": ")
             query_ip = Query().dev_ip == string
             query_name = Query().dev_name == string
             query_os = Query().os == string
@@ -133,9 +134,8 @@ class Devices(dbparam.DbParam):
                 if self.table_devices.search(query_site & query_customer & (Query().dev_name == dev_name)):
                     print("\nDevice Name already exist")
                     return False
-                os_list = ["ios", "ios-xr", "nx-os", "eos", "jnos"]
-                os_input = input("Operating System " + str(os_list) + ": ")
-                if os_input not in os_list:
+                os_input = input("Operating System " + str(self.OS_LIST) + ": ")
+                if os_input not in self.OS_LIST:
                     print("\nOS not in list")
                     return False
                 userid = input("User id (def: cisco): ")
@@ -218,12 +218,11 @@ class Devices(dbparam.DbParam):
                     if self.table_devices.search(query_site & query_customer & (Query().devName == new_dev_name)):
                         print("\nDevice Name already exist")
                         return False
-                os_list = ["ios", "ios-xr", "nx-os", "eos", "jnos"]
                 new_os = input("New Operating System [current: " + modified_device[0]['os'] + "] or new " +
-                               str(os_list) + ": ")
+                               str(self.OS_LIST) + ": ")
                 if new_os == "":
                     new_os = modified_device[0]['os']
-                if new_os not in os_list:
+                if new_os not in self.OS_LIST:
                     print("\nOS not in list")
                     return False
                 new_userid = input("New User id [" + modified_device[0]['userid'] + "]: ")

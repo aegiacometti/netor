@@ -164,6 +164,20 @@ def _create_master_config_file(new_netor_home_directory, filename):
     file.write('  base:\n')
     file.write('    - ' + new_netor_home_directory + 'netor/salt/config/pillar/\n')
     file.write('    - ' + new_netor_home_directory + 'netor/salt/config/pillar/states/\n')
+
+    file.write('engines:\n')
+    file.write('  - slack:\n')
+    file.write('      token: YOUR-TOKEN-GOES-HERE\n')
+    file.write('      control: true\n')
+    file.write('      fire_all: False\n')
+    file.write('######## CREATE YOUR OWN POLICIES FOR COMMAND PERMISSIONS ########\n')
+    file.write('      groups:\n')
+    file.write('        default:\n')
+    file.write('          users:\n')
+    file.write('            - \'*\'\n')
+    file.write('          commands:\n')
+    file.write('            - \'*\'\n')
+
     file.close()
 
 

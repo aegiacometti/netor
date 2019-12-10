@@ -9,3 +9,12 @@ v1.0.1
 - added script netor-salt-view-event-bus for shortcut to access the native command from salt
 - added two ansible playbooks to test sending messages to slack, you need to put your slack token on the playbooks
 - added DOC to pull for netor updates
+
+
+v1.0.2
+======
+
+9/12
+- Changed driver name from jnos to junos at devices.py and importcsv.py
+- added "role: network" at network devices .sls files pillar
+- added engine config for salt slack
