@@ -1,0 +1,28 @@
+---
+- name: Enable SCP 
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  
+  tasks:
+
+    - name: IOS Enable SCP
+      ios_config:
+        lines:
+          - ip scp server enable
+      register: output
+      when: ansible_network_os == 'ios'
+
+    - name: NxOS Enable SCP
+      nxos_config:
+        lines: 
+          - feature scp-server
+      register: output
+      when: ansible_network_os == 'nxos'
+
+    - name: Show output
+      debug:
+        msg: "{{ output }}"
+      when: (ansible_network_os == 'ios') or (ansible_network_os == 'nxos')
+
+
