@@ -400,6 +400,6 @@ Create these links to use as defaults, these files will by the updated ones from
 Updates
 *******
 
-In order to update with the lastest changes, just CD into your netor directory and pull the changes with:
+In order to update with the latest changes, just CD into your netor directory and pull the changes with:
 
     ``git pull origin master``

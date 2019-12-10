@@ -416,7 +416,7 @@ def _update_config(tinydb_log_file, __file__, new_netor_home_directory):
 
     print("\nAdd or modified if necessary " + new_netor_home_directory + "bin to your .profile")
     print("     vi $HOME/.profile")
-    print("     PATH=\"$PATH:" + new_netor_home_directory + "/bin")
+    print("     PATH=\"$PATH:" + new_netor_home_directory + "bin")
     print("\nLogoff session, login again.")
 
     print("\nATTENTION: If you are using Salt restart the daemons with  \"netor-salt-restart\"\n")

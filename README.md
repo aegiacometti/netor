@@ -157,7 +157,7 @@ guide us.
   - NAPALM: David Barroso <dbarrosop@dravetech.com>, Mircea Ulinic
     <ping@mirceaulinic.net>, and Kirk Byers <ktbyers@twb-tech.com>
   - TinyDB: Markus Siemens markus@m-siemens.de
-  - The authors of these great books which helped my a lot:
+  - The authors of these great books which helped me a lot:
 
     - Network Programmability and Automation (Jason Edelman, Scott S. Lowe and Matt Oswalt)
     - Network Automation at Scale (Mircea Ulinic and Seth House)
