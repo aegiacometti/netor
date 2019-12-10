@@ -18,3 +18,4 @@ v1.0.2
 - Changed driver name from jnos to junos at devices.py and importcsv.py
 - added "role: network" at network devices .sls files pillar
 - added engine config for salt slack
+- fixed DB push with empty DB
