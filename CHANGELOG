@@ -19,3 +19,4 @@ v1.0.2
 - added "role: network" at network devices .sls files pillar
 - added engine config for salt slack
 - fixed DB push with empty DB
+- changed playbook name slack.yml to slack-test.yml
