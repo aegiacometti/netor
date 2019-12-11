@@ -1,4 +1,4 @@
 #!/bin/bash
 #To import a .CSV file to the current DB.
-netor_home_directory="/home/adrian/netor-master/"
+netor_home_directory="/home/adrian/netor/"
 python3 "$netor_home_directory"netor/tinydb/scripts/importcsv.py

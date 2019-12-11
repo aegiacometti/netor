@@ -3,7 +3,7 @@
 # all the devices names to the local host file for name->ip resolution
 dev_name=$1
 dev_name+=" an"
-hosts_file="/home/adrian/netor-master/netor/ansible/hosts"
+hosts_file="/home/adrian/netor/netor/ansible/hosts"
 ip_ansible=$(more "$hosts_file" | grep "^$dev_name" | awk '{print $2}' | awk '{split($0,a,"=") ; print a[2]}')
 if $ip_ansible
 then

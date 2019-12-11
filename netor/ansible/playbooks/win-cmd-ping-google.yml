@@ -1,0 +1,12 @@
+---
+- name: Win Execute command
+  hosts: win2019srv
+  gather_facts: false
+  tasks:
+
+    - name: Win Execute command
+      win_command: ping 8.8.8.8
+      register: output
+
+    - debug:
+        msg: '{{ output.stdout_lines }}'

@@ -7,8 +7,8 @@ import sys
 import os
 import tinydblogging
 
-_NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
-_DB_PATH_NAME = "/home/adrian/netor-master/netor/tinydb/data/db.json"
+_NETOR_HOME_DIRECTORY = "/home/adrian/netor/"
+_DB_PATH_NAME = "/home/adrian/netor/netor/tinydb/data/db.json"
 
 
 class DB(dbparam.DbParam):

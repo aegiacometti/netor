@@ -6,7 +6,7 @@ import os
 import tinydblogging
 import glob
 
-_NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
+_NETOR_HOME_DIRECTORY = "/home/adrian/netor/"
 
 
 def _switchdb():
