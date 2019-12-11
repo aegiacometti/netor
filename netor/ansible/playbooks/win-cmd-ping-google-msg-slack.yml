@@ -6,14 +6,11 @@
 
     - name: Win Execute command
       win_command: ping 8.8.8.8
-      register: output
+      register: output_1
+
+    - name: Send message to Slack 
+      local_action: command python3 scripts/msg-slack.py "{{ output_1.stdout }}"
+      register: output_2
 
     - debug:
-        msg: '{{ output.stdout_lines }}'
-
-    - name: Send message to Slack
-      slack:
-        token: TQJ9F14QJ/BQRHDS8E5/pc2ij5CLgGZkjiJityhUuqc5
-        msg: '{{ output.stdout }}'
-      delegate_to: localhost
-
+        msg: '{{output_2}}'
