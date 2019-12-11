@@ -1,0 +1,13 @@
+# usage example: ansible-playbook win-cmd.yml -e cmd="'ping win2019srv'"
+---
+- name: Win Execute command
+  hosts: win2019srv
+  gather_facts: false
+  tasks:
+
+  - name: Win Execute command
+    win_command: '{{ cmd }}'
+    register: output
+
+  - debug:
+      msg: '{{ output.stdout_lines }}'
