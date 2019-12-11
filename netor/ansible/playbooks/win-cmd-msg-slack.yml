@@ -5,16 +5,16 @@
   gather_facts: false
   tasks:
 
-  - name: Win Execute command
-    win_command: {{ cmd }} 
-    register: output
+    - name: Win Execute command
+      win_command: {{ cmd }} 
+      register: output
 
-  - debug:
-      msg: '{{ output.stdout_lines }}'
+    - debug:
+        msg: '{{ output.stdout_lines }}'
 
-  - name: Send message to Slack
-    slack:
-      token: TQJ9F14QJ/BQRHDS8E5/pc2ij5CLgGZkjiJityhUuqc5
-      msg: '{{ output.stdout }}'
-    delegate_to: localhost
+    - name: Send message to Slack
+      slack:
+        token: TQJ9F14QJ/BQRHDS8E5/pc2ij5CLgGZkjiJityhUuqc5
+        msg: '{{ output.stdout }}'
+      delegate_to: localhost
 
