@@ -1,0 +1,16 @@
+# usage example: ansible-playbook win-user-view.yml --extra-vars "user=user_name"
+---
+- name: Win view user
+  hosts: ad
+  gather_facts: false
+  tasks:
+
+    - name: Win view user
+      win_user:
+        name: '{{ user }}'
+        state: query
+      register: output
+      ignore_errors: yes
+
+    - name: Send message to Slack using a python script
+      local_action: command python3 scripts/win-user-view-msg-slack.py "{{ output }}"

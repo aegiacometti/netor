@@ -1,0 +1,9 @@
+@boty win-ping win2019srv 216.58.221.206
+@boty win-ping win2019srv none
+@boty win-ping win2019srv google.com
+@boty win-ping win2019srv 1.1.1
+
+@boty win-ping 1.1.1 win2019srv
+@boty win-ping none win2019srv
+@boty win-ping google.com win2019srv
+@boty win-ping 216.58.221.206 win2019srv

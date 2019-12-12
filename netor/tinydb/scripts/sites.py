@@ -81,7 +81,7 @@ class Sites(dbparam.DbParam):
         else:
             site = input("Site Name: ")
             site = site.replace(' ', '_')
-            query_site = Query().sites.any(Query().site == site)
+            query_site = Query().site == site
             res = self.table_sites.search(query_customer & query_site)
             if res:
                 print("\nSite already exist")

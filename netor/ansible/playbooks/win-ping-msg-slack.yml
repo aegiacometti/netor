@@ -1,22 +1,18 @@
-# usage example: ansible-playbook win-cmd.yml --extra-vars "cmd='ping win2019srv'"
+# usage example: ansible-playbook win-cmd.yml --extra-vars "cmd=ping source=ansible_hostname destination=ip/hostname'"
 ---
 - name: Win Execute command
-  hosts: win2019srv
+  hosts: localhost
   gather_facts: false
   tasks:
 
     - name: Win Execute command
-      win_command: "{{ cmd }}"
+      win_command: '{{ cmd }} {{destination}}'
       register: output
-      ignore_errors: yes
-
-    - debug:
-        msg: '{{ output.stdout_lines }}'
+      delegate_to: '{{ source }}'
 
     - name: Send message to Slack
       slack:
         token: TQJ9F14QJ/BRMD5MVDM/B5Ddv6bnsPl579gMaAWoF3wx
         msg: '{{ output.stdout }}'
       delegate_to: localhost
-
 

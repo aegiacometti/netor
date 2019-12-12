@@ -1,5 +1,5 @@
 ---
-- name: Win create loal user
+- name: Win create local user
   hosts: win2019srv
   gather_facts: false
   tasks:
@@ -7,7 +7,5 @@
     - name: Create local user
       win_user:
         name: adrian
-        password: password
-        groups: LocalGroup
-        update_password: no
-        password_never_expires: yes
+        state: query
+

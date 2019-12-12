@@ -1,0 +1,16 @@
+# usage example: ansible-playbook win-user-disable.yml --extra-vars "user=user_name"
+---
+- name: Win disable user
+  hosts: ad
+  gather_facts: false
+  tasks:
+
+    - name: Win disable user
+      win_user:
+        name: '{{ user }}'
+        account_disabled: yes
+      register: output
+
+    - debug:
+        msg: '{{ output }}'
+

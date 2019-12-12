@@ -3,7 +3,7 @@ import ast
 
 from slackclient import SlackClient
 
-slack_token_slack = "xoxb-834321038834-849046616935-UuWCCQcdoZ51sXlh3NrLCysL"
+slack_token_slack = "YOUR-TOKEN-GOES-HERE"
 client = SlackClient(slack_token_slack)
 
 text = str(sys.argv[1])

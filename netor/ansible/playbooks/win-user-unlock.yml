@@ -1,0 +1,16 @@
+# usage example: ansible-playbook win-user-unlock.yml --extra-vars "user=user_name"
+---
+- name: Win unblock user
+  hosts: ad
+  gather_facts: false
+  tasks:
+
+    - name: Win unblock user
+      win_user:
+        name: '{{ user }}'
+        account_locked: no
+      register: output
+
+    - debug:
+        msg: '{{ output }}'
+

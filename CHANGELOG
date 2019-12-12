@@ -20,3 +20,6 @@ v1.0.2
 - added engine config for salt slack
 - fixed DB push with empty DB
 - changed playbook name slack.yml to slack-test.yml
+
+12/12
+- new playbooks and python scripts for managing windows and sending msg to slack

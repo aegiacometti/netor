@@ -32,7 +32,7 @@
       # var: data
     
     - name: execute python script
-      local_action: command python scripts/parseInventory.py "{{ inventory_hostname }}" "{{ ansible_facts.config }}"
+      local_action: command python3 scripts/parseInventory.py "{{ inventory_hostname }}" "{{ ansible_facts.config }}"
       register: output
 
     - debug:
