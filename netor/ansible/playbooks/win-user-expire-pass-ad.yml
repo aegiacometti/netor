@@ -1,0 +1,24 @@
+# usage example: ansible-playbook win-user-expire-pass-ad.yml --extra-vars "user=user_name"
+---
+- name: Win expire user playbook AD
+  hosts: ad
+  gather_facts: false
+  tasks:
+
+    - name: Check connection to AD
+      wait_for_connection:
+        connect_timeout: 3
+        timeout: 5
+      register: connection
+      ignore_errors: yes
+
+    - name: Win expire user AD
+      win_domain_user:
+        name: '{{ user }}'
+        password_expired: yes
+        password: "L4.p4ss.D3fault"
+      register: output
+
+    - debug:
+        msg: '{{ output }}'
+

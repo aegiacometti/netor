@@ -1,0 +1,34 @@
+# usage example: ansible-playbook win-user-create-local.yml --extra-vars "fullname=full_name, userid=userid, server=server"
+---
+- name: Win Create user playbook AD
+  hosts: '{{ server }}'
+  gather_facts: false
+  tasks:
+
+    - name: Check connection to Server
+      wait_for_connection:
+        connect_timeout: 3
+        timeout: 5
+      register: connection
+      ignore_errors: yes
+
+    - name: Message to slack if connection failed
+      local_action: command python3 scripts/connection-failed-msg-slack.py "{{ connection }}"
+
+    - name: Win check user existance Server
+      win_user:
+        name: '{{ userid }}'
+        state: query
+      register: existance
+
+    - name: Win user create Server
+      win_user:
+        name: '{{ userid }}'
+        fullname: '{{ fullname }}'
+        password: 'L4.p4ss.D3fault'
+        state: present
+      when: existance.state == "absent"
+      register: output
+
+    - name: Send message to Slack using a python script
+      local_action: command python3 scripts/win-user-create-msg-slack.py "{{ output }}" "{{ userid }}" "{{ server }}"

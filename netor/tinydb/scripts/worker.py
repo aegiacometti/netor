@@ -6,7 +6,8 @@ import devices
 import sys
 import os
 import netorconf
-import tinydblogging
+import netorlogging
+import configparser
 
 _NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
 _DB_PATH_NAME = "/home/adrian/netor-master/netor/tinydb/data/db.json"
@@ -47,7 +48,9 @@ def _redirect():
     """
 
     netorconf.check_netor_config(_NETOR_HOME_DIRECTORY)
-    tinydb_log_file = _NETOR_HOME_DIRECTORY + "netor/log/tinydb.log"
+    config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
+    config.read((_NETOR_HOME_DIRECTORY + "netor/netor.config"))
+    tinydb_log_file = config['TinyDB']['tinydb_log_file']
 
     if (len(sys.argv) == 0) or len(sys.argv) > 4:
         print("\nInvalid parameters. Admin -operation tablename dbfile\n")
@@ -83,26 +86,26 @@ def _redirect():
     if option == "-l":
         item = x.list()
         if item:
-            tinydblogging.log_msg(tinydb_log_file, __file__,
+            netorlogging.log_msg(tinydb_log_file, __file__,
                                   "DB \"" + db_path_name.split("/")[-1] + "\" table \"" + table + "\" listed")
     elif option == "-a":
         item = x.add()
         if item:
-            tinydblogging.log_msg(tinydb_log_file, __file__,
+            netorlogging.log_msg(tinydb_log_file, __file__,
                                   "DB \"" + db_path_name.split("/")[-1] + "\" table \"" + table + "\" added \""
-                                  + item + "\"")
+                                 + item + "\"")
     elif option == "-m":
         item = x.modify()
         if item:
-            tinydblogging.log_msg(tinydb_log_file, __file__,
+            netorlogging.log_msg(tinydb_log_file, __file__,
                                   "DB \"" + db_path_name.split("/")[-1] + "\" table \"" + table + "\" modified: \""
-                                  + item[0] + "\" to \"" + item[1] + "\"")
+                                 + item[0] + "\" to \"" + item[1] + "\"")
     elif option == "-d":
         item = x.delete()
         if item:
-            tinydblogging.log_msg(tinydb_log_file, __file__,
+            netorlogging.log_msg(tinydb_log_file, __file__,
                                   "DB \"" + db_path_name.split("/")[-1] + "\" table \"" + table + "\" deleted \""
-                                  + item + "\"")
+                                 + item + "\"")
     else:
         print("Invalid class operation")
 

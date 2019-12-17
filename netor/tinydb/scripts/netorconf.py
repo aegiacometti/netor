@@ -4,7 +4,7 @@ import os
 import sys
 import configparser
 import fileinput
-import tinydblogging
+import netorlogging
 import datetime
 from shutil import copyfile
 
@@ -29,15 +29,15 @@ def _netor_config():
     :return: nothing
     """
     netor_home_directory = os.environ['HOME'] + "/netor/"
+    config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
+    netor_config_path_name = netor_home_directory + "netor/netor.config"
+    config.read(netor_config_path_name)
 
     if os.path.isdir(netor_home_directory):
         answer = input("\nDefault \"$HOME/netor\" directory found, do you want to keep it (y/n): ").lower()
         if answer == "y":
             print("Keeping same configuration\n")
 
-            config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
-            netor_config_path_name = netor_home_directory + "netor/netor.config"
-            config.read(netor_config_path_name)
             try:
                 config['Netor']['netor_home_directory'] = netor_home_directory
             except KeyError:
@@ -46,7 +46,7 @@ def _netor_config():
             with open(netor_config_path_name, 'w') as configfile:
                 config.write(configfile)
             _update_ansible(netor_home_directory)
-            tinydb_log_file = netor_home_directory + "netor/log/tinydb.log"
+            tinydb_log_file = config['TinyDB']['tinydb_log_file']
             _update_config(tinydb_log_file, __file__, netor_home_directory)
             sys.exit()
         elif answer == "n":
@@ -54,9 +54,7 @@ def _netor_config():
             if new_netor_home_directory[-1] != '/':
                 new_netor_home_directory = new_netor_home_directory + '/'
             if os.path.isdir(new_netor_home_directory):
-                config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
-                netor_config_path_name = new_netor_home_directory + "netor/netor.config"
-                config.read(netor_config_path_name)
+
                 try:
                     config['Netor']['netor_home_directory'] = new_netor_home_directory
                 except KeyError:
@@ -65,7 +63,7 @@ def _netor_config():
                 with open(netor_config_path_name, 'w') as configfile:
                     config.write(configfile)
                 _update_ansible(new_netor_home_directory)
-                tinydb_log_file = new_netor_home_directory + "netor/log/tinydb.log"
+                tinydb_log_file = config['TinyDB']['tinydb_log_file']
                 _update_config(tinydb_log_file, __file__, new_netor_home_directory)
             else:
                 print("Invalid directory")
@@ -388,7 +386,7 @@ def _update_config(tinydb_log_file, __file__, new_netor_home_directory):
                                  "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
     replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/importcsv.py"),
                                  "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "netor/slack-bot/bot.py"),
+    replace_static_vars_scripts((new_netor_home_directory + "netor/slack/slackbot.py"),
                                  "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
 
     replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/listdb.py"),
@@ -437,7 +435,7 @@ def _update_config(tinydb_log_file, __file__, new_netor_home_directory):
 
     print("\nATTENTION: If you are using Salt restart the daemons with  \"netor-salt-restart\"\n")
 
-    tinydblogging.log_msg(tinydb_log_file, __file__,
+    netorlogging.log_msg(tinydb_log_file, __file__,
                           "Netconf executed. Neto.config and static vars in scripts updated. ")
 
 

@@ -1,11 +1,19 @@
 # usage example: ansible-playbook win-cmd.yml --extra-vars "cmd=ping source=ansible_hostname destination=ip/hostname'"
 ---
-- name: Win Execute command
+- name: Win ping playbook
   hosts: localhost
   gather_facts: false
   tasks:
 
-    - name: Win Execute command
+    - name: Check connection to AD
+      wait_for_connection:
+        connect_timeout: 5
+        timeout: 5
+      register: connection
+      ignore_errors: yes
+      delegate_to: '{{ source }}'
+
+    - name: Win ping
       win_command: '{{ cmd }} {{destination}}'
       register: output
       delegate_to: '{{ source }}'

@@ -1,0 +1,17 @@
+[Unit]
+Description=Slack ChatOps Bot Service
+After=network.target
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+Restart=always
+RestartPreventExitStatus=SIGHUP
+RestartSec=5
+ExecStart=/usr/bin/python3 /home/adrian/netor-master/netor/slack/slackbot.py
+StandardInput=tty-force
+
+[Install]
+WantedBy=default.target

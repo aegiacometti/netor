@@ -1,6 +1,6 @@
 # usage example: ansible-playbook win-cmd.yml --extra-vars "cmd='ping win2019srv'"
 ---
-- name: Win Execute command
+- name: Win Execute command playbook
   hosts: win2019srv
   gather_facts: false
   tasks:

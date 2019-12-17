@@ -1,0 +1,8 @@
+# usage example: ansible-playbook win-cmd.yml -e cmd="'ping win2019srv'"
+---
+- name: Win Execute command playbook
+  hosts: win2019srv
+
+  tasks:
+
+    - debug: var=ansible_facts

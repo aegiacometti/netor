@@ -7,7 +7,7 @@ from shutil import copyfile, move
 import os
 import configparser
 import netorconf
-import tinydblogging
+import netorlogging
 
 _NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
 
@@ -156,7 +156,7 @@ class DB:
                                        item_device['os']))
 
             file.close()
-            tinydblogging.log_msg(tinydb_log_file, __file__, "Push DB executed. Ansible configuration files updated.")
+            netorlogging.log_msg(tinydb_log_file, __file__, "Push DB executed. Ansible configuration files updated.")
             print("\nPush DB executed. Ansible configuration files updated.\n")
             return
         else:
@@ -285,7 +285,7 @@ class DB:
                 new_sls_device_file.write("    auto_rollback_on_error: True\n")
                 new_sls_device_file.write("role: network\n")
                 new_sls_device_file.close()
-            tinydblogging.log_msg(tinydb_log_file, __file__, "Push DB executed. Salt configuration files updated.")
+            netorlogging.log_msg(tinydb_log_file, __file__, "Push DB executed. Salt configuration files updated.")
             print("\nPush DB executed. Salt configuration files updated.")
         else:
             return
@@ -316,11 +316,10 @@ def _start_process():
     except IndexError:
         netor_home_directory = _NETOR_HOME_DIRECTORY
 
-    tinydb_log_file = netor_home_directory + "netor/log/tinydb.log"
-
     config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
     print("Reading netor.config")
     config.read((netor_home_directory + "netor/netor.config"))
+    tinydb_log_file = config['TinyDB']['tinydb_log_file']
 
     if os.path.isfile(config['TinyDB']['db_path_name']):
         x = DB(config['TinyDB']['db_path_name'])

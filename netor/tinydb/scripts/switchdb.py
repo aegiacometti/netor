@@ -3,7 +3,7 @@
 import netorconf
 import configparser
 import os
-import tinydblogging
+import netorlogging
 import glob
 
 _NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
@@ -20,11 +20,11 @@ def _switchdb():
     :return: nothing
     """
     netorconf.check_netor_config(_NETOR_HOME_DIRECTORY)
-    tinydb_log_file = _NETOR_HOME_DIRECTORY + "netor/log/tinydb.log"
     config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
     netor_config_path_name = (_NETOR_HOME_DIRECTORY + "netor/netor.config")
     config.read(netor_config_path_name)
     current_db_path_name = config['TinyDB']['db_path_name']
+    tinydb_log_file = config['TinyDB']['tinydb_log_file']
 
     print('\nAvailable Databases:\n')
     for item in glob.glob(_NETOR_HOME_DIRECTORY + 'netor/tinydb/data/*.json'):
@@ -49,7 +49,7 @@ def _switchdb():
 
     _update_config(db_name)
 
-    tinydblogging.log_msg(tinydb_log_file, __file__,
+    netorlogging.log_msg(tinydb_log_file, __file__,
                           "Switch DB command executed. Parameters in configuration files and scripts updated. ")
     print("\nSwitch DB command executed. Parameters in configuration files and scripts updated. ")
 

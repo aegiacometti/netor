@@ -1,0 +1,37 @@
+# usage example: ansible-playbook win-user-group-local.yml --extra-vars "user=user_name group=group_name state=present/absent server=server"
+---
+- name: Win user group playbook Local
+  hosts: '{{ server }}'
+  gather_facts: false
+  tasks:
+
+    - name: Check connection to Local
+      wait_for_connection:
+        connect_timeout: 3
+        timeout: 5
+      register: connection
+      ignore_errors: yes
+
+    - name: Message to slack if connection failed
+      local_action: command python3 scripts/connection-failed-msg-slack.py "{{ connection }}"
+
+    - name: Win check user existance
+      win_user:
+        name: "{{ user }}"
+        state: query
+      register: existance
+
+    - debug:
+        msg: '{{ existance }}'
+
+    - name: Win user group task Local
+      win_group:
+        name: '{{ group }}'
+        members:
+          - '{{ user }}'
+        state: '{{ state }}'
+      when: existance.state == "present"
+      register: output
+
+    - debug:
+        msg: '{{ output }}'

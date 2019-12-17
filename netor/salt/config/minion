@@ -1,0 +1,36 @@
+beacons:
+  salt_proxy:
+    - proxies:
+        c1_s1_co-1: {}
+        c1_s1_cpe: {}
+        c1_s1_ua-1: {}
+        c2_s1_co-1: {}
+        c2_s1_cpe: {}
+        c2_s1_ua-1: {}
+    - interval: 60
+
+##### Primary configuration settings #####
+master: localhost
+
+# The path to the minion's configuration file.
+conf_file: /home/adrian/netor/netor/salt/config/minion
+# The directory to store the pki information in
+pki_dir: /home/adrian/netor/netor/salt/config/pki/minion
+
+#####     File Directory Settings    #####
+file_roots:
+  base:
+    - /home/adrian/netor/netor/salt/config/pillar/
+    - /home/adrian/netor/neto/salt/config/pillar/states/
+
+pillar_roots:
+  base:
+    - /home/adrian/netor/netor/salt/config/pillar/
+    - /home/adrian/netor/netor/salt/config/pillar/ states /
+
+######        Security settings       #####
+# Enable "open mode", this mode still maintains encryption, but turns off
+# authentication, this is only intended for highly secure environments or for
+# the situation where your keys end up in a bad state. If you run in open mode
+# you do so at your own risk!
+open_mode: True

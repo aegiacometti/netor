@@ -1,0 +1,23 @@
+# usage example: ansible-playbook win-user-disable-local.yml --extra-vars "user=user_name server=server"
+---
+- name: Win disable user playbook Local
+  hosts: '{{ server }}'
+  gather_facts: false
+  tasks:
+
+    - name: Check connection to Server
+      wait_for_connection:
+        connect_timeout: 3
+        timeout: 5
+      register: connection
+      ignore_errors: yes
+
+    - name: Win disable user Local
+      win_user:
+        name: '{{ user }}'
+        account_disabled: yes
+      register: output
+
+    - debug:
+        msg: '{{ output }}'
+

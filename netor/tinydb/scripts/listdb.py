@@ -5,7 +5,7 @@ import configparser
 import netorconf
 import sys
 import os
-import tinydblogging
+import netorlogging
 
 _NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
 _DB_PATH_NAME = "/home/adrian/netor-master/netor/tinydb/data/db.json"
@@ -46,7 +46,7 @@ class DB(dbparam.DbParam):
                                                                        item['site'].replace('_', ' '), item['dev_name'],
                                                                        item['dev_ip'], item['os'], item['userid'],
                                                                        item['passwd'], item['salt_proxy_required']))
-        tinydblogging.log_msg(tinydb_log_file, __file__, "Full DB listed: " + db_path_name)
+        netorlogging.log_msg(tinydb_log_file, __file__, "Full DB listed: " + db_path_name)
         print("\nFull DB listed: " + db_path_name)
 
     def export_csv(self, tinydb_log_file, db_path_name, export_path_name):
@@ -71,8 +71,8 @@ class DB(dbparam.DbParam):
                                                       item['os'], item['userid'], item['passwd'],
                                                       item['salt_proxy_required']))
         file.close()
-        tinydblogging.log_msg(tinydb_log_file, __file__, "Full DB exported: " + db_path_name + " to filename"
-                              + export_path_name)
+        netorlogging.log_msg(tinydb_log_file, __file__, "Full DB exported: " + db_path_name + " to filename"
+                             + export_path_name)
         print("\nFull DB exported: " + db_path_name + " to filename " + export_path_name)
 
 
@@ -95,9 +95,11 @@ def _listdb():
 
     :return: nothing
     """
+
     netorconf.check_netor_config(_NETOR_HOME_DIRECTORY)
     config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
-    tinydb_log_file = _NETOR_HOME_DIRECTORY + "netor/log/tinydb.log"
+    config.read((_NETOR_HOME_DIRECTORY + "netor/netor.config"))
+    tinydb_log_file = config['TinyDB']['tinydb_log_file']
 
     if len(sys.argv) == 2:
         if os.path.isfile(sys.argv[1]):
@@ -112,7 +114,6 @@ def _listdb():
             export_directory = separator.join(tmp)
             if os.path.isdir(export_directory):
                 print("\nUsing default DB File: " + _DB_PATH_NAME)
-                config.read((_NETOR_HOME_DIRECTORY + "netor/netor.config"))
                 db_path_name = config['TinyDB']['db_path_name']
                 x = DB(db_path_name)
                 x.export_csv(tinydb_log_file, db_path_name, export_path_name)
@@ -123,7 +124,6 @@ def _listdb():
             return
     elif len(sys.argv) == 1:
         print("\nUsing default DB File: " + _DB_PATH_NAME)
-        config.read((_NETOR_HOME_DIRECTORY + "netor/netor.config"))
         db_path_name = config['TinyDB']['db_path_name']
         x = DB(db_path_name)
         x.list(tinydb_log_file, db_path_name)

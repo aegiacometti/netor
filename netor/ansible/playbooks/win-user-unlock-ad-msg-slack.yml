@@ -1,0 +1,26 @@
+# usage example: ansible-playbook win-user-unlock-local.yml --extra-vars "user=user_name"
+---
+- name: Win unlock user playbook AD
+  hosts: ad
+  gather_facts: false
+  tasks:
+
+    - name: Check connection to AD
+      wait_for_connection:
+        connect_timeout: 3
+        timeout: 5
+      register: connection
+      ignore_errors: yes
+
+    - name: Message to slack if connection failed
+      local_action: command python3 scripts/connection-failed-msg-slack.py "{{ connection }}"
+
+    - name: Win unlock user
+      win_domain_user:
+        name: '{{ user }}'
+        account_locked: no
+      register: output
+      ignore_errors: yes
+
+    - name: Send message to Slack using a python script
+      local_action: command python3 scripts/win-user-unlock-msg-slack.py "{{ output }}" "{{ user }}"

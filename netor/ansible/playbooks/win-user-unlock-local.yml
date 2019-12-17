@@ -1,0 +1,23 @@
+# usage example: ansible-playbook win-user-unlock-local.yml --extra-vars "user=user_name server=server"
+---
+- name: Win unlock user playbook Local
+  hosts: '{{ server }}'
+  gather_facts: false
+  tasks:
+
+    - name: Check connection to Server
+      wait_for_connection:
+        connect_timeout: 3
+        timeout: 5
+      register: connection
+      ignore_errors: yes
+
+    - name: Win unlock user Local
+      win_user:
+        name: '{{ user }}'
+        account_locked: no
+      register: output
+
+    - debug:
+        msg: '{{ output }}'
+

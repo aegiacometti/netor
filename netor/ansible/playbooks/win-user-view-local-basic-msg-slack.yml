@@ -1,0 +1,38 @@
+# usage example: ansible-playbook win-user-view-local-basic-msg-slack.yml --extra-vars "user=user_name server=server"
+---
+- name: Win view Basic user playbook Local
+  hosts: '{{ server }}'
+  gather_facts: false
+  tasks:
+
+    - name: Check connection to Local
+      wait_for_connection:
+        connect_timeout: 3
+        timeout: 5
+      register: connection
+      ignore_errors: yes
+
+    - name: Message to slack if connection failed
+      local_action: command python3 scripts/connection-failed-msg-slack.py "{{ connection }}"
+
+    - name: Win view user Local
+      win_user:
+        name: '{{ user }}'
+        state: query
+      register: output
+      ignore_errors: yes
+
+    - set_fact:
+        dict:
+          msg:
+        dict2: {}
+
+    - set_fact:
+        dict2: "{{output |combine({item.key: item.value})}}"
+      when: "{{item.key not in ['a']}}"
+      with_dict: "{{dict}}"
+
+    - debug: var=dict2
+
+    - name: Send message to Slack using a python script
+      local_action: command python3 scripts/win-user-view-basic-msg-slack.py "{{dict2}}" "{{user}}"

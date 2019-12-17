@@ -13,6 +13,7 @@ case $opc in
     git clone https://github.com/aegiacometti/netor.git
     sudo pip3 install napalm
     sudo pip3 install ansible
+    sudo pip3 install "pywinrm>=0.3.0"
     ansible-galaxy install ansible-network.network-engine
     wget https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg -O $HOME/.ansible.cfg
     python3 "$DIR"/netor/netor/tinydb/scripts/netorconf.py
@@ -21,8 +22,6 @@ case $opc in
     "$DIR"/netor/bin/netor-salt-stop
     sudo systemctl disable salt-master.service
     sudo systemctl disable salt-minion.service
-    sudo systemctl stop salt-minion.service
-    sudo systemctl stop salt-master.service
     "$DIR"/netor/bin/netor-salt-start
     sudo cp "$DIR"/netor/netor/salt/config/services/salt-proxy@.service /etc/systemd/system/
     sudo mv /etc/salt/master /etc/salt/master.bkp

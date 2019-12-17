@@ -106,12 +106,17 @@ https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.ht
 https://galaxy.ansible.com/ansible-network/network-engine
 
 
-9. Download a base and clean ansible.cfg and copy it into your $HOME directory from GitHub:
+9. Install Python Windows driver:
+
+    ```sudo pip3 install "pywinrm>=0.3.0"```
+
+
+10. Download a base and clean ansible.cfg and copy it into your $HOME directory from GitHub:
 
     ``wget https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg -O $HOME/.ansible.cfg``
 
 
-10. Now, for the first time, you have to configure netor by manually executing the python script:
+11. Now, for the first time, you have to configure netor by manually executing the python script:
 
     ``python3 [netor_home_directory]/netor/tinydb/scripts/netorconf.py``
 
@@ -119,14 +124,14 @@ In the future is you clone a new ``netor`` deployment for testing or to have 2 d
 will have to do this procedure again.
 
 
-11. Add to your PATH environment the ``netor/bin`` directory for easy execution of scripts:
+12. Add to your PATH environment the ``netor/bin`` directory for easy execution of scripts:
 
     ``vi $HOME/.profile``
 
 and add at the end as an example ``PATH="$PATH:[netor_home_directory]/netor/bin/"``
 
 
-12. Logoff session and login again:
+13. Logoff session and login again:
 
 If everything worked fine you can view the commands with tab autocomplete.
 
@@ -139,7 +144,7 @@ etc
 ...
 
 
-13. Install Salt:
+14. Install Salt:
 
 The recommended way is to use the bootstrap:
 
@@ -181,14 +186,14 @@ commands:
     ``netor-salt-start``
 
 
-14. Copy Salt minion proxy to the systemd folder:
+15. Copy Salt minion proxy to the systemd folder:
 
     ``sudo cp [netor_home_dir]/netor/salt/config/services/salt-proxy@.service /etc/systemd/system/``
 
 *(this path could vary depending on the system)*
 
 
-15. Backup the original Salt master and minion configuration files (so you can have
+16. Backup the original Salt master and minion configuration files (so you can have
 them as a reference), and create symbolic links to Salt new configuration files:
 
     ``sudo mv /etc/salt/master /etc/salt/master.bkp``
@@ -202,20 +207,20 @@ them as a reference), and create symbolic links to Salt new configuration files:
     ``sudo ln -s [netor_home_dir]/netor/salt/config/proxy /etc/salt/proxy``
 
 
-16. Install salt-sproxy:
+17. Install salt-sproxy:
 
     ``sudo pip3 install salt-sproxy``
 
 
-17. Run ``netor-db-push`` generate Ansible and Salt configuration files.
+18. Run ``netor-db-push`` generate Ansible and Salt configuration files.
 
 
-18. Restart Salt daemons:
+19. Restart Salt daemons:
 
     ``netor-salt-restart``
 
 
-19. done!
+20. done!
 
 
 Installation on MacOS
@@ -291,12 +296,17 @@ https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.ht
 https://galaxy.ansible.com/ansible-network/network-engine
 
 
-9. Download a base and clean ansible.cfg and copy it into your $HOME directory from GitHub:
+9. Install Python Windows driver:
+
+    ```sudo pip3 install "pywinrm>=0.3.0"```
+
+
+10. Download a base and clean ansible.cfg and copy it into your $HOME directory from GitHub:
 
     ``curl https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg -o $HOME/.ansible.cfg``
 
 
-10. Now, for the first time, you have to configure netor by manually executing the python script:
+11. Now, for the first time, you have to configure netor by manually executing the python script:
 
     ``python3 [netor_home_directory]/netor/tinydb/scripts/netorconf.py``
 
@@ -304,7 +314,7 @@ In the future is you clone a new ``netor`` deployment for testing or to have 2 d
 will have to do this procedure again.
 
 
-11. Add to your PATH environment the ``netor/bin`` directory for easy execution of scripts:
+12. Add to your PATH environment the ``netor/bin`` directory for easy execution of scripts:
 
     ``sudo nano /etc/paths``
 

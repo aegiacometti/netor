@@ -7,7 +7,8 @@ import netorconf
 import ipaddress
 import dbparam
 from tinydb import Query
-import tinydblogging
+import netorlogging
+import configparser
 
 _NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
 _DB_PATH_NAME = "/home/adrian/netor-master/netor/tinydb/data/db.json"
@@ -72,6 +73,8 @@ def _check_values(line_value_list):
     :return: ``line_value_list`` with corrections, or ``False`` if the list has an invalid value.
     """
 
+    _OS_LIST = ["ios", "iosxr", "nxos", "eos", "junos", "f5", "win", "linux"]
+
     if not line_value_list[0].isalnum() and len(line_value_list[0] < 20):
         return False
     else:
@@ -103,7 +106,7 @@ def _check_values(line_value_list):
     except ValueError:
         return False
 
-    if not line_value_list[4].lower() in ["ios", "ios-xr", "nx-os", "eos", "junos"]:
+    if not line_value_list[4].lower() in _OS_LIST:
         return False
     else:
         line_value_list[4] = line_value_list[4].lower()
@@ -155,7 +158,11 @@ def start_process():
     :return: Nothing
     """
     netorconf.check_netor_config(_NETOR_HOME_DIRECTORY)
-    tinydb_log_file = _NETOR_HOME_DIRECTORY + "netor/log/tinydb.log"
+
+    netorconf.check_netor_config(_NETOR_HOME_DIRECTORY)
+    config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
+    config.read((_NETOR_HOME_DIRECTORY + "netor/netor.config"))
+    tinydb_log_file = config['TinyDB']['tinydb_log_file']
 
     print('\nAvailable Databases:\n')
     for item in glob.glob(_NETOR_HOME_DIRECTORY + 'netor/tinydb/data/*.json'):
@@ -191,7 +198,7 @@ def start_process():
         print('\nFinished importing the file.')
         print('%i lines processed' % total_lines_number_processed)
         print('%i lines imported' % lines_imported)
-        tinydblogging.log_msg(tinydb_log_file, __file__, 'CSV imported. ' + str(total_lines_number_processed) +
+        netorlogging.log_msg(tinydb_log_file, __file__, 'CSV imported. ' + str(total_lines_number_processed) +
                               ' lines processed, and ' + str(lines_imported) + ' lines imported.')
 
     return
