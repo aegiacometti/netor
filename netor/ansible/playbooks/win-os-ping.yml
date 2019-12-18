@@ -1,4 +1,4 @@
-# usage example: ansible-playbook win-cmd.yml --extra-vars "cmd=ping source=ansible_hostname destination=ip/hostname'"
+# usage example: ansible-playbook win-os-cmd.yml --extra-vars "cmd=ping source=ansible_hostname destination=ip/hostname'"
 ---
 - name: Win ping playbook
   hosts: localhost

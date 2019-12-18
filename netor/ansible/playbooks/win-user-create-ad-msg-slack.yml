@@ -16,7 +16,7 @@
         msg: '{{ connection }}'
 
     - name: Message to slack if connection failed
-      local_action: command python3 scripts/connection-failed-msg-slack.py "{{ connection }}"
+      local_action: command python3 scripts/win-user-connection-failed-msg-slack.py "{{ connection }}"
 
     - name: Win check user existance AD
       win_domain_user:

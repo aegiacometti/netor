@@ -11,8 +11,14 @@ import configparser
 import slacklogging
 import sys
 
+config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
+netor_config_path_name = "../netor.config"
+config.read(netor_config_path_name)
+
+bot_oauth_token = config['Slack']['bot_ad_oauth']
+
 # instantiate Slack client
-slack_client = SlackClient("xoxb-834321038834-869083359104-Cn2cHbJ6lBSC9jwTaSIQyYxg")
+slack_client = SlackClient(bot_oauth_token)
 # starterbot's user ID in Slack: value is assigned after the bot starts up
 starterbot_id = None
 
@@ -22,6 +28,9 @@ _EXAMPLE_COMMAND = "do"
 _MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
 _NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
 _PLAYBOOK_FULL_PATH_NAME = _NETOR_HOME_DIRECTORY + "netor/ansible/playbooks/"
+
+# variables in files
+_AUTHORIZATION_FILE = 'authorizations/auth-bot-ad.txt'
 
 
 def parse_bot_commands(slack_events):
@@ -34,8 +43,8 @@ def parse_bot_commands(slack_events):
         if event["type"] == "message" and "subtype" not in event:
             user_id, message = parse_direct_mention(event["text"])
             if user_id == starterbot_id:
-                return message, event["channel"]
-    return None, None
+                return message, event["channel"], str(event["user"])
+    return None, None, None
 
 
 def parse_direct_mention(message_text):
@@ -85,9 +94,9 @@ def send_msg(channel_sm, response_sm):
     try:
         slack_client.api_call("chat.postMessage", channel=channel_sm, text=response_sm)
     except Exception:
-        slacklogging.log_msg(slack_log_file, __file__, "Cannot send message to Slack.")
-        slacklogging.log_msg(slack_log_file, __file__, Exception)
-    # slacklogging.log_msg(tinydb_log_file, __file__, "Chat Command: " + response_sm + " - On Channel: " + channel_sm)
+        slacklogging.log_msg(bot_log_file, __file__, "Cannot send message to Slack.")
+        slacklogging.log_msg(bot_log_file, __file__, Exception)
+    slacklogging.log_msg(bot_log_file, __file__, "Chat Command: " + response_sm + " - On Channel: " + channel_sm)
 
 
 def ansible_cmd(playbook, channel_hd, **kwargs):
@@ -98,37 +107,8 @@ def ansible_cmd(playbook, channel_hd, **kwargs):
     cmd += "\" -vvvv"
 
     send_msg(channel_hd, "```Comando en ejecución```")
-    slacklogging.log_msg(slack_log_file, __file__, "Ansible command: " + cmd)
+    slacklogging.log_msg(bot_log_file, __file__, "Ansible command: " + cmd)
     subprocess.Popen(cmd, shell=True)
-
-
-def win_ping(command_hd, channel_hd):
-    command_hd_splited = command_hd.split()
-    source = verify_source(command_hd_splited[1])
-    destination = verify_host(command_hd_splited[2])
-
-    if len(command_hd_splited) < 3:
-        send_msg(channel_hd, "`Sintaxis incorrecta.`")
-
-    if not source:
-        send_msg(channel_hd, "`El servidor \"{}\" no está en mi inventario de equipos`".format(command_hd_splited[1]))
-        return
-
-    if not destination:
-        send_msg(channel_hd, "`El destino \"{}\" es inválido`".format(command_hd_splited[2]))
-        return
-
-    ansible_cmd("win-ping-msg-slack.yml", channel_hd, cmd="ping", source=source, destination=destination)
-
-
-def list_inventory(channel_hd):
-    text = ""
-    with open(_NETOR_HOME_DIRECTORY + "netor/ansible/hosts", "r") as file:
-        for line in file:
-            match = re.search("(.*) ansible_host=([^\s]+)", line)
-            if match:
-                text += match[1] + " \t" + match[2] + "\n"
-    send_msg(channel_hd, text)
 
 
 def win_ver_usuario_basico(command_hd, channel_hd):
@@ -140,11 +120,13 @@ def win_ver_usuario_basico(command_hd, channel_hd):
             server = verify_source(command_hd_splited[3])
             if not server:
                 print("Server: {} no encontrado en el inventario".format(command_hd_splited[3]))
-                send_msg(channel_hd, "`El servidor \"{}\" no está en mi inventario de equipos`".format((command_hd_splited[3])))
+                send_msg(channel_hd,
+                         "`El servidor \"{}\" no está en mi inventario de equipos`".format((command_hd_splited[3])))
                 return
             else:
                 print("Server: {} encontrado en el inventario".format(server))
-                ansible_cmd("win-user-view-local-basic-msg-slack.yml", channel_hd, user=command_hd_splited[2], server=server)
+                ansible_cmd("win-user-view-local-basic-msg-slack.yml", channel_hd, user=command_hd_splited[2],
+                            server=server)
         else:
             send_msg(channel_hd, "`Sintaxis incorrecta, falta usuario o servidor`")
             return
@@ -168,11 +150,13 @@ def win_ver_usuario_full(command_hd, channel_hd):
             server = verify_source(command_hd_splited[3])
             if not server:
                 print("Server: {} no encontrado en el inventario".format(command_hd_splited[3]))
-                send_msg(channel_hd, "`El servidor \"{}\" no está en mi inventario de equipos`".format((command_hd_splited[3])))
+                send_msg(channel_hd,
+                         "`El servidor \"{}\" no está en mi inventario de equipos`".format((command_hd_splited[3])))
                 return
             else:
                 print("Server: {} encontrado en el inventario".format(server))
-                ansible_cmd("win-user-view-local-full-msg-slack.yml", channel_hd, user=command_hd_splited[2], server=server)
+                ansible_cmd("win-user-view-local-full-msg-slack.yml", channel_hd, user=command_hd_splited[2],
+                            server=server)
         else:
             send_msg(channel_hd, "`Sintaxis incorrecta, falta usuario o servidor`")
             return
@@ -266,7 +250,7 @@ def win_usuario_cambiar_password(command_hd, channel_hd):
     user = command_hd_splited[2]
 
     if str(command_hd_splited[1]).lower() == 'local':
-        if  len(command_hd_splited) == 4:
+        if len(command_hd_splited) == 4:
             server = verify_source(command_hd_splited[3])
             if not server:
                 send_msg(channel_hd,
@@ -278,7 +262,7 @@ def win_usuario_cambiar_password(command_hd, channel_hd):
             send_msg(channel_hd, "`Sintaxis incorrecta, falta usuario o servidor`")
             return
     elif str(command_hd_splited[1]).lower() == 'ad':
-        if  len(command_hd_splited) == 3:
+        if len(command_hd_splited) == 3:
             ansible_cmd("win-user-expire-pass-ad-msg-slack.yml", channel_hd, user=user)
         else:
             send_msg(channel_hd, "`Sintaxis incorrecta, hay datos que sobran`")
@@ -295,7 +279,8 @@ def win_usuario_borrar(command_hd, channel_hd):
     if len(command_hd_splited) == 4:
         server = verify_source(command_hd_splited[3])
         if not server:
-            send_msg(channel_hd, "`El servidor \"{}\" no está en mi inventario de equipos`".format(command_hd_splited[3]))
+            send_msg(channel_hd,
+                     "`El servidor \"{}\" no está en mi inventario de equipos`".format(command_hd_splited[3]))
             return
 
     if str(command_hd_splited[1]).lower() == "local" and len(command_hd_splited) == 3:
@@ -312,18 +297,18 @@ def win_usuario_borrar(command_hd, channel_hd):
 
 
 def win_usuario_crear(command_hd, channel_hd):
-    # error     @boty win-usuario-crear ad _nombre_
-    # ok        @boty win-usuario-crear ad _nombre_ _apellido_
-    # ok        @boty win-usuario-crear ad _nombre_ _apellido blabla
-    # error     @boty win-usuario-crear ad _nombre_ _apellido blabla blabla
+    # error     @Bot-AD win-usuario-crear ad _nombre_
+    # ok        @Bot-AD win-usuario-crear ad _nombre_ _apellido_
+    # ok        @Bot-AD win-usuario-crear ad _nombre_ _apellido blabla
+    # error     @Bot-AD win-usuario-crear ad _nombre_ _apellido blabla blabla
 
-    # error     @boty win-usuario-crear local _nombre_
-    # error     @boty win-usuario-crear local _nombre_ _apellido
-    # error     @boty win-usuario-crear local _nombre_ _apellido servernoexite
-    # ok        @boty win-usuario-crear local _nombre_ _apellido win2019srv
-    # error     @boty win-usuario-crear local _nombre_ _apellido blabla servernoexite
-    # ok        @boty win-usuario-crear local _nombre_ _apellido blabla win2019srv
-    # error     @boty win-usuario-crear local _nombre_ _apellido blabla blabla win2019srv
+    # error     @Bot-AD win-usuario-crear local _nombre_
+    # error     @Bot-AD win-usuario-crear local _nombre_ _apellido
+    # error     @Bot-AD win-usuario-crear local _nombre_ _apellido servernoexite
+    # ok        @Bot-AD win-usuario-crear local _nombre_ _apellido win2019srv
+    # error     @Bot-AD win-usuario-crear local _nombre_ _apellido blabla servernoexite
+    # ok        @Bot-AD win-usuario-crear local _nombre_ _apellido blabla win2019srv
+    # error     @Bot-AD win-usuario-crear local _nombre_ _apellido blabla blabla win2019srv
 
     command_hd_splited = command_hd.split()
     print(command_hd_splited)
@@ -350,7 +335,8 @@ def win_usuario_crear(command_hd, channel_hd):
         fullname = "\'" + first_name + " " + last_name + "\'"
         server = verify_source(command_hd_splited[4])
         if not server:
-            send_msg(channel_hd, "`El servidor \"{}\" no está en mi inventario de equipos`".format(command_hd_splited[4]))
+            send_msg(channel_hd,
+                     "`El servidor \"{}\" no está en mi inventario de equipos`".format(command_hd_splited[4]))
             return
         playbook = "win-user-create-local-msg-slack.yml"
         ansible_cmd(playbook, channel_hd, fullname=fullname, server=server, userid=userid)
@@ -363,7 +349,8 @@ def win_usuario_crear(command_hd, channel_hd):
         userid = first_name[0] + last_name + extras
         server = verify_source(command_hd_splited[5])
         if not server:
-            send_msg(channel_hd, "`El servidor \"{}\" no está en mi inventario de equipos`".format(command_hd_splited[5]))
+            send_msg(channel_hd,
+                     "`El servidor \"{}\" no está en mi inventario de equipos`".format(command_hd_splited[5]))
             return
         playbook = "win-user-create-local-msg-slack.yml"
         ansible_cmd(playbook, channel_hd, fullname=fullname, server=server, userid=userid)
@@ -373,32 +360,34 @@ def win_usuario_crear(command_hd, channel_hd):
         return
 
 
+def authorized_user(slack_userid):
+    file = open(_AUTHORIZATION_FILE, 'r')
+    authorized_user_ids = file.read()
+    file.close()
+    if slack_userid in authorized_user_ids:
+        return True
+    else:
+        return False
+
+
 def handle_command(command_hd, channel_hd):
     """
         Executes bot command if the command is known
     """
 
-    slacklogging.log_msg(slack_log_file, __file__, "Chat Command: " + command_hd + " - On Channel: " + channel_hd)
+    slacklogging.log_msg(bot_log_file, __file__, "Chat Command: " + command_hd + " - On Channel: " + channel_hd)
 
     if command_hd.startswith("help"):
         response = "```Esta es la lista de commandos que puedes ejecutar:\n" \
-                   "- @boty listar inventario \n" \
-                   "- @boty win-ping _direccion_ip_origen_ _direccion_ip_destino_\n" \
-                   "- @boty win-ver-usuario-basico local/AD _user_id_ (opcional _server_)\n" \
-                   "- @boty win-ver-usuario-full local/AD _user_id_ (opcional _server_)\n" \
-                   "- @boty win-desbloquear-usuario local/AD _id_de_usuario_ (opcional _server_)\n" \
-                   "- @boty win-deshabilitar-usuario local/AD _id_de_usuario_ (opcional _server_)\n"\
-                   "- @boty win-usuario-grupo agregar/quitar local/AD _id_de_usuario_ _grupo_ (opcional _server_)\n" \
-                   "- @boty win-usuario-cambiar-password local/ad userid (opcional _server_)\n" \
-                   "- @boty win-usuario-borrar local/ad _id_de_usuario_ (opcional _server_)\n" \
-                   "- @boty win-usuario-crear local/ad _nombre_ _apellido (caracteres opcionales) (opcional _server_)```"
+                   "- @Bot-AD win-ver-usuario-basico local/AD _user_id_ (opcional _server_)\n" \
+                   "- @Bot-AD win-ver-usuario-full local/AD _user_id_ (opcional _server_)\n" \
+                   "- @Bot-AD win-desbloquear-usuario local/AD _id_de_usuario_ (opcional _server_)\n" \
+                   "- @Bot-AD win-deshabilitar-usuario local/AD _id_de_usuario_ (opcional _server_)\n" \
+                   "- @Bot-AD win-usuario-grupo agregar/quitar local/AD _id_de_usuario_ _grupo_ (opcional _server_)\n" \
+                   "- @Bot-AD win-usuario-cambiar-password local/ad userid (opcional _server_)\n" \
+                   "- @Bot-AD win-usuario-borrar local/ad _id_de_usuario_ (opcional _server_)\n" \
+                   "- @Bot-AD win-usuario-crear local/ad _nombre_ _apellido (caracteres opcionales)```"
         send_msg(channel_hd, response)
-
-    elif command_hd.startswith("win-ping"):
-        win_ping(command_hd, channel_hd)
-
-    elif command_hd.startswith("listar inventario"):
-        list_inventory(channel_hd)
 
     elif command_hd.startswith("win-ver-usuario-basico"):
         win_ver_usuario_basico(command_hd, channel_hd)
@@ -425,29 +414,40 @@ def handle_command(command_hd, channel_hd):
         win_usuario_crear(command_hd, channel_hd)
 
     else:
-        response = "`No conozco ese comando. Intenta con *\"@boty help\"* para ver la lista de comandos.`"
+        response = "`No conozco ese comando. Intenta con *\"@Bot-AD help\"* para ver la lista de comandos.`"
         send_msg(channel_hd, response)
 
 
 if __name__ == "__main__":
-   # sys.stdout = open(_NETOR_HOME_DIRECTORY + 'netor/log/slackbot.log', 'a+')
 
     config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
     config.read((_NETOR_HOME_DIRECTORY + "netor/netor.config"))
-    slack_log_file = config['Slack']['slack_log_file']
+    bot_log_file = config['Slack']['bot_ad_log_file']
+
+    sys.stdout = open(bot_log_file, 'a+')
+
     if slack_client.rtm_connect(with_team_state=False):
         print("Starter Bot connected and running!")
         # Read bot's user ID by calling Web API method `auth.test`
         starterbot_id = slack_client.api_call("auth.test")["user_id"]
         while True:
             try:
-                command, channel = parse_bot_commands(slack_client.rtm_read())
+                command, channel, userid = parse_bot_commands(slack_client.rtm_read())
             except Exception:
-                slacklogging.log_msg(slack_log_file, __file__, "Cannot send message to Slack.")
-                slacklogging.log_msg(slack_log_file, __file__, Exception)
+                slacklogging.log_msg(bot_log_file, __file__, "Cannot send message to Slack.")
+                slacklogging.log_msg(bot_log_file, __file__, Exception)
             else:
                 if command:
-                    handle_command(command, channel)
+                    print("UserID= " + userid)
+                    print("Command= " + str(command))
+                    print("Channel= " + str(channel))
+                    if authorized_user(userid):
+                        print("Comando Autorizado")
+                        handle_command(command, channel)
+                    else:
+                        print("Comando Denegado")
+                        send_msg(channel, "`Usuario \"{}\" no autorizado a ejecutar el comando`".format(userid))
+
             time.sleep(_RTM_READ_DELAY)
     else:
         print("Connection failed. Exception traceback printed above.")

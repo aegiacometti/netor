@@ -1,4 +1,4 @@
-# usage example: ansible-playbook win-cmd.yml -e cmd="'ping win2019srv'"
+# usage example: ansible-playbook win-os-cmd.yml -e cmd="'ping win2019srv'"
 ---
 - name: Win Execute command playbook
   hosts: win2019srv

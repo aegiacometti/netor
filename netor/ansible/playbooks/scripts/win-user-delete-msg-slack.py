@@ -1,9 +1,15 @@
 import sys
-import ast
 from slackclient import SlackClient
+import configparser
 
-slack_token_slack = "xoxb-834321038834-869083359104-Cn2cHbJ6lBSC9jwTaSIQyYxg"
-client = SlackClient(slack_token_slack)
+config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
+netor_config_path_name = "../../netor.config"
+config.read(netor_config_path_name)
+bot_ad_oauth_token = config['Slack']['bot_ad_oauth']
+
+client = SlackClient(bot_ad_oauth_token)
+
+print("sys.argv= " + str(sys.argv))
 
 # define user and server variables
 if sys.argv[-1] == 'local':
@@ -36,6 +42,6 @@ elif ('absent' in str(sys.argv)) and (sys.argv[-1] == 'ad') and ('changed\': Tru
 else:
     text += "Error:2"
 
-print("text= " + text)
+print("Text= " + text)
 
-client.api_call('chat.postMessage', channel='test2', text=text)
+client.api_call('chat.postMessage', channel='activedirectory', text=text)

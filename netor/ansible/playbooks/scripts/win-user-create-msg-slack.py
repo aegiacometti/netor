@@ -1,14 +1,20 @@
 import sys
 from slackclient import SlackClient
+import configparser
 
-slack_token_slack = "xoxb-834321038834-869083359104-Cn2cHbJ6lBSC9jwTaSIQyYxg"
-client = SlackClient(slack_token_slack)
+config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
+netor_config_path_name = "../../netor.config"
+config.read(netor_config_path_name)
+bot_ad_oauth_token = config['Slack']['bot_ad_oauth']
+
+client = SlackClient(bot_ad_oauth_token)
 
 s = sys.argv[1]
 u = sys.argv[2]
 scope = sys.argv[-1]
 
-print("SSSSSSSSSS= " + s)
+print("sys.argv= " + str(sys.argv))
+
 if 'Conditional result was False' in s:
     t = "`El usuario \"{}\" ya existe en \"{}\"`".format(u, scope)
 elif u in s:
@@ -16,4 +22,6 @@ elif u in s:
 else:
     t = '`Error`'
 
-client.api_call('chat.postMessage', channel='test2', text=t)
+print("Text= " + t)
+
+client.api_call('chat.postMessage', channel='activedirectory', text=t)

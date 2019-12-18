@@ -386,7 +386,11 @@ def _update_config(tinydb_log_file, __file__, new_netor_home_directory):
                                  "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
     replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/importcsv.py"),
                                  "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "netor/slack/slackbot.py"),
+    replace_static_vars_scripts((new_netor_home_directory + "netor/slack/slack-bot-win.py"),
+                                 "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
+    replace_static_vars_scripts((new_netor_home_directory + "netor/slack/slack-bot-ad.py"),
+                                 "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
+    replace_static_vars_scripts((new_netor_home_directory + "netor/slack/slack-bot-hhrr.py"),
                                  "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
 
     replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/listdb.py"),
