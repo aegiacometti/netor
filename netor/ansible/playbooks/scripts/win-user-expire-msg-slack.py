@@ -3,7 +3,8 @@ from slackclient import SlackClient
 import configparser
 
 config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
-netor_config_path_name = "../../netor.config"
+_NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
+netor_config_path_name = _NETOR_HOME_DIRECTORY + "netor/netor.config"
 config.read(netor_config_path_name)
 bot_ad_oauth_token = config['Slack']['bot_ad_oauth']
 
@@ -13,6 +14,7 @@ print("sys.argv= " + str(sys.argv))
 
 s = sys.argv[1]
 u = sys.argv[2]
+channel = sys.argv[-1]
 
 if "\'password_expired\': True" in s:
     t = "```Se ha expirado la password del usuario \"{}\". Debe cambiarla al proximo login.```".format(u)
@@ -21,4 +23,4 @@ else:
 
 print("Text= " + t)
 
-client.api_call('chat.postMessage', channel='activedirectory', text=t)
+client.api_call('chat.postMessage', channel=channel, text=t)

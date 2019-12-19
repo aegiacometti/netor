@@ -1,0 +1,31 @@
+## 2 varios WIN
+# no conoce el comando y recomienda que hacer
+@Bot-HHRR esto como funciona?
+# lista de comandos
+@Bot-HHRR help
+# lista inventario de ansible
+
+## 14 win-usercrear usuario en AD
+# error falta parametros
+@Bot-HHRR win-usuario-crear ad nombre
+# error falta parametros
+@Bot-HHRR win-usuario-crear ad 
+# ok se creo el usuario
+@Bot-HHRR win-usuario-crear ad nombre apellido
+# error el usuario ya existe
+@Bot-HHRR win-usuario-crear ad nombre apellido
+# ok se creo el usuario
+@Bot-HHRR win-usuario-crear ad nombre apellido blabla
+# error muchos parametros
+@Bot-HHRR win-usuario-crear ad nombre apellido blabla blabla
+
+# usuario deshabilitado
+@Bot-HHRR win-deshabilitar-usuario AD user
+# error usuario dehabilitado
+@Bot-HHRR win-deshabilitar-usuario AD user
+
+## 5 win-domain-user AD ver BASICO
+# detalles del usuario
+@Bot-HHRR win-ver-usuario-basico AD user
+# usuario no existe
+@Bot-HHRR win-ver-usuario-basico AD none

@@ -1,4 +1,4 @@
-# usage example: ansible-playbook win-user-view-local-basic-msg-slack.yml --extra-vars "user=user_name server=server"
+# usage example: ansible-playbook win-user-view-local-basic-msg-slack.yml --extra-vars "user=user_name server=server channel=channel_name"
 ---
 - name: Win view Basic user playbook Local
   hosts: '{{ server }}'
@@ -13,7 +13,7 @@
       ignore_errors: yes
 
     - name: Message to slack if connection failed
-      local_action: command python3 scripts/win-user-connection-failed-msg-slack.py "{{ connection }}"
+      local_action: command python3 scripts/win-user-connection-failed-msg-slack.py "{{ connection }}" "{{ channel }}"
 
     - name: Win view user Local
       win_user:
@@ -35,4 +35,4 @@
     - debug: var=dict2
 
     - name: Send message to Slack using a python script
-      local_action: command python3 scripts/win-user-view-basic-msg-slack.py "{{dict2}}" "{{user}}"
+      local_action: command python3 scripts/win-user-view-basic-msg-slack.py "{{dict2}}" "{{user}}" "{{ channel }}"

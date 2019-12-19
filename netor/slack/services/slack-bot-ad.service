@@ -1,0 +1,14 @@
+[Unit]
+Description=Slack ChatOps Bot Service - Active Directory
+After=network.target
+
+[Service]
+User=netor
+Group=netor
+Restart=always
+RestartPreventExitStatus=SIGHUP
+RestartSec=5
+ExecStart=/usr/bin/python3 /home/adrian/netor-master/netor/slack/slack-bot-ad.py
+
+[Install]
+WantedBy=default.target

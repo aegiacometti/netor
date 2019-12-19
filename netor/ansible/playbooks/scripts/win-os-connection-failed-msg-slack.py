@@ -2,16 +2,19 @@ import sys
 from slackclient import SlackClient
 import configparser
 
+
 print("sys.argv= " + str(sys.argv))
 
 config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
-netor_config_path_name = "../../netor.config"
+_NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
+netor_config_path_name = _NETOR_HOME_DIRECTORY + "netor/netor.config"
 config.read(netor_config_path_name)
 bot_win_webhook_token = config['Slack']['bot_win_webhook']
 
 client = SlackClient(bot_win_webhook_token)
 
 t = sys.argv
+channel = sys.argv[-1]
 
 print("Text= " + str(t))
 

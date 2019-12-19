@@ -2,6 +2,8 @@ from slackclient import SlackClient
 import sys
 import time
 
+test_file = sys.argv[1]
+
 slack_token = "xoxp-834321038834-848962750199-874165795600-db097ce14d3cbc02f92ae4096ea6197c"
 client = SlackClient(slack_token)
 
@@ -11,18 +13,23 @@ except Exception:
     test_number = 'all'
 
 
-def send_msg(msg):
-    client.api_call('chat.postMessage', channel="test2", as_user="true", text=msg)
+def send_msg(msg, channel):
+    client.api_call('chat.postMessage', channel=channel, as_user="true", text=msg)
 
 
 x = 1
 if client.rtm_connect():
-    with open("./tests.txt", "r") as file:
+    with open(test_file, "r") as file:
 
         if test_number == 'all':
             for line in file:
                 print("Test #" + str(x) + " - Comando= " + line)
-                send_msg(line)
+                if "AD" in test_file:
+                    send_msg(line, channel='activedirectory')
+                if "Win" in test_file:
+                    send_msg(line, channel='windows')
+                if "HHRR" in test_file:
+                    send_msg(line, channel='hhrr')
                 if "#" in line:
                     time.sleep(2)
                 else:

@@ -1,4 +1,4 @@
-# usage example: ansible-playbook win-user-delete-ad.yml --extra-vars "user=user_name"
+# usage example: ansible-playbook win-user-delete-ad.yml --extra-vars "user=user_name channel=channel_name"
 ---
 - name: Win delete user playbook AD
   hosts: ad
@@ -13,13 +13,14 @@
       ignore_errors: yes
 
     - name: Message to slack if connection failed
-      local_action: command python3 scripts/win-user-connection-failed-msg-slack.py "{{ connection }}"
+      local_action: command python3 scripts/win-user-connection-failed-msg-slack.py "{{ connection }}" "{{ channel }}"
 
     - name: Win delete user AD
       win_domain_user:
         name: '{{ user }}'
         state: absent
       register: output
+      delegate_to: localhost
 
     - name: Send message to Slack using a python script
-      local_action: command python3 scripts/win-user-delete-msg-slack.py "{{ output }}" "{{ user }}" ad
+      local_action: command python3 scripts/win-user-delete-msg-slack.py "{{ output }}" "{{ user }}" ad "{{ channel }}"

@@ -1,4 +1,4 @@
-# usage example: ansible-playbook win-user-create-local.yml --extra-vars "fullname=full_name, userid=userid, server=server"
+# usage example: ansible-playbook win-user-create-local.yml --extra-vars "fullname=full_name userid=userid server=server channel=channel_name"
 ---
 - name: Win Create user playbook AD
   hosts: '{{ server }}'
@@ -13,7 +13,7 @@
       ignore_errors: yes
 
     - name: Message to slack if connection failed
-      local_action: command python3 scripts/win-user-connection-failed-msg-slack.py "{{ connection }}"
+      local_action: command python3 scripts/win-user-connection-failed-msg-slack.py "{{ connection }}" "{{ channel }}"
 
     - name: Win check user existance Server
       win_user:
@@ -31,4 +31,4 @@
       register: output
 
     - name: Send message to Slack using a python script
-      local_action: command python3 scripts/win-user-create-msg-slack.py "{{ output }}" "{{ userid }}" "{{ server }}"
+      local_action: command python3 scripts/win-user-create-msg-slack.py "{{ output }}" "{{ userid }}" "{{ server }}" local "{{ channel }}"

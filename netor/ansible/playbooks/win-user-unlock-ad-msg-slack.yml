@@ -1,4 +1,4 @@
-# usage example: ansible-playbook win-user-unlock-local.yml --extra-vars "user=user_name"
+# usage example: ansible-playbook win-user-unlock-local.yml --extra-vars "user=user_name channel=channel_name"
 ---
 - name: Win unlock user playbook AD
   hosts: ad
@@ -13,7 +13,7 @@
       ignore_errors: yes
 
     - name: Message to slack if connection failed
-      local_action: command python3 scripts/win-user-connection-failed-msg-slack.py "{{ connection }}"
+      local_action: command python3 scripts/win-user-connection-failed-msg-slack.py "{{ connection }}" "{{ channel }}"
 
     - name: Win unlock user
       win_domain_user:
@@ -23,4 +23,4 @@
       ignore_errors: yes
 
     - name: Send message to Slack using a python script
-      local_action: command python3 scripts/win-user-unlock-msg-slack.py "{{ output }}" "{{ user }}"
+      local_action: command python3 scripts/win-user-unlock-msg-slack.py "{{ output }}" "{{ user }}" "{{ channel }}"

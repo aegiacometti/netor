@@ -1,0 +1,14 @@
+[Unit]
+Description=Slack ChatOps Bot Service - Windows
+After=network.target
+
+[Service]
+User=netor
+Group=netor
+Restart=always
+RestartPreventExitStatus=SIGHUP
+RestartSec=5
+ExecStart=/usr/bin/python3 /home/adrian/netor-master/netor/slack/slack-bot-win.py
+
+[Install]
+WantedBy=default.target
