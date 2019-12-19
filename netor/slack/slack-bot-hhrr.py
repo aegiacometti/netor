@@ -21,7 +21,8 @@ _PLAYBOOK_FULL_PATH_NAME = _NETOR_HOME_DIRECTORY + "netor/ansible/playbooks/"
 _BOT_CHANNEL = "hhrr"
 
 # variables in files
-_AUTHORIZATION_FILE = _NETOR_HOME_DIRECTORY + 'netor/slack/authorizations/auth-bot-hhrr.txt'
+_AUTHORIZATION_FILE_USERS = _NETOR_HOME_DIRECTORY + 'netor/slack/authorizations/auth-user-hhrr.txt'
+_AUTHORIZATION_FILE_BOT = _NETOR_HOME_DIRECTORY + 'netor/slack/authorizations/auth-bot-hhrr.txt'
 
 config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
 netor_config_path_name = _NETOR_HOME_DIRECTORY + "netor/netor.config"
@@ -147,10 +148,20 @@ def win_usuario_crear(command_hd, channel_hd):
 
 
 def authorized_user(slack_user):
-    file = open(_AUTHORIZATION_FILE, 'r')
+    file = open(_AUTHORIZATION_FILE_USERS, 'r')
     authorized_user_ids = file.read()
     file.close()
     if slack_user in authorized_user_ids:
+        return True
+    else:
+        return False
+
+
+def authorized_bot(slack_channel):
+    file = open(_AUTHORIZATION_FILE_BOT, 'r')
+    authorized_bot_ids = file.read()
+    file.close()
+    if slack_channel in authorized_bot_ids:
         return True
     else:
         return False
@@ -205,11 +216,14 @@ if __name__ == "__main__":
                 log_msg(Exception)
             else:
                 if command:
-                    auth_status = authorized_user(slack_userid)
+                    user_auth_status = authorized_user(slack_userid)
+                    bot_auth_status = authorized_bot(channel)
                     log_msg("UserID= {} - Command= {} - Channel= {} - Authorized= {}".format(slack_userid, command,
-                                                                                             channel, auth_status))
-                    if auth_status:
+                                                                                             channel, user_auth_status))
+                    if user_auth_status and bot_auth_status:
                         handle_command(command, channel)
+                    elif user_auth_status and not bot_auth_status:
+                        send_msg(channel, "`\"Bot\" no autorizado a recibir comandos en este canal`")
                     else:
                         send_msg(channel, "`Usuario \"{}\" no autorizado a ejecutar el comando`".format(slack_userid))
 

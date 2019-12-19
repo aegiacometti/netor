@@ -1,2 +1,2 @@
-TEST12345
-UQYUAN25V
+# Authorize BOT on channel
+CRW68T18W
