@@ -10,6 +10,9 @@ import configparser
 import sys
 from datetime import datetime
 import os
+import traceback
+import requests
+import json
 
 # constants
 _RTM_READ_DELAY = 1  # 1 second delay between reading from RTM
@@ -65,8 +68,8 @@ def send_msg(channel_sm, response_sm):
     try:
         slack_client.api_call("chat.postMessage", channel=channel_sm, text=response_sm)
     except Exception:
-        log_msg("Cannot send message to Slack.")
-        log_msg(Exception)
+        log_msg("Send_msg(): Cannot send message to Slack.")
+        log_exception()
     log_msg("Chat Response on Channel {}\n{}\n".format(channel_sm, response_sm))
 
 
@@ -78,11 +81,8 @@ def ansible_cmd(playbook, channel_hd, **kwargs):
         cmd += key + "=" + value + " "
     cmd += "channel=" + _BOT_CHANNEL + "\" -vvvv"
 
-# /usr/local/lib/python3.6/dist-packages/ansible/modules/windows/win_domain_user.ps1
-
     send_msg(channel_hd, "```Comando en ejecución```")
     log_msg("Ansible_CMD= " + cmd)
-    #subprocess.Popen("printenv", shell=True, stdout=sys.stdout, stderr=sys.stdout)
     subprocess.Popen(cmd, shell=True, stdout=sys.stdout, stderr=sys.stdout)
 
 
@@ -92,10 +92,10 @@ def win_ver_usuario_basico(command_hd, channel_hd):
         if len(command_hd_splited) == 3:
             ansible_cmd("win-user-view-ad-basic-msg-slack.yml", channel_hd, user=command_hd_splited[2])
         else:
-            send_msg(channel_hd, "`Sintaxis incorrecta, falta usuario o servidor`")
+            send_msg(channel_hd, "`Sintaxis incorrecta`")
             return
     else:
-        send_msg(channel_hd, "`Sintaxis incorrecta, las opciones son \"local\" o \"AD\"`")
+        send_msg(channel_hd, "`Sintaxis incorrecta`")
         return
 
 
@@ -112,9 +112,6 @@ def win_deshabilitar_usuario(command_hd, channel_hd):
 
     if len(command_hd_splited) == 4:
         server = command_hd_splited[3]
-
-    if str(command_hd_splited[1]).lower() == 'local':
-        ansible_cmd("win-user-disable-local-msg-slack.yml", channel_hd, user=user, server=server)
 
     elif str(command_hd_splited[1]).lower() == 'ad':
         ansible_cmd("win-user-disable-ad-msg-slack.yml", channel_hd, user=user)
@@ -147,14 +144,25 @@ def win_usuario_crear(command_hd, channel_hd):
         return
 
 
-def authorized_user(slack_user):
+def authorized_user(slack_user_id):
     file = open(_AUTHORIZATION_FILE_USERS, 'r')
     authorized_user_ids = file.read()
     file.close()
-    if slack_user in authorized_user_ids:
+    if slack_user_id in authorized_user_ids:
         return True
     else:
         return False
+
+
+def get_slack_user_name(slack_user_id):
+    payload = {'token': bot_oauth_token, 'user': slack_user_id}
+    response = requests.get('https://slack.com/api/users.info', params=payload)
+    response_to_dict = json.loads(response.text)
+    try:
+        return response_to_dict['user']['name']
+    except Exception:
+        log_msg("get_slack_user_name(): Cannot get slack_user_id->user_name from Slack API.")
+        log_exception()
 
 
 def authorized_bot(slack_channel):
@@ -174,9 +182,9 @@ def handle_command(command_hd, channel_hd):
 
     if command_hd.startswith("help"):
         response = "```Esta es la lista de commandos que puedes ejecutar:\n" \
-                   "- @Bot-HHRR win-ver-usuario-basico local/AD _user_id_ (opcional _server_)\n" \
-                   "- @Bot-HHRR win-deshabilitar-usuario local/AD _id_de_usuario_ (opcional _server_)\n" \
-                   "- @Bot-HHRR win-usuario-crear local/ad _nombre_ _apellido (caracteres opcionales)```"
+                   "- @Bot-HHRR win-ver-usuario-basico AD _user_id_ (opcional _server_)\n" \
+                   "- @Bot-HHRR win-deshabilitar-usuario AD _id_de_usuario_ (opcional _server_)\n" \
+                   "- @Bot-HHRR win-usuario-crear AD _nombre_ _apellido (caracteres opcionales)```"
         send_msg(channel_hd, response)
 
     elif command_hd.startswith("win-ver-usuario-basico"):
@@ -193,6 +201,13 @@ def handle_command(command_hd, channel_hd):
         send_msg(channel_hd, response)
 
 
+def log_exception():
+    exc_type, exc_value, exc_traceback = sys.exc_info()
+    traceback.print_exception(exc_type, exc_value, exc_traceback,
+                              limit=2, file=sys.stdout)
+    sys.stdout.flush()
+
+
 def log_msg(msg):
     now = datetime.now()
     dt_string = now. strftime("%d/%m/%Y %H:%M:%S")
@@ -202,7 +217,7 @@ def log_msg(msg):
 
 
 if __name__ == "__main__":
-    sys.stdout = open(bot_log_file, '+a')
+    #sys.stdout = open(bot_log_file, '+a')
 
     if slack_client.rtm_connect(with_team_state=False):
         log_msg("Starter Bot connected and running!")
@@ -212,8 +227,11 @@ if __name__ == "__main__":
             try:
                 command, channel, slack_userid = parse_bot_commands(slack_client.rtm_read())
             except Exception:
-                log_msg("Cannot send message to Slack.")
-                log_msg(Exception)
+                log_msg("main(): Cannot send message to Slack.")
+                log_exception()
+                log_msg("main(): Restarting connection with Slack.")
+                time.sleep(5)
+                slack_client.rtm_connect(with_team_state=False)
             else:
                 if command:
                     user_auth_status = authorized_user(slack_userid)
@@ -225,7 +243,9 @@ if __name__ == "__main__":
                     elif user_auth_status and not bot_auth_status:
                         send_msg(channel, "`\"Bot\" no autorizado a recibir comandos en este canal`")
                     else:
-                        send_msg(channel, "`Usuario \"{}\" no autorizado a ejecutar el comando`".format(slack_userid))
+                        username = get_slack_user_name(slack_userid)
+                        send_msg(channel, "`Usuario \"{}\" ID \"{}\" no autorizado"
+                                          " a ejecutar el comando`".format(username, slack_userid))
 
             time.sleep(_RTM_READ_DELAY)
     else:

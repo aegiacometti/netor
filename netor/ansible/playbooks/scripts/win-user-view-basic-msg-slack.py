@@ -34,7 +34,10 @@ else:
         if 'account_disabled' in d:
             account_disabled = str(d['account_disabled'])
         else:
-            account_disabled = str(d['enabled'])
+            if d['enabled'] == True:
+                account_disabled = 'False'
+            else:
+                account_disabled = 'True'
 
         if d['state'] == 'present':
             t = "```userID: " + str(d['name']) + "\n"
