@@ -4,7 +4,7 @@ import time
 
 test_file = sys.argv[1]
 
-slack_token = "xoxp-834321038834-848962750199-874165795600-db097ce14d3cbc02f92ae4096ea6197c"
+slack_token = 'xxxx'
 client = SlackClient(slack_token)
 
 try:

@@ -1,4 +1,4 @@
 #!/bin/bash
 #To export tue DB to a .CSV file
-netor_home_directory="/home/adrian/netor/"
+netor_home_directory=$NETOR
 python3 "$netor_home_directory"netor/tinydb/scripts/listdb.py -e

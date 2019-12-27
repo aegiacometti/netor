@@ -1,5 +1,5 @@
 #!/bin/bash
 # Updates netor home directory in configuration files and scripts
-netor_home_directory="/home/adrian/netor/"
+netor_home_directory=$NETOR
 python3 "$netor_home_directory"netor/tinydb/scripts/netorconf.py
 

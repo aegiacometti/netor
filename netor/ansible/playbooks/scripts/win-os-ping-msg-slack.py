@@ -1,11 +1,12 @@
 import sys
 from slackclient import SlackClient
 import configparser
+import os
 
 print("sys.argv= " + str(sys.argv))
 
 config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
-_NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
+_NETOR_HOME_DIRECTORY = os.getenv('NETOR')
 netor_config_path_name = _NETOR_HOME_DIRECTORY + "netor/netor.config"
 config.read(netor_config_path_name)
 bot_win_oauth_token = config['Slack']['bot_win_oauth']

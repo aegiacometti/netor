@@ -5,10 +5,11 @@ After=network.target
 [Service]
 User=netor
 Group=netor
+EnvironmentFile=/etc/environment
 Restart=always
 RestartPreventExitStatus=SIGHUP
 RestartSec=5
-ExecStart=/usr/bin/python3 /home/adrian/netor-master/netor/slack/slack-bot-win.py
+ExecStart=/usr/bin/python3 ${NETOR}netor/slack/slack-bot-win.py
 
 [Install]
 WantedBy=default.target

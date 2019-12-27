@@ -5,7 +5,7 @@
 # example:
 #        ../netor/tinydb/scripts/worker.py -l customers /full/path/name/database.json
 #
-netor_home_directory="/home/adrian/netor/"
+netor_home_directory=$NETOR
 echo "DB Customers ************"
 echo "  1) list customers"
 echo "  2) add customer"

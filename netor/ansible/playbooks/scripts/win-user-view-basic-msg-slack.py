@@ -2,9 +2,10 @@ import sys
 import ast
 from slackclient import SlackClient
 import configparser
+import os
 
 config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
-_NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
+_NETOR_HOME_DIRECTORY = os.getenv('NETOR')
 netor_config_path_name = _NETOR_HOME_DIRECTORY + "netor/netor.config"
 config.read(netor_config_path_name)
 bot_ad_oauth_token = config['Slack']['bot_ad_oauth']
@@ -14,17 +15,18 @@ client = SlackClient(bot_ad_oauth_token)
 s = sys.argv[1]
 
 channel = sys.argv[-1]
+user = sys.argv[-2]
 
 print("sys.argv= " + str(sys.argv))
 
 try:
     d = ast.literal_eval(s)
 except SyntaxError:
-    t = "`El usuario \"{}\" no existe`".format(sys.argv[2])
+    t = "`El usuario \"{}\" no existe`".format(user)
 else:
 
     if d['state'] == 'absent':
-        t = "`El usuario \"{}\" no existe`".format(sys.argv[2])
+        t = "`El usuario \"{}\" no existe`".format(user)
     else:
         if 'name' in d:
             name = str(d['name'])

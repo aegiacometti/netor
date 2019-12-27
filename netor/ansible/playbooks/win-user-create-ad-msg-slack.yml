@@ -34,5 +34,5 @@
       register: output
 
     - name: Send message to Slack using a python script
-      local_action: command python3 scripts/win-user-create-msg-slack.py "{{ output }}" "{{ userid }}" ad "{{ channel }}"
+      local_action: command python3 scripts/win-user-create-msg-slack.py "{{ output }}" "{{ userid }}" ad "{{ userid }}" "{{ channel }}"
       register: out_python

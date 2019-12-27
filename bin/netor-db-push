@@ -3,5 +3,5 @@
 # It uses the default script NETOR_HOME_DIRECTORY to use the default netor.conf file, unless another home directory
 # is specified. In both cases it will confparse the netor.conf file to find the DB full path
 
-netor_home_directory="/home/adrian/netor/"
+netor_home_directory=$NETOR
 python3 "$netor_home_directory"netor/tinydb/scripts/pushcustdb.py

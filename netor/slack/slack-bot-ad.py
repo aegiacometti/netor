@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: iso-8859-15 -*-
 
 import time
@@ -14,12 +14,13 @@ from datetime import datetime
 import traceback
 import requests
 import json
+import os
 
 # constants
 _RTM_READ_DELAY = 1  # 1 second delay between reading from RTM
 _EXAMPLE_COMMAND = "do"
 _MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
-_NETOR_HOME_DIRECTORY = "/home/adrian/netor-master/"
+_NETOR_HOME_DIRECTORY = os.getenv('NETOR')
 _ANSIBLE_INVENTORY_FULL_PATH_NAME = _NETOR_HOME_DIRECTORY + "netor/ansible/hosts"
 _PLAYBOOK_FULL_PATH_NAME = _NETOR_HOME_DIRECTORY + "netor/ansible/playbooks/"
 _BOT_CHANNEL = "activedirectory"
