@@ -22,7 +22,7 @@ _EXAMPLE_COMMAND = "do"
 _MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
 _NETOR_HOME_DIRECTORY = os.getenv('NETOR')
 _ANSIBLE_INVENTORY_FULL_PATH_NAME = _NETOR_HOME_DIRECTORY + "netor/ansible/hosts"
-_PLAYBOOK_FULL_PATH_NAME = _NETOR_HOME_DIRECTORY + "netor/ansible/playbooks/"
+_PLAYBOOK_FULL_PATH_NAME = _NETOR_HOME_DIRECTORY + "netor/ansible/playbooks/windows/"
 _BOT_CHANNEL = "activedirectory"
 
 # variables in files
@@ -405,32 +405,32 @@ def handle_command(command_hd, channel_hd):
                    "- @Bot-AD win-usuario-crear local/ad _nombre_ _apellido (caracteres opcionales)```"
         send_msg(channel_hd, response)
 
-    elif command_hd.startswith("win-ver-usuario-basico"):
+    elif command_hd.startswith("win-ver-usuario-basico "):
         win_ver_usuario_basico(command_hd, channel_hd)
 
-    elif command_hd.startswith("win-ver-usuario-full"):
+    elif command_hd.startswith("win-ver-usuario-full "):
         win_ver_usuario_full(command_hd, channel_hd)
 
-    elif command_hd.startswith("win-desbloquear-usuario"):
+    elif command_hd.startswith("win-desbloquear-usuario "):
         win_desbloquear_usuario(command_hd, channel_hd)
 
-    elif command_hd.startswith("win-deshabilitar-usuario"):
+    elif command_hd.startswith("win-deshabilitar-usuario "):
         win_deshabilitar_usuario(command_hd, channel_hd)
 
-    elif command_hd.startswith("win-usuario-grupo"):
+    elif command_hd.startswith("win-usuario-grupo "):
         win_usuario_grupo(command_hd, channel_hd)
 
-    elif command_hd.startswith("win-usuario-cambiar-password"):
+    elif command_hd.startswith("win-usuario-cambiar-password "):
         win_usuario_cambiar_password(command_hd, channel_hd)
 
-    elif command_hd.startswith("win-usuario-borrar"):
+    elif command_hd.startswith("win-usuario-borrar "):
         win_usuario_borrar(command_hd, channel_hd)
 
-    elif command_hd.startswith("win-usuario-crear"):
+    elif command_hd.startswith("win-usuario-crear "):
         win_usuario_crear(command_hd, channel_hd)
 
     else:
-        response = "`No conozco ese comando. Intenta con *\"@Bot-AD help\"* para ver la lista de comandos.`"
+        response = "`No conozco ese comando. Intenta con \"@Bot-AD help\"* para ver la lista de comandos.`"
         send_msg(channel_hd, response)
 
 

@@ -1,0 +1,8 @@
+# users with privileges to restart a slack bot daemon
+adrian   ALL=NOPASSWD: /usr/sbin/service slack-bot-skynet restart
+adrian   ALL=NOPASSWD: /usr/sbin/service slack-bot-ad restart
+adrian   ALL=NOPASSWD: /usr/sbin/service slack-bot-win restart
+adrian   ALL=NOPASSWD: /usr/sbin/service slack-bot-hhrr restart
+adrian   ALL=NOPASSWD: /usr/sbin/service slack-bot-linux restart
+adrian   ALL=NOPASSWD: /usr/sbin/service slack-bot-networking restart
+adrian   ALL=NOPASSWD: /usr/sbin/service slack-bot-vmware restart

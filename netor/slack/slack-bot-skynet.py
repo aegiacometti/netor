@@ -4,8 +4,6 @@
 import time
 import re
 from slackclient import SlackClient
-import socket
-import ipaddress
 import subprocess
 import configparser
 # import slacklogging
@@ -22,18 +20,19 @@ _EXAMPLE_COMMAND = "do"
 _MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
 _NETOR_HOME_DIRECTORY = os.getenv('NETOR')
 _ANSIBLE_INVENTORY_FULL_PATH_NAME = _NETOR_HOME_DIRECTORY + "netor/ansible/hosts"
-_PLAYBOOK_FULL_PATH_NAME = _NETOR_HOME_DIRECTORY + "netor/ansible/playbooks/windows/"
-_BOT_CHANNEL = "windows"
+_PLAYBOOK_FULL_PATH_NAME = _NETOR_HOME_DIRECTORY + "netor/ansible/playbooks/skynet/"
+_BOT_CHANNEL = "skynet"
+_BOT_NAMES_LIST = ['bot-ad', 'bot-win', 'bot-hhrr', 'bot-linux', 'bot-networking', 'bot-skynet']
 
 # variables in files
-_AUTHORIZATION_FILE_USERS = _NETOR_HOME_DIRECTORY + 'netor/slack/authorizations/auth-user-win.txt'
-_AUTHORIZATION_FILE_BOT = _NETOR_HOME_DIRECTORY + 'netor/slack/authorizations/auth-bot-win.txt'
+_AUTHORIZATION_FILE_USERS = _NETOR_HOME_DIRECTORY + 'netor/slack/authorizations/auth-user-skynet.txt'
+_AUTHORIZATION_FILE_BOT = _NETOR_HOME_DIRECTORY + 'netor/slack/authorizations/auth-bot-skynet.txt'
 
 config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
 netor_config_path_name = _NETOR_HOME_DIRECTORY + "netor/netor.config"
 config.read(netor_config_path_name)
-bot_log_file = config['Slack']['bot_win_log_file']
-bot_oauth_token = config['Slack']['bot_win_oauth']
+bot_log_file = config['Slack']['bot_skynet_log_file']
+bot_oauth_token = config['Slack']['bot_skynet_oauth']
 
 # instantiate Slack client
 slack_client = SlackClient(bot_oauth_token)
@@ -65,38 +64,6 @@ def parse_direct_mention(message_text):
     return (matches.group(1), matches.group(2).strip()) if matches else (None, None)
 
 
-def verify_source(source):
-    with open(_NETOR_HOME_DIRECTORY + "netor/ansible/hosts", "r") as file:
-        source += " "
-        for line in file:
-            if source in line:
-                ansible_host = re.search("(.*) ansible_host", line)
-                return ansible_host[1]
-    return False
-
-
-def fix_hostname(host):
-    if "http" in host:
-        host = re.search("\|(.*)>", host)
-        return host[1]
-
-
-def verify_host(host):
-    try:
-        ipaddress.ip_address(host)
-    except ValueError:
-        try:
-            host = socket.gethostbyname(fix_hostname(host))
-        except socket.error:
-            return False
-        except TypeError:
-            return False
-        else:
-            return host
-    else:
-        return host
-
-
 def send_msg(channel_sm, response_sm):
     # Sends the response back to the channel
     try:
@@ -116,36 +83,8 @@ def ansible_cmd(playbook, channel_hd, **kwargs):
 
     send_msg(channel_hd, "```Comando en ejecución```")
     log_msg("Ansible_CMD= " + cmd)
-    subprocess.Popen(cmd, shell=True, stdout=sys.stdout, stderr=sys.stdout)
 
-
-def win_ping(command_hd, channel_hd):
-    command_hd_splited = command_hd.split()
-    source = verify_source(command_hd_splited[1])
-    destination = verify_host(command_hd_splited[2])
-
-    if len(command_hd_splited) < 3:
-        send_msg(channel_hd, "`Sintaxis incorrecta.`")
-
-    if not source:
-        send_msg(channel_hd, "`El servidor \"{}\" no está en mi inventario de equipos`".format(command_hd_splited[1]))
-        return
-
-    if not destination:
-        send_msg(channel_hd, "`El destino \"{}\" es inválido`".format(command_hd_splited[2]))
-        return
-
-    ansible_cmd("win-os-ping-msg-slack.yml", channel_hd, cmd="ping", source=source, destination=destination)
-
-
-def list_inventory(channel_hd):
-    text = ""
-    with open(_NETOR_HOME_DIRECTORY + "netor/ansible/hosts", "r") as file:
-        for line in file:
-            match = re.search("(.*) ansible_host=([^\s]+)", line)
-            if match:
-                text += match[1] + " \t" + match[2] + "\n"
-    send_msg(channel_hd, text)
+    subprocess.Popen(cmd, shell=True, stdout=sys.stdout, stderr=sys.stderr)
 
 
 def authorized_user(slack_user):
@@ -179,6 +118,73 @@ def authorized_bot(slack_channel):
         return False
 
 
+def view_bot_log(command_hd, channel_hd):
+    command_hd_splited = command_hd.split()
+
+    if len(command_hd_splited) < 2 or len(command_hd_splited) > 3:
+        send_msg(channel_hd, "`Sintaxis incorrecta.`")
+    elif command_hd_splited[1].lower() not in _BOT_NAMES_LIST:
+        send_msg(channel_hd, "`Nombre de Bot incorrecto.`")
+    else:
+        try:
+            log_lines = int(command_hd_splited[2])
+            if log_lines > 2000:
+                log_lines = 2000
+        except IndexError:
+            log_lines = 200
+        except ValueError:
+            log_lines = 200
+
+        bot_log_file_name = 'slack-{}.log'.format(command_hd_splited[1].lower())
+
+        log_file = _NETOR_HOME_DIRECTORY + 'netor/log/{}'.format(bot_log_file_name)
+
+        cmd = 'tail -{} {}'.format(log_lines, log_file)
+        send_msg(channel_hd, "```Comando en ejecución```")
+        log_msg("CMD= " + cmd)
+
+        output = subprocess.run(cmd, shell=True, universal_newlines=True,
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output_text = output.stderr + "\n" + output.stdout
+        send_msg(channel_hd, output_text)
+
+
+def bot_command(command_hd, channel_hd):
+    command_hd_splited = command_hd.split()
+
+    if len(command_hd_splited) != 3:
+        send_msg(channel_hd, "`Sintaxis incorrecta.`")
+    elif command_hd_splited[1].lower() not in _BOT_NAMES_LIST:
+        send_msg(channel_hd, "`Nombre de Bot incorrecto.`")
+    elif command_hd_splited[2] not in ['start', 'stop', 'restart', 'status']:
+        send_msg(channel_hd, "`Sintaxis incorrecta.`")
+    else:
+        send_msg(channel_hd, "```Comando en ejecución```")
+
+        cmd = 'sudo /usr/sbin/service slack-{} {}'.format(command_hd_splited[1], command_hd_splited[2])
+        log_msg("CMD= " + cmd)
+        output_cmd = subprocess.run(cmd, shell=True, universal_newlines=True,
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output_text = output_cmd.stderr + "\n" + output_cmd.stdout
+        send_msg(channel_hd, output_text)
+
+        if command_hd_splited[2] != 'status':
+            cmd_status = 'sudo /usr/sbin/service slack-{} status'.format(command_hd_splited[1])
+            log_msg("CMD= " + cmd_status)
+            output_status = subprocess.run(cmd_status, shell=True, universal_newlines=True,
+                                           stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            output_text = output_status.stderr + "\n" + output_status.stdout
+            send_msg(channel_hd, output_text)
+
+
+def git_pull_updates(channel_hd):
+    cmd = 'git --git-dir={}.git --work-tree={} pull origin master'.format(_NETOR_HOME_DIRECTORY, _NETOR_HOME_DIRECTORY)
+    output_cmd = subprocess.run(cmd, shell=True, universal_newlines=True,
+                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    output_text = output_cmd.stderr + "\n" + output_cmd.stdout
+    send_msg(channel_hd, output_text)
+
+
 def handle_command(command_hd, channel_hd):
     """
         Executes bot command if the command is known
@@ -186,18 +192,22 @@ def handle_command(command_hd, channel_hd):
 
     if command_hd.startswith("help"):
         response = "```Esta es la lista de commandos que puedes ejecutar:\n" \
-                   "- @Bot-Win listar inventario \n" \
-                   "- @Bot-Win win-ping _direccion_ip_origen_ _direccion_ip_destino_```"
+                   "- @Bot-Skynet ver-bot-log botname(without @) (opcional #lineas, def: 200 max:2000)\n" \
+                   "- @Bot-Skynet bot botname(without @) restart\start\stop\status \n" \
+                   "- @Bot-Skynet git pull updates```"
         send_msg(channel_hd, response)
 
-    elif command_hd.startswith("win-ping "):
-        win_ping(command_hd, channel_hd)
+    elif command_hd.startswith("ver-bot-log "):
+        view_bot_log(command_hd, channel_hd)
 
-    elif command_hd.startswith("listar inventario "):
-        list_inventory(channel_hd)
+    elif command_hd.startswith("bot "):
+        bot_command(command_hd, channel_hd)
+
+    elif command_hd == "git pull updates":
+        git_pull_updates(channel_hd)
 
     else:
-        response = "`No conozco ese comando. Intenta con \"@Bot-Win help\" para ver la lista de comandos.`"
+        response = "`No conozco ese comando. Intenta con \"@Skynet help\" para ver la lista de comandos.`"
         send_msg(channel_hd, response)
 
 
