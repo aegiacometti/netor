@@ -81,7 +81,7 @@ def ansible_cmd(playbook, channel_hd, **kwargs):
         cmd += key + "=" + value + " "
     cmd += "channel=" + _BOT_CHANNEL + "\" -vvvv"
 
-    send_msg(channel_hd, "```Comando en ejecuci髇```")
+    send_msg(channel_hd, "```Comando en ejecuci贸n```")
     log_msg("Ansible_CMD= " + cmd)
 
     subprocess.Popen(cmd, shell=True, stdout=sys.stdout, stderr=sys.stderr)
@@ -140,7 +140,7 @@ def view_bot_log(command_hd, channel_hd):
         log_file = _NETOR_HOME_DIRECTORY + 'netor/log/{}'.format(bot_log_file_name)
 
         cmd = 'tail -{} {}'.format(log_lines, log_file)
-        send_msg(channel_hd, "```Comando en ejecuci髇```")
+        send_msg(channel_hd, "```Comando en ejecuci贸n```")
         log_msg("CMD= " + cmd)
 
         output = subprocess.run(cmd, shell=True, universal_newlines=True,
@@ -159,7 +159,7 @@ def bot_command(command_hd, channel_hd):
     elif command_hd_splited[2] not in ['start', 'stop', 'restart', 'status']:
         send_msg(channel_hd, "`Sintaxis incorrecta.`")
     else:
-        send_msg(channel_hd, "```Comando en ejecuci髇```")
+        send_msg(channel_hd, "```Comando en ejecuci贸n```")
 
         cmd = 'sudo /usr/sbin/service slack-{} {}'.format(command_hd_splited[1], command_hd_splited[2])
         log_msg("CMD= " + cmd)
@@ -178,6 +178,7 @@ def bot_command(command_hd, channel_hd):
 
 
 def git_pull_updates(channel_hd):
+    send_msg(channel_hd, "```Comando en ejecuci贸n```")
     cmd = 'git --git-dir={}.git --work-tree={} pull origin master'.format(_NETOR_HOME_DIRECTORY, _NETOR_HOME_DIRECTORY)
     output_cmd = subprocess.run(cmd, shell=True, universal_newlines=True,
                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
