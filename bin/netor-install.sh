@@ -14,6 +14,7 @@ case $opc in
     sudo pip3 install napalm
     sudo pip3 install ansible
     sudo pip3 install "pywinrm>=0.3.0"
+    sudo pip3 install slackclient==1.3.2
     ansible-galaxy install ansible-network.network-engine
     wget https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg -O $HOME/.ansible.cfg
     python3 "$DIR"/netor/netor/tinydb/scripts/netorconf.py

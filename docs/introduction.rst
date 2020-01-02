@@ -20,6 +20,7 @@ The tools that integrate at the moment are:
 - Ansible
 - Salt
 - TinyDB
+- Slack
 
 As I move forward I will try to integrate other packages and functionalities.
 
@@ -54,6 +55,8 @@ nothing to help you to integrate them, in order to make it easier to start exper
 Because to be honest, both Ansible and Salt are great. Ansible is simple to start using
 it for simple things, but Salt from my point of view is incredible, has similar functions
 and a lot of very cool capabilities but at the beginning it is hard to start.
+
+Last but not least, add an integration with Slack, now you can "chat" with your infrastructure!
 
 So, as I love to learn and to build things, I decided to start this adventure of learning
 and develop a personal tool using Python, in an OpenSource manner.

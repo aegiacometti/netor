@@ -1919,4 +1919,10 @@ Salt has several out formatters, like table, json, etc
     }
 
 
-Finally, check the project pages because this is only an intro... there are thousands of cool stuff to do
+**send messages with slack**
+
+Edit and try the playbook "backup-msg-slack.yml". After the backup you will receive a message in Slack telling you so.
+This is just an example of what you can do with chatOps.
+
+
+Finally, check the respective project pages because this is only an intro... there are thousands of cool stuff to do.

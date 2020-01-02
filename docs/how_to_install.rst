@@ -20,6 +20,10 @@ The Salt proxy minion processes uses a little bit of power/memory.
 I recommend you to read a little bit about Salt proxy minion, what they are and why they exist in the networking
 environment. And later about **salt-sproxy**, a proxy-less approach. Follow Mircea Ulinic, this guy is a genius.
 
+After starting the VM, update the git repo to include Slack module, with:
+    ```cd $HOME/netor```
+    ```git pull origin master```
+
 
 Linux bash installer
 ********************
@@ -48,6 +52,7 @@ Read about these packages:
 * ansible network engine role
 * salt (using the bootstrap installed, details below)
 * salt-sproxy
+* slack-client
 
 **Installation**
 
@@ -110,13 +115,16 @@ https://galaxy.ansible.com/ansible-network/network-engine
 
     ```sudo pip3 install "pywinrm>=0.3.0"```
 
+10. Install Python Slack module:
 
-10. Download a base and clean ansible.cfg and copy it into your $HOME directory from GitHub:
+    ```sudo pip3 install slackclient==1.3.2```
+
+11. Download a base and clean ansible.cfg and copy it into your $HOME directory from GitHub:
 
     ``wget https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg -O $HOME/.ansible.cfg``
 
 
-11. Now, for the first time, you have to configure netor by manually executing the python script:
+12. Now, for the first time, you have to configure netor by manually executing the python script:
 
     ``python3 [netor_home_directory]/netor/tinydb/scripts/netorconf.py``
 
@@ -124,14 +132,14 @@ In the future is you clone a new ``netor`` deployment for testing or to have 2 d
 will have to do this procedure again.
 
 
-12. Add to your PATH environment the ``netor/bin`` directory for easy execution of scripts:
+13. Add to your PATH environment the ``netor/bin`` directory for easy execution of scripts:
 
     ``vi $HOME/.profile``
 
 and add at the end as an example ``PATH="$PATH:[netor_home_directory]/netor/bin/"``
 
 
-13. Logoff session and login again:
+14. Logoff session and login again:
 
 If everything worked fine you can view the commands with tab autocomplete.
 
@@ -144,7 +152,7 @@ etc
 ...
 
 
-14. Install Salt:
+15. Install Salt:
 
 The recommended way is to use the bootstrap:
 
@@ -186,14 +194,14 @@ commands:
     ``netor-salt-start``
 
 
-15. Copy Salt minion proxy to the systemd folder:
+16. Copy Salt minion proxy to the systemd folder:
 
     ``sudo cp [netor_home_dir]/netor/salt/config/services/salt-proxy@.service /etc/systemd/system/``
 
 *(this path could vary depending on the system)*
 
 
-16. Backup the original Salt master and minion configuration files (so you can have
+17. Backup the original Salt master and minion configuration files (so you can have
 them as a reference), and create symbolic links to Salt new configuration files:
 
     ``sudo mv /etc/salt/master /etc/salt/master.bkp``
@@ -207,20 +215,20 @@ them as a reference), and create symbolic links to Salt new configuration files:
     ``sudo ln -s [netor_home_dir]/netor/salt/config/proxy /etc/salt/proxy``
 
 
-17. Install salt-sproxy:
+18. Install salt-sproxy:
 
     ``sudo pip3 install salt-sproxy``
 
 
-18. Run ``netor-db-push`` generate Ansible and Salt configuration files.
+19. Run ``netor-db-push`` generate Ansible and Salt configuration files.
 
 
-19. Restart Salt daemons:
+20. Restart Salt daemons:
 
     ``netor-salt-restart``
 
 
-20. done!
+21. done!
 
 
 Installation on MacOS
@@ -243,6 +251,7 @@ Read about this packages:
 * ansible network engine role
 * saltstack
 * salt-sproxy
+* slack-client
 
 **Installation**
 
@@ -301,12 +310,16 @@ https://galaxy.ansible.com/ansible-network/network-engine
     ```sudo pip3 install "pywinrm>=0.3.0"```
 
 
-10. Download a base and clean ansible.cfg and copy it into your $HOME directory from GitHub:
+11. Install Python Slack module:
+
+    ```sudo pip3 install slackclient==1.3.2```
+
+12. Download a base and clean ansible.cfg and copy it into your $HOME directory from GitHub:
 
     ``curl https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg -o $HOME/.ansible.cfg``
 
 
-11. Now, for the first time, you have to configure netor by manually executing the python script:
+13. Now, for the first time, you have to configure netor by manually executing the python script:
 
     ``python3 [netor_home_directory]/netor/tinydb/scripts/netorconf.py``
 
@@ -314,7 +327,7 @@ In the future is you clone a new ``netor`` deployment for testing or to have 2 d
 will have to do this procedure again.
 
 
-12. Add to your PATH environment the ``netor/bin`` directory for easy execution of scripts:
+14. Add to your PATH environment the ``netor/bin`` directory for easy execution of scripts:
 
     ``sudo nano /etc/paths``
 
@@ -331,7 +344,7 @@ etc
 ...
 
 
-13. Install Salt:
+15. Install Salt:
 
     ``brew install saltstack``
 
@@ -363,7 +376,7 @@ And we will start or stop or restart them with:
     ``netor-salt-stop``
     ``netor-salt-restart``
 
-14. Verify ``maxfiles`` parameters at OS level:
+16. Verify ``maxfiles`` parameters at OS level:
 
     ``sudo launchctl limit``
 
@@ -378,7 +391,7 @@ Adjust the values after the line ``maxfiles``, add it to the launchd.
 Restart the computer for this change to take effect.
 
 
-15. Salt master and minion configuration files:
+17. Salt master and minion configuration files:
 
 For your reference you can find clean samples at ``/user/local/etc/saltstack``
 
@@ -391,20 +404,20 @@ Create these links to use as defaults, these files will by the updated ones from
     ``sudo ln -s [full_netor_home_dir]/netor/salt/config/proxy /etc/salt/proxy``
 
 
-16. Install salt-sproxy:
+18. Install salt-sproxy:
 
     ``sudo pip3 install salt-sproxy``
 
 
-17. Run ``netor-db-push`` generate Ansible and Salt configuration files.
+19. Run ``netor-db-push`` generate Ansible and Salt configuration files.
 
 
-18. Restart Salt daemons:
+20. Restart Salt daemons:
 
     ``netor-salt-restart``
 
 
-19. done!
+21. done!
 
 
 Updates

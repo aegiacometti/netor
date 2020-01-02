@@ -129,7 +129,7 @@ Only take into consideration this format that you need to respect:
 I left them in different locations just to be able to see the differences in action.
 
 
-10. You will see at the DB that each device has a last setting named "Salt Proxy Requiered".
+10. You will see at the DB that each device has a last setting named "Salt Proxy Required".
 
 This is a core feature of salt, it means that it will have a process in constant connection to the remote device. This
 will allow you to execute commands on it super fast since it doesn't require to go through the login process, since it
@@ -142,4 +142,6 @@ Later on i will talk about the Salt event-bus, wow that is sooo cool too.
 
 
 11. That is it. Now start "playing" with Ansible and Salt.
+
+12. If you are going to use Slack, you will need to crate a bot and add use the webhook token in the Salt master configuration file and Ansible Playbooks.
 

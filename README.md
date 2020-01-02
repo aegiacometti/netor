@@ -29,6 +29,7 @@ The tools that integrate at the moment are:
   - Ansible
   - Salt
   - TinyDB
+  - Slack
 
 As I move forward I will try to integrate other packages and
 functionalities.
