@@ -28,58 +28,41 @@ def _netor_config():
 
     :return: nothing
     """
-    netor_home_directory = os.environ['HOME'] + "/netor/"
+    _NETOR_HOME_DIRECTORY = os.getenv('NETOR')
     config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
-    netor_config_path_name = netor_home_directory + "netor/netor.config"
+    netor_config_path_name = _NETOR_HOME_DIRECTORY + "netor/netor.config"
     config.read(netor_config_path_name)
 
-    if os.path.isdir(netor_home_directory):
-        answer = input("\nDefault \"$HOME/netor\" directory found, do you want to keep it (y/n): ").lower()
+    if os.path.isdir(_NETOR_HOME_DIRECTORY):
+        answer = input("\nDefault \"$NETOR/netor\" directory found at:\n" + str(_NETOR_HOME_DIRECTORY) +
+                       "\nDo you want to keep it (y/n): ").lower()
         if answer == "y":
             print("Keeping same configuration\n")
 
             try:
-                config['Netor']['netor_home_directory'] = netor_home_directory
+                config['Netor']['netor_home_directory'] = _NETOR_HOME_DIRECTORY
             except KeyError:
                 print("\nConfiguration files do no exist, clone the previous directory before start the changes\n")
                 sys.exit(1)
             with open(netor_config_path_name, 'w') as configfile:
                 config.write(configfile)
-            _update_ansible(netor_home_directory)
+            _update_ansible(_NETOR_HOME_DIRECTORY)
             tinydb_log_file = config['TinyDB']['tinydb_log_file']
-            _update_config(tinydb_log_file, __file__, netor_home_directory)
+            _update_config(tinydb_log_file, __file__, _NETOR_HOME_DIRECTORY)
             sys.exit()
         elif answer == "n":
-            new_netor_home_directory = input("Enter new Neto home directory (example: /full/path/netor/): ")
-            if new_netor_home_directory[-1] != '/':
-                new_netor_home_directory = new_netor_home_directory + '/'
-            if os.path.isdir(new_netor_home_directory):
-
-                try:
-                    config['Netor']['netor_home_directory'] = new_netor_home_directory
-                except KeyError:
-                    print("\nConfiguration files do no exist, clone the previous directory before start the changes\n")
-                    sys.exit(1)
-                with open(netor_config_path_name, 'w') as configfile:
-                    config.write(configfile)
-                _update_ansible(new_netor_home_directory)
-                tinydb_log_file = config['TinyDB']['tinydb_log_file']
-                _update_config(tinydb_log_file, __file__, new_netor_home_directory)
-            else:
-                print("Invalid directory")
+            print('If you want to change the $NETOR directory, you must first update the $NETOR environment variable')
+            print('Set $NETOR environment value by adding/changing the line at the end of the file /etc/environment')
+            print('NETOR=\"/my/dir/netor/\"')
+            print('Restart the system and execute this script again')
         else:
             print("Invalid option/n")
             sys.exit()
     else:
-        print("\nDefault \"$HOME/netor\" NOT found")
-        set_netor_home = input("Enter full path to /netor (example: /full/path/netor/): ")
-        if os.path.isdir(set_netor_home) and os.path.isfile((set_netor_home + "netor/netor.config")):
-            _update_ansible(set_netor_home)
-            tinydb_log_file = set_netor_home + "netor/log/tinydb.log"
-            _update_config(tinydb_log_file, __file__, set_netor_home)
-        else:
-            print("\nInvalid directory or netor.config not found\n")
-            sys.exit()
+        print("\nDefault \"$NETOR/netor\" NOT found")
+        print('Set $NETOR environment value by adding/changing the line at the end of the file /etc/environment')
+        print('NETOR=\"/my/dir/netor/\"')
+        print('Restart the system and execute this script again')
 
 
 def _update_ansible(netor_home_directory):
@@ -376,55 +359,6 @@ def _update_config(tinydb_log_file, __file__, new_netor_home_directory):
 
     :return: nothing
     """
-    replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/listdb.py"),
-                                 "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/pushcustdb.py"),
-                                 "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/worker.py"),
-                                 "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/switchdb.py"),
-                                 "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/importcsv.py"),
-                                 "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "netor/slack/slack-bot-win.py"),
-                                 "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "netor/slack/slack-bot-ad.py"),
-                                 "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "netor/slack/slack-bot-hhrr.py"),
-                                 "_NETOR_HOME_DIRECTORY = ", new_netor_home_directory, '\"', '')
-
-    replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/listdb.py"),
-                                 "_DB_PATH_NAME = ", new_netor_home_directory, '\"', 'netor/tinydb/data/db.json')
-    replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/worker.py"),
-                                 "_DB_PATH_NAME = ", new_netor_home_directory, '\"', 'netor/tinydb/data/db.json')
-    replace_static_vars_scripts((new_netor_home_directory + "netor/tinydb/scripts/importcsv.py"),
-                                 "_DB_PATH_NAME = ", new_netor_home_directory, '\"', 'netor/tinydb/data/db.json')
-
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-ping"), "hosts_file=",
-                                 (new_netor_home_directory + "netor/ansible/hosts"), '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-traceroute"), "hosts_file=",
-                                 (new_netor_home_directory + "netor/ansible/hosts"), '\"', '')
-
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-customers"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-devices"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-export"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-import"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-list"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-push"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-sites"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-db-switch"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"', '')
-    replace_static_vars_scripts((new_netor_home_directory + "bin/netor-config"), "netor_home_directory=",
-                                 new_netor_home_directory, '\"', '')
-
-    print("\nStatics vars in scripts replaced.")
 
     _create_update_master_minion_proxy(new_netor_home_directory, 'master')
     _create_update_master_minion_proxy(new_netor_home_directory, 'minion')
@@ -434,8 +368,12 @@ def _update_config(tinydb_log_file, __file__, new_netor_home_directory):
 
     print("\nAdd or modified if necessary " + new_netor_home_directory + "bin to your .profile")
     print("     vi $HOME/.profile")
-    print("     PATH=\"$PATH:" + new_netor_home_directory + "bin")
-    print("\nLogoff session, login again.")
+    print("     PATH=\"$PATH:" + new_netor_home_directory + "bin\n")
+    print("\nAdd or modified if necessary " + new_netor_home_directory + " to /etc/environment")
+    print("     sudo vi /etc/environment")
+    print("     NETOR=\"$PATH:" + new_netor_home_directory)
+
+    print("\nLogoff session or restart system, and login again.")
 
     print("\nATTENTION: If you are using Salt restart the daemons with  \"netor-salt-restart\"\n")
 
