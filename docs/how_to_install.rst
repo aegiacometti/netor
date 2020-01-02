@@ -1,16 +1,16 @@
 How to install
 ==============
 
-VirtualBox VM
-*************
+Download the VM
+***************
 
-The easiest way is to use the VirtualBox VM from this link:
+The easiest way is to use the VM from this link:
 
-https://drive.google.com/drive/folders/1jXDinzop3fg0LT8XHZoXKsbeI-KRPljk?usp=sharing
+https://drive.google.com/open?id=14p02l8FkTLCYX_fkISyDAcEt-v7igCjU
 
 With 2Gb of RAM, and 2 processor it should be OK.
 
-userID: adrian
+userID: netor
 password: password (change it! with ``passwd``)
 
 Ansible do not require much power, is supper light, Salt is more less the same, except if you use Proxy Minions
@@ -19,10 +19,6 @@ The Salt proxy minion processes uses a little bit of power/memory.
 
 I recommend you to read a little bit about Salt proxy minion, what they are and why they exist in the networking
 environment. And later about **salt-sproxy**, a proxy-less approach. Follow Mircea Ulinic, this guy is a genius.
-
-After starting the VM, update the git repo to include Slack module, with:
-    ```cd $HOME/netor```
-    ```git pull origin master```
 
 
 Linux bash installer
@@ -34,6 +30,10 @@ packages:
     ``wget https://raw.githubusercontent.com/aegiacometti/netor/master/bin/netor-install.sh``
 
     ``bash netor-install.sh``
+
+Finally with root privileges add the following environment variable and restart the system.
+
+    ```NETOR="/home/netor/netor/"```
 
 Or follow the below instruction to go step by step with the commands.
 
@@ -138,8 +138,15 @@ will have to do this procedure again.
 
 and add at the end as an example ``PATH="$PATH:[netor_home_directory]/netor/bin/"``
 
+14. Add the installation directory to the system environment:
 
-14. Logoff session and login again:
+    ```sudo vi /etc/environment```
+
+Add the line at the end:
+
+    ```NETOR="/home/adrian/netor-master/"```
+
+15. Logoff session and login again:
 
 If everything worked fine you can view the commands with tab autocomplete.
 
@@ -152,7 +159,7 @@ etc
 ...
 
 
-15. Install Salt:
+16. Install Salt:
 
 The recommended way is to use the bootstrap:
 
@@ -194,14 +201,14 @@ commands:
     ``netor-salt-start``
 
 
-16. Copy Salt minion proxy to the systemd folder:
+17. Copy Salt minion proxy to the systemd folder:
 
     ``sudo cp [netor_home_dir]/netor/salt/config/services/salt-proxy@.service /etc/systemd/system/``
 
 *(this path could vary depending on the system)*
 
 
-17. Backup the original Salt master and minion configuration files (so you can have
+18. Backup the original Salt master and minion configuration files (so you can have
 them as a reference), and create symbolic links to Salt new configuration files:
 
     ``sudo mv /etc/salt/master /etc/salt/master.bkp``
@@ -215,20 +222,20 @@ them as a reference), and create symbolic links to Salt new configuration files:
     ``sudo ln -s [netor_home_dir]/netor/salt/config/proxy /etc/salt/proxy``
 
 
-18. Install salt-sproxy:
+19. Install salt-sproxy:
 
     ``sudo pip3 install salt-sproxy``
 
 
-19. Run ``netor-db-push`` generate Ansible and Salt configuration files.
+20. Run ``netor-db-push`` generate Ansible and Salt configuration files.
 
 
-20. Restart Salt daemons:
+21. Restart Salt daemons:
 
     ``netor-salt-restart``
 
 
-21. done!
+22. done!
 
 
 Installation on MacOS
